@@ -13,7 +13,7 @@
     },
     "is_maintenance": false,
     "show_message": false,
-    "is_ios_demo" : false,
+    "is_ios_demo" : true,
     "message_id": "0001",
     "message_body" : {
         "message_image": "https://media.licdn.com/dms/image/v2/D4D03AQG_oLdpAixqyg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1692430661108?e=2147483647&v=beta&t=Q0Q_HiukbJnLjOzoAj9JcX37wEP1VzUAhOoV01jUw2A",
