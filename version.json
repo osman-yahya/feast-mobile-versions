@@ -1,0 +1,45 @@
+{
+    "android": {
+        "latest_version_name": "1.0.0",
+        "latest_build_number": 2,
+        "min_build_number": 1,
+        "store_url": "market://details?id=com.feast.mobile"
+    },
+    "ios": {
+        "latest_version_name": "1.0.0",
+        "latest_build_number": 3,
+        "min_build_number": 1,
+        "store_url": "https://apps.apple.com/app/id6762010641"
+    },
+    "is_maintenance": false,
+    "show_message": false,
+    "is_ios_demo" : true,
+    "message_id": "0001",
+    "message_body" : {
+        "message_image": "https://media.licdn.com/dms/image/v2/D4D03AQG_oLdpAixqyg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1692430661108?e=2147483647&v=beta&t=Q0Q_HiukbJnLjOzoAj9JcX37wEP1VzUAhOoV01jUw2A",
+        "message_text": {
+            "default": "ELİNE SAĞLIK CEYDA",
+            "en": "Teşekkürler Ceyda",
+            "tr" : "Thanks Ceyda",
+            "ar" : "El Mesajımız"
+        },
+        "message_buttons": [
+            {
+                "button_text":{
+                    "default":"BENİ AÇ",
+                    "en": "BENİ AÇ",
+                    "ar": "Temam"
+                },
+                "button_url": "https://www.linkedin.com/in/ceydaakin/"
+            },
+            {
+                "button_text":{
+                    "default":"BENİ AÇ",
+                    "en": "BENİ AÇ",
+                    "ar": "Temam"
+                },
+                "button_url": "https://www.linkedin.com/in/ceydaakin/"
+            }
+        ]
+    }
+}
