@@ -1,8 +1,8 @@
 {
     "android": {
         "latest_version_name": "1.0.0",
-        "latest_build_number": 2,
-        "min_build_number": 1,
+        "latest_build_number": 3,
+        "min_build_number": 4,
         "store_url": "market://details?id=com.feast.mobile"
     },
     "ios": {
