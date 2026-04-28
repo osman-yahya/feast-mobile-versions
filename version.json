@@ -13,7 +13,7 @@
     },
     "is_maintenance": false,
     "show_message": true,
-    "is_ios_demo" : true,
+    "is_ios_demo" : false,
     "message_id": "0006",
     "message_body" : {
         "message_image": "https://i.ibb.co/WNB8HZX0/msg.png",
