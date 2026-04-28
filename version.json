@@ -12,7 +12,7 @@
         "store_url": "https://apps.apple.com/app/id6762010641"
     },
     "is_maintenance": false,
-    "show_message": true,
+    "show_message": false,
     "is_ios_demo" : true,
     "message_id": "0002",
     "message_body" : {
