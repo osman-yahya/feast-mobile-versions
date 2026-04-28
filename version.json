@@ -12,33 +12,40 @@
         "store_url": "https://apps.apple.com/app/id6762010641"
     },
     "is_maintenance": false,
-    "show_message": false,
+    "show_message": true,
     "is_ios_demo" : true,
-    "message_id": "0001",
+    "message_id": "0002",
     "message_body" : {
         "message_image": "https://media.licdn.com/dms/image/v2/D4D03AQG_oLdpAixqyg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1692430661108?e=2147483647&v=beta&t=Q0Q_HiukbJnLjOzoAj9JcX37wEP1VzUAhOoV01jUw2A",
         "message_text": {
-            "default": "ELİNE SAĞLIK CEYDA",
-            "en": "Teşekkürler Ceyda",
-            "tr" : "Thanks Ceyda",
-            "ar" : "El Mesajımız"
+            "default": "Merhaba! Öncelikle feast'i kullanan ilk kişilerden olduğunuz için teşekkür ederiz! İTÜ içerisinde başlayan bu macerayı Türkiye ve dünyanın dört bir yanına taşımak istiyoruz. Amacımız kullanıcıların tüm menülere rahatça erişebilmesi, aynı zamanda ne yemek istediğine karar vermesinde kolaylık sağlamak. Bu yolculukta bizimle birlikte olacağın için çok heyecanlıyız. Bizi daha da yakından tanımak istersen aşağıdaki bağlantıları inceleyebilirsin. Ayrıca feast'i kullanarak restoranlara gittiğin zaman bizden bahsedebilirsen çok seviniriz. Nice yenilik ve güncellemelerde görüşmek üzere. feast dünyasına hoşgeldin!",
+            "en": "Hello! First and foremost, thank you so much for being one of the very first people to use feast! We want to take this adventure, which started right here at ITU, to all corners of Turkey and around the globe. Our goal is to make it incredibly easy for users to access menus seamlessly, while also helping them effortlessly decide what they want to eat. We are so excited to have you with us on this journey. If you'd like to get to know us a bit better, feel free to check out the links below. Also, we'd be absolutely thrilled if you could mention us when you visit restaurants using feast. We look forward to sharing many more exciting updates and new features with you. Welcome to the world of feast!",
+            "tr" : "Merhaba! Öncelikle feast'i kullanan ilk kişilerden olduğunuz için teşekkür ederiz! İTÜ içerisinde başlayan bu macerayı Türkiye ve dünyanın dört bir yanına taşımak istiyoruz. Amacımız kullanıcıların tüm menülere rahatça erişebilmesi, aynı zamanda ne yemek istediğine karar vermesinde kolaylık sağlamak. Bu yolculukta bizimle birlikte olacağın için çok heyecanlıyız. Bizi daha da yakından tanımak istersen aşağıdaki bağlantıları inceleyebilirsin. Ayrıca feast'i kullanarak restoranlara gittiğin zaman bizden bahsedebilirsen çok seviniriz. Nice yenilik ve güncellemelerde görüşmek üzere. feast dünyasına hoşgeldin!"
         },
         "message_buttons": [
             {
                 "button_text":{
-                    "default":"BENİ AÇ",
-                    "en": "BENİ AÇ",
-                    "ar": "Temam"
+                    "default":"Instagram'da Gör",
+                    "en": "See on Instagram",
+                    "tr": "Instagram'da Gör"
                 },
-                "button_url": "https://www.linkedin.com/in/ceydaakin/"
+                "button_url": "https://www.instagram.com/feast_tr/"
             },
             {
                 "button_text":{
-                    "default":"BENİ AÇ",
-                    "en": "BENİ AÇ",
-                    "ar": "Temam"
+                    "default":"Ekibimize Katıl!",
+                    "en": "Join our Team",
+                    "tr": "Ekibimize Katıl!"
                 },
-                "button_url": "https://www.linkedin.com/in/ceydaakin/"
+                "button_url": "https://www.linkedin.com/posts/feast-tr_letsfeast-hiring-growth-activity-7446111825772961792-PIFy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEcTpWQBL-ACVTh7NBtoufekaS2lqmugrhE"
+            },
+            {
+                "button_text":{
+                    "default":"Kapat",
+                    "en": "Close",
+                    "tr": "Kapat"
+                },
+                "button_url": ""
             }
         ]
     }
