@@ -49,7 +49,7 @@
                     "en": "Close",
                     "tr": "Kapat"
                 },
-                "button_url": ""
+                "button_url": "close"
             },
             {
                 "button_text":{
