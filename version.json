@@ -4,7 +4,7 @@
         "latest_build_number": 3,
         "min_build_number": 3,
         "demo_build_number": 4,
-        "is_demo": true,
+        "is_demo": false,
         "store_url": "market://details?id=com.feast.mobile"
     },
     "ios": {
