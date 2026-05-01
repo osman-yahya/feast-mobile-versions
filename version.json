@@ -23,7 +23,7 @@
         "message_image": "https://i.ibb.co/WNB8HZX0/msg.png",
         "message_text": {
             "default": "feast'e hoş geldin! İTÜ'de başlayan maceramızda ilk kullanıcılarımızdan olduğun için teşekkürler. Bizi aşağıdaki bağlantılardan daha yakından tanıyabilirsin. Ayrıca feast ile gittiğin restoranlarda bizden bahsedersen çok seviniriz!",
-            "en": "Welcome to feast! Thanks for being one of the first to join our adventure that started at ITU. You can check the links below to get to know us better. We'd also be absolutely thrilled if you mentioned us when visiting restaurants with feast!Welcome to feast! Thanks for being one of the first to join our adventure that started at ITU. You can check the links below to get to know us better. We'd also be absolutely thrilled if you mentioned us when visiting restaurants with feast!Welcome to feast! Thanks for being one of the first to join our adventure that started at ITU. You can check the links below to get to know us better. We'd also be absolutely thrilled if you mentioned us when visiting restaurants with feast!",
+            "en": "Welcome to feast! Thanks for being one of the first to join our adventure that started at ITU. You can check the links below to get to know us better. We'd also be absolutely thrilled if you mentioned us when visiting restaurants with feast!",
             "tr": "feast'e hoş geldin! İTÜ'de başlayan maceramızda ilk kullanıcılarımızdan olduğun için teşekkürler. Bizi aşağıdaki bağlantılardan daha yakından tanıyabilirsin. Ayrıca feast ile gittiğin restoranlarda bizden bahsedersen çok seviniriz!"        
         },
         "message_buttons": [
@@ -49,15 +49,7 @@
                     "en": "Close",
                     "tr": "Kapat"
                 },
-                "button_url": "close"
-            },
-            {
-                "button_text":{
-                    "default":"Test",
-                    "en": "Close the app",
-                    "tr": "feastten çık"
-                },
-                "button_url": "exit_app"
+                "button_url": ""
             }
         ]
     }
