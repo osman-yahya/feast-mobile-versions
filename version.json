@@ -9,9 +9,9 @@
     },
     "ios": {
         "latest_version_name": "1.1.0",
-        "latest_build_number": 6,
+        "latest_build_number": 5,
         "min_build_number": 1,
-        "demo_build_number": 7,
+        "demo_build_number": 6,
         "is_demo": true,
         "store_url": "https://apps.apple.com/app/id6762010641"
     },
