@@ -1,15 +1,15 @@
 {
     "android": {
-        "latest_version_name": "1.0.0",
-        "latest_build_number": 3,
+        "latest_version_name": "1.1.0",
+        "latest_build_number": 4,
         "min_build_number": 3,
         "demo_build_number": 4,
-        "is_demo": false,
+        "is_demo": true,
         "store_url": "market://details?id=com.feast.mobile"
     },
     "ios": {
         "latest_version_name": "1.1.0",
-        "latest_build_number": 5,
+        "latest_build_number": 6,
         "min_build_number": 1,
         "demo_build_number": 6,
         "is_demo": true,
@@ -17,7 +17,7 @@
     },
     "is_maintenance": false,
     "show_message": true,
-    "is_ios_demo" : true,
+    "is_ios_demo" : false,
     "message_id": "0006",
     "message_body" : {
         "message_image": "https://i.ibb.co/WNB8HZX0/msg.png",
