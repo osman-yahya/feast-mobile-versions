@@ -6,7 +6,8 @@
     "receivedBubbleColor": "#2A2A36",
     "sentTextColor": "#FFFFFF",
     "receivedTextColor": "#FFFFFF",
-    "appBarColor": "#1E1E28"
+    "appBarColor": "#1E1E28",
+    "appBarTextColor": "#F8F8F8"
   },
   {
     "name": "WhatsApp Klasik",
@@ -15,7 +16,8 @@
     "receivedBubbleColor": "#202C33",
     "sentTextColor": "#FFFFFF",
     "receivedTextColor": "#FFFFFF",
-    "appBarColor": "#0B141A"
+    "appBarColor": "#0B141A",
+    "appBarTextColor": "#FFFFFF"
   },
   {
     "name": "Feast Özel",
@@ -24,6 +26,7 @@
     "receivedBubbleColor": "#F2F2F7",
     "sentTextColor": "#FFFFFF",
     "receivedTextColor": "#000000",
-    "appBarColor": "#050505"
+    "appBarColor": "#050505",
+    "appBarTextColor": "#E6E6E6"
   }
 ]
