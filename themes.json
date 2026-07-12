@@ -1,7 +1,7 @@
 [
   {
     "name": "Instagram DM",
-    "backgroundUrl": "https://mobile-version.feast.tr/themes/instagram_bg.jpg",
+    "backgroundUrl": "https://i.pinimg.com/1200x/a8/d4/fb/a8d4fb395ce6e8740146dceec30d4214.jpg",
     "sentBubbleColor": "#3797F0",
     "receivedBubbleColor": "#2A2A36",
     "sentTextColor": "#FFFFFF",
@@ -10,7 +10,7 @@
   },
   {
     "name": "WhatsApp Klasik",
-    "backgroundUrl": "https://mobile-version.feast.tr/themes/whatsapp_bg.jpg",
+    "backgroundUrl": "https://i.redd.it/xg5eiehddfn71.jpg",
     "sentBubbleColor": "#005C4B",
     "receivedBubbleColor": "#202C33",
     "sentTextColor": "#FFFFFF",
@@ -19,11 +19,11 @@
   },
   {
     "name": "Feast Özel",
-    "backgroundUrl": "https://mobile-version.feast.tr/themes/feast_bg.jpg",
+    "backgroundUrl": "https://wallpaperaccess.com/full/5341187.jpg",
     "sentBubbleColor": "#FF3131",
     "receivedBubbleColor": "#F2F2F7",
     "sentTextColor": "#FFFFFF",
     "receivedTextColor": "#000000",
-    "appBarColor": "#FFFFFF"
+    "appBarColor": "#050505"
   }
 ]
