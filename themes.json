@@ -42,5 +42,19 @@
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
     "sendButtonColor": "#ff3131"
+  },
+  {
+    "name": "baba pro tema",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/baba_pro_tema_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/baba_pro_tema_bg_prew.jpg",
+    "sentBubbleColor": "#1b5674",
+    "receivedBubbleColor": "#afa323",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#000000",
+    "appBarColor": "#6f5d74",
+    "appBarTextColor": "#000000",
+    "inputBoxColor": "#240a0a",
+    "inputTextColor": "#ffffff",
+    "sendButtonColor": "#441818"
   }
 ]
