@@ -93,6 +93,73 @@
             font-family: 'Poppins', sans-serif;
             outline: none;
         }
+
+        .file-input-native {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .file-picker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px;
+            border: 1px dashed #52526a;
+            border-radius: 10px;
+            background: rgba(42, 42, 54, 0.55);
+        }
+
+        .file-picker-button {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 11px;
+            border-radius: 7px;
+            background: #3b3b4f;
+            color: #fff;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .file-picker-button:hover {
+            background: #4b4b62;
+        }
+
+        .file-picker-button .material-icons-round {
+            font-size: 17px;
+        }
+
+        .file-selection {
+            min-width: 0;
+            color: #aaa;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-selection.selected {
+            color: #b7efc5;
+        }
+
+        .file-thumbnail {
+            display: none;
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            border-radius: 7px;
+            object-fit: cover;
+        }
+
+        .file-thumbnail.visible {
+            display: block;
+        }
         
         input[type="text"]:focus {
             border-color: var(--primary-color);
@@ -681,12 +748,112 @@
             color: #aaa;
             text-align: center;
         }
+
+        /* Builder workspace (the phone preview intentionally keeps its own design). */
+        body {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            background:
+                radial-gradient(circle at 8% 8%, rgba(255, 49, 49, 0.12), transparent 23rem),
+                #17171f;
+        }
+
+        .left-panel {
+            width: auto;
+            padding: 30px;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(19, 19, 26, 0.92);
+        }
+
+        .builder-eyebrow {
+            margin-bottom: 6px;
+            color: #ff7777;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+
+        .left-panel h1 {
+            margin-bottom: 6px;
+            font-size: 27px;
+            letter-spacing: -0.04em;
+        }
+
+        .builder-subtitle {
+            margin-bottom: 22px;
+            color: #9d9dad;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        #themeForm {
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            background: rgba(38, 38, 49, 0.48);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        #themeForm .form-group {
+            margin-bottom: 16px;
+        }
+
+        #themeForm .form-group > label {
+            color: #c8c8d1;
+        }
+
+        .color-row {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-color: rgba(255, 255, 255, 0.06);
+            background: rgba(25, 25, 34, 0.64);
+        }
+
+        .color-row:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .actions {
+            margin-top: 16px;
+        }
+
+        .btn-primary {
+            box-shadow: 0 8px 18px rgba(255, 49, 49, 0.22);
+        }
+
+        .right-panel {
+            background:
+                radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.035), transparent 29rem),
+                #1e1e28;
+        }
+
+        @media (max-width: 840px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .left-panel {
+                flex: none;
+                border-right: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .right-panel {
+                min-height: 760px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="left-panel">
+        <p class="builder-eyebrow">FEAST THEME STUDIO</p>
         <h1>Feast Chat Theme Builder</h1>
+        <p class="builder-subtitle">Renkleri ve görselleri ayarlayın, ardından temanızı tek adımda yayınlayın.</p>
         <button class="btn-secondary library-trigger" onclick="openThemeLibrary()">
             <span class="material-icons-round">collections_bookmark</span>
             Kayıtlı Temalar
@@ -706,12 +873,28 @@
 
             <div class="form-group">
                 <label>Background Image (20:9 Chat Screen) <span id="bgStatus" class="status-badge">No image</span></label>
-                <input type="file" id="bgFile" accept="image/*">
+                <div class="file-picker">
+                    <label class="file-picker-button" for="bgFile">
+                        <span class="material-icons-round">add_photo_alternate</span>
+                        Görsel seç
+                    </label>
+                    <img class="file-thumbnail" id="bgFileThumbnail" alt="Kırpılmış arka plan önizlemesi">
+                    <span class="file-selection" id="bgFileName">Henüz görsel seçilmedi</span>
+                    <input class="file-input-native" type="file" id="bgFile" accept="image/*">
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Preview Image (1:1 Thumbnail) <span id="prewStatus" class="status-badge">No image</span></label>
-                <input type="file" id="prewFile" accept="image/*">
+                <div class="file-picker">
+                    <label class="file-picker-button" for="prewFile">
+                        <span class="material-icons-round">image</span>
+                        Görsel seç
+                    </label>
+                    <img class="file-thumbnail" id="prewFileThumbnail" alt="Kırpılmış önizleme görseli">
+                    <span class="file-selection" id="prewFileName">Henüz görsel seçilmedi</span>
+                    <input class="file-input-native" type="file" id="prewFile" accept="image/*">
+                </div>
             </div>
 
             <div class="color-row">
@@ -889,6 +1072,7 @@
         
         let cropper = null;
         let currentCropperType = null; // 'bg' or 'prew'
+        let pendingFileName = '';
         
         // Store cropped blobs
         let croppedBgBlob = null;
@@ -902,6 +1086,18 @@
         const editingNotice = document.getElementById('editingNotice');
         const editingThemeLabel = document.getElementById('editingThemeLabel');
         const publishButton = document.getElementById('publishButton');
+
+        function setFileSelection(type, text, selected = false) {
+            const fileName = document.getElementById(type === 'bg' ? 'bgFileName' : 'prewFileName');
+            fileName.textContent = text;
+            fileName.classList.toggle('selected', selected);
+        }
+
+        function setFileThumbnail(type, imageUrl) {
+            const thumbnail = document.getElementById(type === 'bg' ? 'bgFileThumbnail' : 'prewFileThumbnail');
+            thumbnail.src = imageUrl || '';
+            thumbnail.classList.toggle('visible', Boolean(imageUrl));
+        }
 
         function themeValue(theme, key, fallback) {
             return theme[key] || fallback;
@@ -925,6 +1121,10 @@
             document.getElementById('prewStatus').textContent = theme.previewUrl ? 'Mevcut görsel' : 'No image';
             document.getElementById('bgStatus').classList.toggle('cropped', Boolean(theme.backgroundUrl));
             document.getElementById('prewStatus').classList.toggle('cropped', Boolean(theme.previewUrl));
+            setFileSelection('bg', theme.backgroundUrl ? 'Kayıtlı arka plan görseli' : 'Henüz görsel seçilmedi', Boolean(theme.backgroundUrl));
+            setFileSelection('prew', theme.previewUrl ? 'Kayıtlı önizleme görseli' : 'Henüz görsel seçilmedi', Boolean(theme.previewUrl));
+            setFileThumbnail('bg', theme.backgroundUrl);
+            setFileThumbnail('prew', theme.previewUrl || theme.backgroundUrl);
             chatBody.style.backgroundImage = theme.backgroundUrl ? `url("${theme.backgroundUrl}")` : '';
             updatePreview();
         }
@@ -958,7 +1158,7 @@
                 item.className = 'theme-item';
                 const button = document.createElement('button');
                 button.title = `${theme.name || 'İsimsiz tema'} temasını önizle`;
-                button.addEventListener('click', () => previewSavedTheme(index));
+                button.addEventListener('click', () => editSavedTheme(index));
                 const preview = document.createElement('div');
                 preview.className = 'theme-preview-box';
                 const image = document.createElement('img');
@@ -1140,6 +1340,9 @@
         function handleFileSelect(e, type) {
             const file = e.target.files[0];
             if (!file) return;
+
+            pendingFileName = file.name;
+            setFileSelection(type, `${file.name} · kırpma için hazır`, true);
             
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -1203,12 +1406,16 @@
                     croppedBgBlob = blob;
                     document.getElementById('bgStatus').textContent = "Cropped!";
                     document.getElementById('bgStatus').classList.add('cropped');
+                    setFileSelection('bg', `${pendingFileName || 'Görsel'} · kırpıldı ve hazır`, true);
+                    setFileThumbnail('bg', url);
                     chatBody.style.backgroundImage = `url(${url})`;
                     
                 } else {
                     croppedPrewBlob = blob;
                     document.getElementById('prewStatus').textContent = "Cropped!";
                     document.getElementById('prewStatus').classList.add('cropped');
+                    setFileSelection('prew', `${pendingFileName || 'Görsel'} · kırpıldı ve hazır`, true);
+                    setFileThumbnail('prew', url);
                 }
                 closeCropperModal();
             }, 'image/jpeg', 0.9);
