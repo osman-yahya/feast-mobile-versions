@@ -56,5 +56,19 @@
     "inputBoxColor": "#240a0a",
     "inputTextColor": "#ffffff",
     "sendButtonColor": "#441818"
+  },
+  {
+    "name": "MyRan",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/myran_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/myran_bg_prew.jpg",
+    "sentBubbleColor": "#ff3131",
+    "receivedBubbleColor": "#f2f2f7",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#000000",
+    "appBarColor": "#702e31",
+    "appBarTextColor": "#ffffff",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#ff3131"
   }
 ]

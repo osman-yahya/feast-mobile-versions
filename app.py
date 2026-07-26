@@ -1,13 +1,27 @@
 import os
 import json
+import subprocess
 from flask import Flask, request, jsonify, render_template, send_from_directory
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-BG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bg')
-THEMES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'themes.json')
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+BG_DIR = os.path.join(PROJECT_DIR, 'bg')
+THEMES_FILE = os.path.join(PROJECT_DIR, 'themes.json')
 
 os.makedirs(BG_DIR, exist_ok=True)
+
+
+def run_git_command(*args):
+    """Run a Git command in this project's repository and return its output."""
+    result = subprocess.run(
+        ['git', '-c', f'safe.directory={PROJECT_DIR}', *args],
+        cwd=PROJECT_DIR,
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=60,
+    )
+    return result.stdout.strip()
 
 @app.route('/')
 def index():
@@ -67,8 +81,30 @@ def publish():
         
         with open(THEMES_FILE, 'w', encoding='utf-8') as f:
             json.dump(themes, f, indent=2, ensure_ascii=False)
-            
-        return jsonify({"success": True, "theme": new_theme})
+
+        # Include the newly created theme and any other pending project changes
+        # in the publish commit, then publish the commit to the configured remote.
+        commit_message = f"New Theme: {theme_name}"
+        try:
+            run_git_command('add', '--all')
+            run_git_command('commit', '-m', commit_message)
+            run_git_command('push')
+        except subprocess.CalledProcessError as error:
+            command = ' '.join(error.cmd)
+            details = (error.stderr or error.stdout or 'Unknown Git error').strip()
+            return jsonify({
+                "success": False,
+                "theme": new_theme,
+                "error": f"Git command failed ({command}): {details}",
+            }), 500
+        except subprocess.TimeoutExpired:
+            return jsonify({
+                "success": False,
+                "theme": new_theme,
+                "error": "Git operation timed out.",
+            }), 500
+
+        return jsonify({"success": True, "theme": new_theme, "commitMessage": commit_message})
         
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
