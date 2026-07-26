@@ -98,6 +98,17 @@
             border-color: var(--primary-color);
         }
 
+        .field-error {
+            display: none;
+            margin-top: 7px;
+            color: #ff8f8f;
+            font-size: 12px;
+        }
+
+        input.has-error {
+            border-color: #ff5252;
+        }
+
         .color-row {
             display: flex;
             align-items: center;
@@ -420,6 +431,19 @@
             width: 100%;
         }
 
+        .theme-item button {
+            width: 100%;
+            padding: 0;
+            color: inherit;
+            background: transparent;
+            font: inherit;
+        }
+
+        .theme-item button:hover .theme-preview-box {
+            outline: 0.8cqi solid var(--primary-color);
+            outline-offset: 0.8cqi;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -499,17 +523,185 @@
             background-color: #4caf50;
             color: white;
         }
+
+        .library-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #393950, #2a2a36);
+            border: 1px solid #50506a;
+        }
+
+        .editing-notice {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            background: rgba(255, 49, 49, 0.12);
+            border: 1px solid rgba(255, 49, 49, 0.45);
+            border-radius: 8px;
+            color: #ffd4d4;
+            font-size: 12px;
+        }
+
+        .editing-notice button {
+            flex: 0 0 auto;
+            padding: 6px 10px;
+            font-size: 11px;
+        }
+
+        .theme-library-content {
+            width: min(940px, 94vw);
+            max-height: 84vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .library-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 28px 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .library-header h2 {
+            margin: 0;
+        }
+
+        .library-close {
+            flex: 0 0 auto;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 50%;
+            background: #3b3b4f;
+            font-size: 20px;
+        }
+
+        .library-body {
+            overflow-y: auto;
+            padding: 22px 28px 28px;
+        }
+
+        .library-summary {
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .saved-theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .saved-theme-card {
+            overflow: hidden;
+            border-radius: 12px;
+            background: #1b1b25;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .saved-theme-card:hover {
+            transform: translateY(-3px);
+            border-color: #70708d;
+        }
+
+        .saved-theme-cover {
+            height: 120px;
+            background: #2a2a36 center / cover;
+            position: relative;
+        }
+
+        .saved-theme-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.45));
+        }
+
+        .saved-theme-colors {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 1;
+            display: flex;
+        }
+
+        .saved-theme-colors span {
+            width: 19px;
+            height: 19px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            margin-left: -5px;
+        }
+
+        .saved-theme-info {
+            padding: 14px;
+        }
+
+        .saved-theme-name {
+            overflow: hidden;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .saved-theme-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .saved-theme-actions button {
+            padding: 8px 6px;
+            font-size: 11px;
+        }
+
+        .btn-danger {
+            flex: 0 0 36px !important;
+            padding: 8px !important;
+            color: #ff9d9d;
+            background: rgba(255, 49, 49, 0.14);
+        }
+
+        .library-empty {
+            padding: 42px 20px;
+            color: #aaa;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <div class="left-panel">
         <h1>Feast Chat Theme Builder</h1>
+        <button class="btn-secondary library-trigger" onclick="openThemeLibrary()">
+            <span class="material-icons-round">collections_bookmark</span>
+            Kayıtlı Temalar
+        </button>
+
+        <div class="editing-notice" id="editingNotice">
+            <span id="editingThemeLabel">Tema düzenleniyor</span>
+            <button class="btn-secondary" onclick="startNewTheme()">Yeni tema</button>
+        </div>
         
         <form id="themeForm">
             <div class="form-group">
                 <label>Theme Name</label>
                 <input type="text" id="themeName" value="Custom Theme">
+                <p class="field-error" id="themeNameError">Bu isimde kayıtlı bir tema zaten var.</p>
             </div>
 
             <div class="form-group">
@@ -573,7 +765,7 @@
             <button class="btn-secondary" onclick="importJSON()">Import JSON</button>
         </div>
         <div class="actions" style="margin-top: 12px;">
-            <button class="btn-primary" onclick="publishTheme()">Publish Theme</button>
+            <button class="btn-primary" id="publishButton" onclick="publishTheme()">Publish Theme</button>
         </div>
     </div>
 
@@ -629,23 +821,7 @@
                 </div>
             </div>
             <div class="selection-body">
-                <div class="theme-grid">
-                    <div class="theme-item">
-                        <div class="theme-preview-box">
-                            <img id="selectionPreviewImg" src="">
-                        </div>
-                        <div class="theme-name-text" id="selectionThemeName">Custom Theme</div>
-                    </div>
-                    <!-- Mock additional themes for context -->
-                    <div class="theme-item">
-                        <div class="theme-preview-box" style="background-color: #ccc;"></div>
-                        <div class="theme-name-text">Classic Light</div>
-                    </div>
-                    <div class="theme-item">
-                        <div class="theme-preview-box" style="background-color: #333;"></div>
-                        <div class="theme-name-text">Classic Dark</div>
-                    </div>
-                </div>
+                <div class="theme-grid" id="selectionThemeGrid"></div>
             </div>
         </div>
     </div>
@@ -672,6 +848,20 @@
             <div class="modal-actions">
                 <button class="btn-secondary" onclick="closeCropperModal()">Cancel</button>
                 <button class="btn-primary" onclick="saveCrop()">Crop & Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Themes Modal -->
+    <div class="modal" id="themeLibraryModal">
+        <div class="modal-content theme-library-content">
+            <div class="library-header">
+                <h2>Kayıtlı Temalar</h2>
+                <button class="library-close" onclick="closeThemeLibrary()" aria-label="Kapat">&times;</button>
+            </div>
+            <div class="library-body">
+                <p class="library-summary" id="librarySummary">Temalar yükleniyor...</p>
+                <div class="saved-theme-grid" id="savedThemeGrid"></div>
             </div>
         </div>
     </div>
@@ -703,6 +893,197 @@
         // Store cropped blobs
         let croppedBgBlob = null;
         let croppedPrewBlob = null;
+        let editingThemeIndex = null;
+        let savedThemes = [];
+
+        const themeLibraryModal = document.getElementById('themeLibraryModal');
+        const savedThemeGrid = document.getElementById('savedThemeGrid');
+        const librarySummary = document.getElementById('librarySummary');
+        const editingNotice = document.getElementById('editingNotice');
+        const editingThemeLabel = document.getElementById('editingThemeLabel');
+        const publishButton = document.getElementById('publishButton');
+
+        function themeValue(theme, key, fallback) {
+            return theme[key] || fallback;
+        }
+
+        function applyThemeToEditor(theme) {
+            inputs.themeName.value = themeValue(theme, 'name', 'Custom Theme');
+            inputs.sentBubbleColor.value = themeValue(theme, 'sentBubbleColor', '#ff3131');
+            inputs.sentTextColor.value = themeValue(theme, 'sentTextColor', '#ffffff');
+            inputs.receivedBubbleColor.value = themeValue(theme, 'receivedBubbleColor', '#f2f2f7');
+            inputs.receivedTextColor.value = themeValue(theme, 'receivedTextColor', '#000000');
+            inputs.appBarColor.value = themeValue(theme, 'appBarColor', '#ffffff');
+            inputs.appBarTextColor.value = themeValue(theme, 'appBarTextColor', '#000000');
+            inputs.inputBoxColor.value = themeValue(theme, 'inputBoxColor', '#ffffff');
+            inputs.inputTextColor.value = themeValue(theme, 'inputTextColor', '#000000');
+            inputs.sendButtonColor.value = themeValue(theme, 'sendButtonColor', '#ff3131');
+
+            croppedBgBlob = null;
+            croppedPrewBlob = null;
+            document.getElementById('bgStatus').textContent = theme.backgroundUrl ? 'Mevcut görsel' : 'No image';
+            document.getElementById('prewStatus').textContent = theme.previewUrl ? 'Mevcut görsel' : 'No image';
+            document.getElementById('bgStatus').classList.toggle('cropped', Boolean(theme.backgroundUrl));
+            document.getElementById('prewStatus').classList.toggle('cropped', Boolean(theme.previewUrl));
+            chatBody.style.backgroundImage = theme.backgroundUrl ? `url("${theme.backgroundUrl}")` : '';
+            updatePreview();
+        }
+
+        async function loadSavedThemes() {
+            const response = await fetch('/api/themes');
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.error || 'Temalar yüklenemedi.');
+            savedThemes = result.themes;
+            renderSelectionThemes();
+            validateThemeName();
+        }
+
+        async function openThemeLibrary() {
+            themeLibraryModal.style.display = 'flex';
+            librarySummary.textContent = 'Temalar yükleniyor...';
+            savedThemeGrid.innerHTML = '';
+            try {
+                await loadSavedThemes();
+                renderThemeLibrary();
+            } catch (error) {
+                librarySummary.textContent = error.message;
+            }
+        }
+
+        function renderSelectionThemes() {
+            const grid = document.getElementById('selectionThemeGrid');
+            grid.innerHTML = '';
+            savedThemes.forEach((theme, index) => {
+                const item = document.createElement('div');
+                item.className = 'theme-item';
+                const button = document.createElement('button');
+                button.title = `${theme.name || 'İsimsiz tema'} temasını önizle`;
+                button.addEventListener('click', () => previewSavedTheme(index));
+                const preview = document.createElement('div');
+                preview.className = 'theme-preview-box';
+                const image = document.createElement('img');
+                image.alt = theme.name || 'Tema önizlemesi';
+                image.src = theme.previewUrl || theme.backgroundUrl || '';
+                preview.appendChild(image);
+                const name = document.createElement('div');
+                name.className = 'theme-name-text';
+                name.textContent = theme.name || 'İsimsiz tema';
+                button.append(preview, name);
+                item.appendChild(button);
+                grid.appendChild(item);
+            });
+        }
+
+        function validateThemeName() {
+            const name = inputs.themeName.value.trim().toLocaleLowerCase();
+            const duplicate = Boolean(name) && savedThemes.some((theme, index) =>
+                index !== editingThemeIndex && (theme.name || '').trim().toLocaleLowerCase() === name
+            );
+            document.getElementById('themeNameError').style.display = duplicate ? 'block' : 'none';
+            inputs.themeName.classList.toggle('has-error', duplicate);
+            return duplicate;
+        }
+
+        function closeThemeLibrary() {
+            themeLibraryModal.style.display = 'none';
+        }
+
+        function renderThemeLibrary() {
+            const count = savedThemes.length;
+            librarySummary.textContent = count ? `${count} kayıtlı tema bulundu.` : 'Henüz kayıtlı tema yok.';
+            savedThemeGrid.innerHTML = '';
+
+            if (!count) {
+                savedThemeGrid.innerHTML = '<div class="library-empty">Yeni temanızı yayınladığınızda burada görünecek.</div>';
+                return;
+            }
+
+            savedThemes.forEach((theme, index) => {
+                const card = document.createElement('article');
+                card.className = 'saved-theme-card';
+
+                const cover = document.createElement('div');
+                cover.className = 'saved-theme-cover';
+                if (theme.previewUrl || theme.backgroundUrl) {
+                    cover.style.backgroundImage = `url("${theme.previewUrl || theme.backgroundUrl}")`;
+                }
+                const colors = document.createElement('div');
+                colors.className = 'saved-theme-colors';
+                [theme.sentBubbleColor, theme.receivedBubbleColor, theme.appBarColor].filter(Boolean).forEach(color => {
+                    const swatch = document.createElement('span');
+                    swatch.style.backgroundColor = color;
+                    colors.appendChild(swatch);
+                });
+                cover.appendChild(colors);
+
+                const info = document.createElement('div');
+                info.className = 'saved-theme-info';
+                const name = document.createElement('div');
+                name.className = 'saved-theme-name';
+                name.textContent = theme.name || 'İsimsiz tema';
+                const actions = document.createElement('div');
+                actions.className = 'saved-theme-actions';
+
+                const preview = document.createElement('button');
+                preview.className = 'btn-secondary';
+                preview.textContent = 'Önizle';
+                preview.addEventListener('click', () => previewSavedTheme(index));
+                const edit = document.createElement('button');
+                edit.className = 'btn-primary';
+                edit.textContent = 'Düzenle';
+                edit.addEventListener('click', () => editSavedTheme(index));
+                const remove = document.createElement('button');
+                remove.className = 'btn-danger';
+                remove.title = 'Temayı sil';
+                remove.innerHTML = '<span class="material-icons-round">delete</span>';
+                remove.addEventListener('click', () => deleteSavedTheme(index));
+
+                actions.append(preview, edit, remove);
+                info.append(name, actions);
+                card.append(cover, info);
+                savedThemeGrid.appendChild(card);
+            });
+        }
+
+        function previewSavedTheme(index) {
+            applyThemeToEditor(savedThemes[index]);
+            setView('chat');
+            closeThemeLibrary();
+        }
+
+        function editSavedTheme(index) {
+            editingThemeIndex = index;
+            applyThemeToEditor(savedThemes[index]);
+            editingThemeLabel.textContent = `Düzenleniyor: ${savedThemes[index].name || 'İsimsiz tema'}`;
+            editingNotice.style.display = 'flex';
+            publishButton.textContent = 'Temayı Güncelle';
+            validateThemeName();
+            setView('chat');
+            closeThemeLibrary();
+        }
+
+        function startNewTheme() {
+            editingThemeIndex = null;
+            editingNotice.style.display = 'none';
+            publishButton.textContent = 'Publish Theme';
+            validateThemeName();
+        }
+
+        async function deleteSavedTheme(index) {
+            const theme = savedThemes[index];
+            if (!confirm(`“${theme.name || 'Bu tema'}” silinsin mi? Bu işlem geri alınamaz.`)) return;
+
+            try {
+                const response = await fetch(`/api/themes/${index}`, { method: 'DELETE' });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.error || 'Tema silinemedi.');
+                if (editingThemeIndex === index) startNewTheme();
+                if (editingThemeIndex !== null && editingThemeIndex > index) editingThemeIndex--;
+                await openThemeLibrary();
+            } catch (error) {
+                alert('Hata oluştu: ' + error.message);
+            }
+        }
 
         // View Toggling
         function setView(view) {
@@ -717,6 +1098,7 @@
             } else {
                 document.getElementById('btnSelectionView').classList.add('active');
                 document.getElementById('phoneSelection').style.display = 'flex';
+                loadSavedThemes().catch(() => {});
             }
         }
 
@@ -736,13 +1118,15 @@
             document.getElementById('time1').style.color = inputs.receivedTextColor.value;
             document.getElementById('time2').style.color = inputs.sentTextColor.value;
             
-            // Update Selection View Name
-            document.getElementById('selectionThemeName').textContent = inputs.themeName.value;
         }
 
         // Listeners for colors and text
-        ['themeName', 'sentBubbleColor', 'sentTextColor', 'receivedBubbleColor', 'receivedTextColor', 'appBarColor', 'appBarTextColor', 'inputBoxColor', 'inputTextColor', 'sendButtonColor'].forEach(id => {
+        ['sentBubbleColor', 'sentTextColor', 'receivedBubbleColor', 'receivedTextColor', 'appBarColor', 'appBarTextColor', 'inputBoxColor', 'inputTextColor', 'sendButtonColor'].forEach(id => {
             inputs[id].addEventListener('input', updatePreview);
+        });
+        inputs.themeName.addEventListener('input', () => {
+            updatePreview();
+            validateThemeName();
         });
 
         // Cropper Logic
@@ -821,15 +1205,10 @@
                     document.getElementById('bgStatus').classList.add('cropped');
                     chatBody.style.backgroundImage = `url(${url})`;
                     
-                    // Fallback preview image if no prew image is set yet
-                    if (!croppedPrewBlob) {
-                        document.getElementById('selectionPreviewImg').src = url;
-                    }
                 } else {
                     croppedPrewBlob = blob;
                     document.getElementById('prewStatus').textContent = "Cropped!";
                     document.getElementById('prewStatus').classList.add('cropped');
-                    document.getElementById('selectionPreviewImg').src = url;
                 }
                 closeCropperModal();
             }, 'image/jpeg', 0.9);
@@ -910,7 +1289,21 @@
         }
 
         async function publishTheme() {
-            if (!confirm("Yayınlamak istiyor musun? (Bu işlem themes.json dosyasına eklenecektir)")) {
+            const isEditing = editingThemeIndex !== null;
+            try {
+                await loadSavedThemes();
+            } catch (error) {
+                alert('Tema isimleri doğrulanamadı: ' + error.message);
+                return;
+            }
+            if (validateThemeName()) {
+                alert('Bu isimde kayıtlı bir tema zaten var. Lütfen farklı bir isim seçin.');
+                return;
+            }
+            const confirmation = isEditing
+                ? 'Bu temadaki değişiklikler kaydedilip yayınlansın mı?'
+                : 'Yayınlamak istiyor musun? (Bu işlem themes.json dosyasına eklenecektir)';
+            if (!confirm(confirmation)) {
                 return;
             }
 
@@ -931,13 +1324,17 @@
             if (croppedPrewBlob) formData.append("previewFile", croppedPrewBlob, "prew.jpg");
 
             try {
-                const response = await fetch('/publish', {
-                    method: 'POST',
+                const response = await fetch(isEditing ? `/api/themes/${editingThemeIndex}` : '/publish', {
+                    method: isEditing ? 'PUT' : 'POST',
                     body: formData
                 });
                 
                 const result = await response.json();
                 if (result.success) {
+                    if (isEditing) {
+                        savedThemes[editingThemeIndex] = result.theme;
+                        editingThemeLabel.textContent = `Düzenleniyor: ${result.theme.name}`;
+                    }
                     alert("Başarıyla yayınlandı!\n\n" + JSON.stringify(result.theme, null, 2));
                 } else {
                     alert("Hata oluştu: " + result.error);
@@ -949,6 +1346,7 @@
 
         // Initialize preview
         updatePreview();
+        loadSavedThemes().catch(() => {});
     </script>
 </body>
 </html>
