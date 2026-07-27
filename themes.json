@@ -1,13 +1,17 @@
 [
   {
-    "name": "WhatsApp Klasik",
+    "name": "Gözlem",
     "backgroundUrl": "https://i.redd.it/xg5eiehddfn71.jpg",
-    "sentBubbleColor": "#005C4B",
-    "receivedBubbleColor": "#202C33",
-    "sentTextColor": "#FFFFFF",
-    "receivedTextColor": "#FFFFFF",
-    "appBarColor": "#0B141A",
-    "appBarTextColor": "#FFFFFF"
+    "previewUrl": "https://i.redd.it/xg5eiehddfn71.jpg",
+    "sentBubbleColor": "#005c4b",
+    "receivedBubbleColor": "#202c33",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#ffffff",
+    "appBarColor": "#0b141a",
+    "appBarTextColor": "#ffffff",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#ff3131"
   },
   {
     "name": "Mustachina",
