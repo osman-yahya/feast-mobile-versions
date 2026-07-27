@@ -26,5 +26,19 @@
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
     "sendButtonColor": "#ff3131"
+  },
+  {
+    "name": "Custom Theme",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/custom_theme_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/custom_theme_bg_prew.jpg",
+    "sentBubbleColor": "#404040",
+    "receivedBubbleColor": "#f2f2f7",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#000000",
+    "appBarColor": "#ffffff",
+    "appBarTextColor": "#000000",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#404040"
   }
 ]
