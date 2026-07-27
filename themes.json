@@ -1,15 +1,5 @@
 [
   {
-    "name": "Instagram DM",
-    "backgroundUrl": "https://i.pinimg.com/1200x/a8/d4/fb/a8d4fb395ce6e8740146dceec30d4214.jpg",
-    "sentBubbleColor": "#3797F0",
-    "receivedBubbleColor": "#2A2A36",
-    "sentTextColor": "#FFFFFF",
-    "receivedTextColor": "#FFFFFF",
-    "appBarColor": "#1E1E28",
-    "appBarTextColor": "#F8F8F8"
-  },
-  {
     "name": "WhatsApp Klasik",
     "backgroundUrl": "https://i.redd.it/xg5eiehddfn71.jpg",
     "sentBubbleColor": "#005C4B",
