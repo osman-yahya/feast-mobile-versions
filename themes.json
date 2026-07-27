@@ -20,16 +20,6 @@
     "appBarTextColor": "#FFFFFF"
   },
   {
-    "name": "Feast Özel",
-    "backgroundUrl": "https://wallpaperaccess.com/full/5341187.jpg",
-    "sentBubbleColor": "#FF3131",
-    "receivedBubbleColor": "#F2F2F7",
-    "sentTextColor": "#FFFFFF",
-    "receivedTextColor": "#000000",
-    "appBarColor": "#050505",
-    "appBarTextColor": "#E6E6E6"
-  },
-  {
     "name": "Mustachina",
     "backgroundUrl": "https://mobile-version.feast.tr/bg/mustachina_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/mustachina_bg_prew.jpg",
