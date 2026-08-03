@@ -26,5 +26,19 @@
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
     "sendButtonColor": "#461d01"
+  },
+  {
+    "name": "Miyav",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/miyav_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/miyav_bg_prew.jpg",
+    "sentBubbleColor": "#fbdff1",
+    "receivedBubbleColor": "#ee8ca9",
+    "sentTextColor": "#5e2c2c",
+    "receivedTextColor": "#fbefef",
+    "appBarColor": "#f9d7d7",
+    "appBarTextColor": "#5e3131",
+    "inputBoxColor": "#ffe5e5",
+    "inputTextColor": "#3f2121",
+    "sendButtonColor": "#5e2c2c"
   }
 ]
