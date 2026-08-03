@@ -54,5 +54,19 @@
     "inputBoxColor": "#828282",
     "inputTextColor": "#141414",
     "sendButtonColor": "#282424"
+  },
+  {
+    "name": "2 Kişillik Menü",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/2_kişillik_menü_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/2_kişillik_menü_bg_prew.jpg",
+    "sentBubbleColor": "#f3d877",
+    "receivedBubbleColor": "#b36c3d",
+    "sentTextColor": "#2e0000",
+    "receivedTextColor": "#fff5f5",
+    "appBarColor": "#f3bf77",
+    "appBarTextColor": "#2e1919",
+    "inputBoxColor": "#feb07c",
+    "inputTextColor": "#201818",
+    "sendButtonColor": "#2e0000"
   }
 ]
