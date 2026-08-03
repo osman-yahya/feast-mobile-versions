@@ -12,5 +12,19 @@
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
     "sendButtonColor": "#404040"
+  },
+  {
+    "name": "Baharat",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/baharat_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/baharat_bg_prew.jpg",
+    "sentBubbleColor": "#eb913d",
+    "receivedBubbleColor": "#764328",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#ffffff",
+    "appBarColor": "#76442f",
+    "appBarTextColor": "#ffffff",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#461d01"
   }
 ]
