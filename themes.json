@@ -26,19 +26,5 @@
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
     "sendButtonColor": "#ff3131"
-  },
-  {
-    "name": "Doodle",
-    "backgroundUrl": "https://mobile-version.feast.tr/bg/doodle_bg.jpg",
-    "previewUrl": "https://mobile-version.feast.tr/bg/doodle_bg_prew.jpg",
-    "sentBubbleColor": "#ffffff",
-    "receivedBubbleColor": "#000000",
-    "sentTextColor": "#000000",
-    "receivedTextColor": "#ffffff",
-    "appBarColor": "#000000",
-    "appBarTextColor": "#ffffff",
-    "inputBoxColor": "#ffffff",
-    "inputTextColor": "#000000",
-    "sendButtonColor": "#3e3d3d"
   }
 ]
