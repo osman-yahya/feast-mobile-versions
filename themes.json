@@ -40,5 +40,19 @@
     "inputBoxColor": "#ffe5e5",
     "inputTextColor": "#3f2121",
     "sendButtonColor": "#5e2c2c"
+  },
+  {
+    "name": "Akşam",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/akşam_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/akşam_bg_prew.jpg",
+    "sentBubbleColor": "#201e1f",
+    "receivedBubbleColor": "#707070",
+    "sentTextColor": "#d6d6d6",
+    "receivedTextColor": "#121212",
+    "appBarColor": "#121212",
+    "appBarTextColor": "#bababa",
+    "inputBoxColor": "#828282",
+    "inputTextColor": "#141414",
+    "sendButtonColor": "#282424"
   }
 ]
