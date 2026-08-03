@@ -28,20 +28,6 @@
     "sendButtonColor": "#ff3131"
   },
   {
-    "name": "Mustachina",
-    "backgroundUrl": "https://mobile-version.feast.tr/bg/mustachina_bg.jpg",
-    "previewUrl": "https://mobile-version.feast.tr/bg/mustachina_bg_prew.jpg",
-    "sentBubbleColor": "#ff3131",
-    "receivedBubbleColor": "#f2f2f7",
-    "sentTextColor": "#ffffff",
-    "receivedTextColor": "#000000",
-    "appBarColor": "#92c4ce",
-    "appBarTextColor": "#000000",
-    "inputBoxColor": "#ffffff",
-    "inputTextColor": "#000000",
-    "sendButtonColor": "#ff3131"
-  },
-  {
     "name": "Doodle",
     "backgroundUrl": "https://mobile-version.feast.tr/bg/doodle_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/doodle_bg_prew.jpg",
