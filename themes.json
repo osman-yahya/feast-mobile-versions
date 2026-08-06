@@ -96,5 +96,19 @@
     "inputBoxColor": "#f0dfd5",
     "inputTextColor": "#351717",
     "sendButtonColor": "#b27077"
+  },
+  {
+    "name": "Salata",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/salata_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/salata_bg_prew.jpg",
+    "sentBubbleColor": "#f0fff5",
+    "receivedBubbleColor": "#66a37d",
+    "sentTextColor": "#1c1212",
+    "receivedTextColor": "#fffafa",
+    "appBarColor": "#66a37d",
+    "appBarTextColor": "#fff0f0",
+    "inputBoxColor": "#f0fff5",
+    "inputTextColor": "#351717",
+    "sendButtonColor": "#66a37d"
   }
 ]
