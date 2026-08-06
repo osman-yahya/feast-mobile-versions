@@ -110,5 +110,19 @@
     "inputBoxColor": "#f0fff5",
     "inputTextColor": "#351717",
     "sendButtonColor": "#66a37d"
+  },
+  {
+    "name": "Acıktım",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/acıktım_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/acıktım_bg_prew.jpg",
+    "sentBubbleColor": "#b81919",
+    "receivedBubbleColor": "#d4a34e",
+    "sentTextColor": "#ffe0e0",
+    "receivedTextColor": "#362626",
+    "appBarColor": "#d4a34e",
+    "appBarTextColor": "#362626",
+    "inputBoxColor": "#87ab3b",
+    "inputTextColor": "#291414",
+    "sendButtonColor": "#d4a34e"
   }
 ]
