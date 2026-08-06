@@ -82,5 +82,19 @@
     "inputBoxColor": "#fff4d6",
     "inputTextColor": "#351717",
     "sendButtonColor": "#fe9162"
+  },
+  {
+    "name": "lovers",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/lovers_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/lovers_bg_prew.jpg",
+    "sentBubbleColor": "#d5b4c9",
+    "receivedBubbleColor": "#f0dfd5",
+    "sentTextColor": "#1c1212",
+    "receivedTextColor": "#231515",
+    "appBarColor": "#b27077",
+    "appBarTextColor": "#fff0f0",
+    "inputBoxColor": "#f0dfd5",
+    "inputTextColor": "#351717",
+    "sendButtonColor": "#b27077"
   }
 ]
