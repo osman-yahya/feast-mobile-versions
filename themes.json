@@ -166,5 +166,19 @@
     "inputBoxColor": "#ffe5e7",
     "inputTextColor": "#000000",
     "sendButtonColor": "#e9777d"
+  },
+  {
+    "name": "Afiyet",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/afiyet_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/afiyet_bg_prew.jpg",
+    "sentBubbleColor": "#d7b18e",
+    "receivedBubbleColor": "#e9be63",
+    "sentTextColor": "#311717",
+    "receivedTextColor": "#2c0c0c",
+    "appBarColor": "#826e58",
+    "appBarTextColor": "#3d1010",
+    "inputBoxColor": "#fcdabb",
+    "inputTextColor": "#3d1515",
+    "sendButtonColor": "#e9be63"
   }
 ]
