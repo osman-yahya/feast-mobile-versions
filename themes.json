@@ -208,5 +208,19 @@
     "inputBoxColor": "#828282",
     "inputTextColor": "#141414",
     "sendButtonColor": "#271f47"
+  },
+  {
+    "name": "Lacivert",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/lacivert_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/lacivert_bg_prew.jpg",
+    "sentBubbleColor": "#464fce",
+    "receivedBubbleColor": "#a8aeff",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#230b0b",
+    "appBarColor": "#0d125e",
+    "appBarTextColor": "#ffffff",
+    "inputBoxColor": "#a8aeff",
+    "inputTextColor": "#291414",
+    "sendButtonColor": "#0d125e"
   }
 ]
