@@ -138,5 +138,19 @@
     "inputBoxColor": "#121212",
     "inputTextColor": "#b0b0b0",
     "sendButtonColor": "#836920"
+  },
+  {
+    "name": "Gece",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/gece_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/gece_bg_prew.jpg",
+    "sentBubbleColor": "#583c9a",
+    "receivedBubbleColor": "#ff66f2",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#ffffff",
+    "appBarColor": "#09050f",
+    "appBarTextColor": "#ffffff",
+    "inputBoxColor": "#80fdff",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#ff66f2"
   }
 ]
