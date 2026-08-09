@@ -152,5 +152,19 @@
     "inputBoxColor": "#80fdff",
     "inputTextColor": "#000000",
     "sendButtonColor": "#ff66f2"
+  },
+  {
+    "name": "Balonlar",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/balonlar_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/balonlar_bg_prew.jpg",
+    "sentBubbleColor": "#e18eaf",
+    "receivedBubbleColor": "#e9777d",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#ffffff",
+    "appBarColor": "#947f81",
+    "appBarTextColor": "#ffffff",
+    "inputBoxColor": "#ffe5e7",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#e9777d"
   }
 ]
