@@ -124,5 +124,19 @@
     "inputBoxColor": "#87ab3b",
     "inputTextColor": "#291414",
     "sendButtonColor": "#d4a34e"
+  },
+  {
+    "name": "Lüks",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/lüks_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/lüks_bg_prew.jpg",
+    "sentBubbleColor": "#836920",
+    "receivedBubbleColor": "#1a1a1a",
+    "sentTextColor": "#b0b0b0",
+    "receivedTextColor": "#b0b0b0",
+    "appBarColor": "#080808",
+    "appBarTextColor": "#b4b1b1",
+    "inputBoxColor": "#121212",
+    "inputTextColor": "#b0b0b0",
+    "sendButtonColor": "#836920"
   }
 ]
