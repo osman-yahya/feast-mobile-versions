@@ -180,5 +180,19 @@
     "inputBoxColor": "#fcdabb",
     "inputTextColor": "#3d1515",
     "sendButtonColor": "#e9be63"
+  },
+  {
+    "name": "Şeker",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/şeker_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/şeker_bg_prew.jpg",
+    "sentBubbleColor": "#f7cfdd",
+    "receivedBubbleColor": "#ffbdbd",
+    "sentTextColor": "#311717",
+    "receivedTextColor": "#2c0c0c",
+    "appBarColor": "#83767c",
+    "appBarTextColor": "#3d1010",
+    "inputBoxColor": "#ffebeb",
+    "inputTextColor": "#3d1515",
+    "sendButtonColor": "#ffbdbd"
   }
 ]
