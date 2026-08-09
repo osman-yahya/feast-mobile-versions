@@ -194,5 +194,19 @@
     "inputBoxColor": "#ffebeb",
     "inputTextColor": "#3d1515",
     "sendButtonColor": "#ffbdbd"
+  },
+  {
+    "name": "Mor",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/mor_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/mor_bg_prew.jpg",
+    "sentBubbleColor": "#6348c7",
+    "receivedBubbleColor": "#121212",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#ffffff",
+    "appBarColor": "#271f47",
+    "appBarTextColor": "#d6d6d6",
+    "inputBoxColor": "#828282",
+    "inputTextColor": "#141414",
+    "sendButtonColor": "#271f47"
   }
 ]
