@@ -222,5 +222,19 @@
     "inputBoxColor": "#a8aeff",
     "inputTextColor": "#291414",
     "sendButtonColor": "#0d125e"
+  },
+  {
+    "name": "Mavi",
+    "backgroundUrl": "https://mobile-version.feast.tr/bg/mavi_bg.jpg",
+    "previewUrl": "https://mobile-version.feast.tr/bg/mavi_bg_prew.jpg",
+    "sentBubbleColor": "#ffffff",
+    "receivedBubbleColor": "#bcebfb",
+    "sentTextColor": "#1c1212",
+    "receivedTextColor": "#231515",
+    "appBarColor": "#bcebfb",
+    "appBarTextColor": "#211212",
+    "inputBoxColor": "#c9e8f2",
+    "inputTextColor": "#351717",
+    "sendButtonColor": "#1d5162"
   }
 ]
