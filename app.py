@@ -95,6 +95,13 @@ def build_theme(form, files, existing_theme=None):
         'inputBoxColor': form.get('inputBoxColor', '#FFFFFF'),
         'inputTextColor': form.get('inputTextColor', '#000000'),
         'sendButtonColor': form.get('sendButtonColor', '#FF3131'),
+        # The chat's own centred lines ("X sohbet temasını Y olarak değiştirdi",
+        # "X gruba katıldı") are drawn straight on the background picture, so
+        # this is the one colour picked against the picture itself. A form from
+        # an older builder page leaves an edited theme's value as it was.
+        'systemTextColor': form.get('systemTextColor')
+        or (existing_theme or {}).get('systemTextColor')
+        or '#000000',
     }
     return theme
 

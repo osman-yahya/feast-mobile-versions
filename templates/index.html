@@ -28,6 +28,7 @@
             --theme-input-box: #ffffff;
             --theme-input-text: #000000;
             --theme-send-btn: #ff3131;
+            --theme-system-text: #000000;
         }
 
         * {
@@ -369,13 +370,22 @@
             gap: 4.2cqi;
         }
         
-        /* Dark overlay for background image */
-        .chat-body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 1;
+        /* No overlay on the background image: the app draws it as it is, so the
+           colours below are judged against the picture users will see. */
+
+        /* The chat's own centred lines ("X sohbet temasını Y olarak değiştirdi"),
+           drawn straight on the background in systemTextColor, as the app does. */
+        .system-line {
+            position: relative;
+            z-index: 2;
+            align-self: center;
+            padding: 0 10.7cqi;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 3.2cqi;
+            font-weight: 500;
+            line-height: 1.35;
+            color: var(--theme-system-text);
         }
 
         .message {
@@ -813,6 +823,13 @@
             border-color: rgba(255, 255, 255, 0.16);
         }
 
+        .color-hint {
+            margin: -2px 4px 10px;
+            color: #8d8d9c;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
         .actions {
             margin-top: 16px;
         }
@@ -941,6 +958,12 @@
                 <span>Send Button Color</span>
                 <input type="color" id="sendButtonColor" value="#ff3131">
             </div>
+
+            <div class="color-row">
+                <span>System Text Color</span>
+                <input type="color" id="systemTextColor" value="#000000">
+            </div>
+            <p class="color-hint">Sohbetteki bilgi satırları (“X sohbet temasını Y olarak değiştirdi”, “X gruba katıldı”). Arka plan görselinin doğrudan üstüne çizilir; görselin üstünde okunacak bir renk seçin.</p>
         </form>
 
         <div class="actions">
@@ -977,6 +1000,7 @@
             </div>
             
             <div class="chat-body" id="chatBody">
+                <div class="system-line">feastbabapro sohbet temasını <span id="systemLineTheme">Custom Theme</span> olarak değiştirdi</div>
                 <div class="message msg-received">
                     Hey! How are you doing? 
                     <span class="time" id="time1" style="margin-left: 12px;">10:00</span>
@@ -1064,6 +1088,7 @@
             inputBoxColor: document.getElementById('inputBoxColor'),
             inputTextColor: document.getElementById('inputTextColor'),
             sendButtonColor: document.getElementById('sendButtonColor'),
+            systemTextColor: document.getElementById('systemTextColor'),
             bgFile: document.getElementById('bgFile'),
             prewFile: document.getElementById('prewFile')
         };
@@ -1114,6 +1139,7 @@
             inputs.inputBoxColor.value = themeValue(theme, 'inputBoxColor', '#ffffff');
             inputs.inputTextColor.value = themeValue(theme, 'inputTextColor', '#000000');
             inputs.sendButtonColor.value = themeValue(theme, 'sendButtonColor', '#ff3131');
+            inputs.systemTextColor.value = themeValue(theme, 'systemTextColor', '#000000');
 
             croppedBgBlob = null;
             croppedPrewBlob = null;
@@ -1313,7 +1339,10 @@
             root.style.setProperty('--theme-input-box', inputs.inputBoxColor.value);
             root.style.setProperty('--theme-input-text', inputs.inputTextColor.value);
             root.style.setProperty('--theme-send-btn', inputs.sendButtonColor.value);
-            
+            root.style.setProperty('--theme-system-text', inputs.systemTextColor.value);
+            document.getElementById('systemLineTheme').textContent =
+                inputs.themeName.value.trim() || 'Custom Theme';
+
             // Text color logic for times
             document.getElementById('time1').style.color = inputs.receivedTextColor.value;
             document.getElementById('time2').style.color = inputs.sentTextColor.value;
@@ -1321,7 +1350,7 @@
         }
 
         // Listeners for colors and text
-        ['sentBubbleColor', 'sentTextColor', 'receivedBubbleColor', 'receivedTextColor', 'appBarColor', 'appBarTextColor', 'inputBoxColor', 'inputTextColor', 'sendButtonColor'].forEach(id => {
+        ['sentBubbleColor', 'sentTextColor', 'receivedBubbleColor', 'receivedTextColor', 'appBarColor', 'appBarTextColor', 'inputBoxColor', 'inputTextColor', 'sendButtonColor', 'systemTextColor'].forEach(id => {
             inputs[id].addEventListener('input', updatePreview);
         });
         inputs.themeName.addEventListener('input', () => {
@@ -1435,7 +1464,8 @@
                 appBarTextColor: inputs.appBarTextColor.value.toUpperCase(),
                 inputBoxColor: inputs.inputBoxColor.value.toUpperCase(),
                 inputTextColor: inputs.inputTextColor.value.toUpperCase(),
-                sendButtonColor: inputs.sendButtonColor.value.toUpperCase()
+                sendButtonColor: inputs.sendButtonColor.value.toUpperCase(),
+                systemTextColor: inputs.systemTextColor.value.toUpperCase()
             };
         }
 
@@ -1487,7 +1517,8 @@
                 if (data.inputBoxColor) inputs.inputBoxColor.value = data.inputBoxColor;
                 if (data.inputTextColor) inputs.inputTextColor.value = data.inputTextColor;
                 if (data.sendButtonColor) inputs.sendButtonColor.value = data.sendButtonColor;
-                
+                if (data.systemTextColor) inputs.systemTextColor.value = data.systemTextColor;
+
                 updatePreview();
                 closeJsonModal();
             } catch (e) {
@@ -1525,7 +1556,8 @@
             formData.append("inputBoxColor", inputs.inputBoxColor.value);
             formData.append("inputTextColor", inputs.inputTextColor.value);
             formData.append("sendButtonColor", inputs.sendButtonColor.value);
-            
+            formData.append("systemTextColor", inputs.systemTextColor.value);
+
             // Append the cropped blobs instead of raw files
             if (croppedBgBlob) formData.append("backgroundFile", croppedBgBlob, "bg.jpg");
             if (croppedPrewBlob) formData.append("previewFile", croppedPrewBlob, "prew.jpg");

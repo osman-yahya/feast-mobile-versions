@@ -11,7 +11,8 @@
     "appBarTextColor": "#000000",
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
-    "sendButtonColor": "#404040"
+    "sendButtonColor": "#404040",
+    "systemTextColor": "#404040"
   },
   {
     "name": "Baharat",
@@ -25,7 +26,8 @@
     "appBarTextColor": "#ffffff",
     "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
-    "sendButtonColor": "#461d01"
+    "sendButtonColor": "#461d01",
+    "systemTextColor": "#461d01"
   },
   {
     "name": "Miyav",
@@ -39,7 +41,8 @@
     "appBarTextColor": "#5e3131",
     "inputBoxColor": "#ffe5e5",
     "inputTextColor": "#3f2121",
-    "sendButtonColor": "#5e2c2c"
+    "sendButtonColor": "#5e2c2c",
+    "systemTextColor": "#5e3131"
   },
   {
     "name": "Akşam",
@@ -53,7 +56,8 @@
     "appBarTextColor": "#bababa",
     "inputBoxColor": "#828282",
     "inputTextColor": "#141414",
-    "sendButtonColor": "#282424"
+    "sendButtonColor": "#282424",
+    "systemTextColor": "#bababa"
   },
   {
     "name": "2 Kişillik Menü",
@@ -67,7 +71,8 @@
     "appBarTextColor": "#2e1919",
     "inputBoxColor": "#feb07c",
     "inputTextColor": "#201818",
-    "sendButtonColor": "#2e0000"
+    "sendButtonColor": "#2e0000",
+    "systemTextColor": "#2e1919"
   },
   {
     "name": "kurabiye",
@@ -81,7 +86,8 @@
     "appBarTextColor": "#391e1e",
     "inputBoxColor": "#fff4d6",
     "inputTextColor": "#351717",
-    "sendButtonColor": "#fe9162"
+    "sendButtonColor": "#fe9162",
+    "systemTextColor": "#391e1e"
   },
   {
     "name": "lovers",
@@ -95,7 +101,8 @@
     "appBarTextColor": "#fff0f0",
     "inputBoxColor": "#f0dfd5",
     "inputTextColor": "#351717",
-    "sendButtonColor": "#b27077"
+    "sendButtonColor": "#b27077",
+    "systemTextColor": "#351717"
   },
   {
     "name": "Salata",
@@ -109,7 +116,8 @@
     "appBarTextColor": "#fff0f0",
     "inputBoxColor": "#f0fff5",
     "inputTextColor": "#351717",
-    "sendButtonColor": "#66a37d"
+    "sendButtonColor": "#66a37d",
+    "systemTextColor": "#351717"
   },
   {
     "name": "Acıktım",
@@ -123,7 +131,8 @@
     "appBarTextColor": "#362626",
     "inputBoxColor": "#f3d196",
     "inputTextColor": "#291414",
-    "sendButtonColor": "#d4a34e"
+    "sendButtonColor": "#d4a34e",
+    "systemTextColor": "#362626"
   },
   {
     "name": "Lüks",
@@ -137,7 +146,8 @@
     "appBarTextColor": "#b4b1b1",
     "inputBoxColor": "#121212",
     "inputTextColor": "#b0b0b0",
-    "sendButtonColor": "#836920"
+    "sendButtonColor": "#836920",
+    "systemTextColor": "#b4b1b1"
   },
   {
     "name": "Gece",
@@ -151,7 +161,8 @@
     "appBarTextColor": "#ffffff",
     "inputBoxColor": "#80fdff",
     "inputTextColor": "#000000",
-    "sendButtonColor": "#ff66f2"
+    "sendButtonColor": "#ff66f2",
+    "systemTextColor": "#ffffff"
   },
   {
     "name": "Balonlar",
@@ -165,7 +176,8 @@
     "appBarTextColor": "#ffffff",
     "inputBoxColor": "#ffe5e7",
     "inputTextColor": "#000000",
-    "sendButtonColor": "#e9777d"
+    "sendButtonColor": "#e9777d",
+    "systemTextColor": "#000000"
   },
   {
     "name": "Afiyet",
@@ -179,7 +191,8 @@
     "appBarTextColor": "#3d1010",
     "inputBoxColor": "#fcdabb",
     "inputTextColor": "#3d1515",
-    "sendButtonColor": "#e9be63"
+    "sendButtonColor": "#e9be63",
+    "systemTextColor": "#3d1010"
   },
   {
     "name": "Şeker",
@@ -193,7 +206,8 @@
     "appBarTextColor": "#3d1010",
     "inputBoxColor": "#ffebeb",
     "inputTextColor": "#3d1515",
-    "sendButtonColor": "#ffbdbd"
+    "sendButtonColor": "#ffbdbd",
+    "systemTextColor": "#3d1010"
   },
   {
     "name": "Mor",
@@ -207,7 +221,8 @@
     "appBarTextColor": "#d6d6d6",
     "inputBoxColor": "#828282",
     "inputTextColor": "#141414",
-    "sendButtonColor": "#271f47"
+    "sendButtonColor": "#271f47",
+    "systemTextColor": "#d6d6d6"
   },
   {
     "name": "Lacivert",
@@ -221,7 +236,8 @@
     "appBarTextColor": "#ffffff",
     "inputBoxColor": "#a8aeff",
     "inputTextColor": "#291414",
-    "sendButtonColor": "#0d125e"
+    "sendButtonColor": "#0d125e",
+    "systemTextColor": "#ffffff"
   },
   {
     "name": "Mavi",
@@ -235,6 +251,7 @@
     "appBarTextColor": "#211212",
     "inputBoxColor": "#c9e8f2",
     "inputTextColor": "#351717",
-    "sendButtonColor": "#1d5162"
+    "sendButtonColor": "#1d5162",
+    "systemTextColor": "#1d5162"
   }
 ]
