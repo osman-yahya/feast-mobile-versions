@@ -1,5 +1,7 @@
 import os
+import re
 import json
+import hashlib
 import subprocess
 from flask import Flask, request, jsonify, render_template, send_from_directory
 
@@ -7,8 +9,35 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BG_DIR = os.path.join(PROJECT_DIR, 'bg')
 THEMES_FILE = os.path.join(PROJECT_DIR, 'themes.json')
+PUBLIC_BG_URL = 'https://mobile-version.feast.tr/bg/'
+
+# Every colour of a theme, in the order themes.json lists them, with the value
+# a form from an older builder page falls back to.
+COLOR_FIELDS = {
+    'sentBubbleColor': '#FF3131',
+    'receivedBubbleColor': '#FFFFFF',
+    'sentTextColor': '#FFFFFF',
+    'receivedTextColor': '#000000',
+    'appBarColor': '#1E1E28',
+    'appBarTextColor': '#FFFFFF',
+    'inputBoxColor': '#FFFFFF',
+    'inputTextColor': '#000000',
+    'sendButtonColor': '#FF3131',
+    # The chat's own centred lines ("X sohbet temasını Y olarak değiştirdi",
+    # "X gruba katıldı") are drawn straight on the background picture, so
+    # this is the one colour picked against the picture itself.
+    'systemTextColor': '#000000',
+}
+# The app drops a theme whose colour it cannot parse from the list without a
+# word, so only plain #RRGGBB goes out.
+HEX_COLOR = re.compile(r'^#[0-9a-fA-F]{6}$')
+TURKISH_TO_ASCII = str.maketrans('çğıöşüâîûÇĞİÖŞÜÂÎÛ', 'cgiosuaiuCGIOSUAIU')
 
 os.makedirs(BG_DIR, exist_ok=True)
+
+
+class ThemeError(ValueError):
+    """A theme the app could not use; the message is shown to the designer."""
 
 
 def load_themes():
@@ -62,48 +91,86 @@ def sync_repository():
 def git_error_response(error):
     if isinstance(error, subprocess.CalledProcessError):
         command = ' '.join(error.cmd)
-        details = (error.stderr or error.stdout or 'Unknown Git error').strip()
-        message = f"Git command failed ({command}): {details}"
+        details = (error.stderr or error.stdout or 'Bilinmeyen Git hatası').strip()
+        message = f"Git komutu başarısız oldu ({command}): {details}"
     else:
-        message = "Git operation timed out."
+        message = "Git işlemi zaman aşımına uğradı."
     return jsonify({"success": False, "error": message}), 500
 
 
+def file_slug(theme_name):
+    """ASCII file-name stem for a theme: 'Şeker Tadı' -> 'seker_tadi'."""
+    ascii_name = theme_name.translate(TURKISH_TO_ASCII).lower()
+    return re.sub(r'[^a-z0-9]+', '_', ascii_name).strip('_') or 'theme'
+
+
+def read_image(upload):
+    """The uploaded picture's bytes and extension; only what the app decodes."""
+    data = upload.read()
+    if data.startswith(b'\xff\xd8\xff'):
+        return data, 'jpg'
+    if data.startswith(b'\x89PNG\r\n\x1a\n'):
+        return data, 'png'
+    raise ThemeError('Görsel JPEG ya da PNG olmalı.')
+
+
+def save_image(data, extension, slug, kind):
+    """Store a picture under a name taken from its content; returns its URL.
+
+    The app downloads a background once per URL and keeps it for good
+    (ChatThemeSync.downloadBackground), and the theme grid caches previews by
+    URL too, so a new picture written over an old file name would never reach
+    a phone that already has the old one. A different picture therefore gets
+    a different name. The old file stays: chats that picked the theme earlier
+    still send its URL to the other side.
+    """
+    digest = hashlib.sha1(data).hexdigest()[:10]
+    filename = f'{slug}_{kind}_{digest}.{extension}'
+    with open(os.path.join(BG_DIR, filename), 'wb') as f:
+        f.write(data)
+    return PUBLIC_BG_URL + filename
+
+
 def build_theme(form, files, existing_theme=None):
-    theme_name = form.get('name', 'default_theme').strip() or 'default_theme'
-    safe_name = ''.join(c for c in theme_name if c.isalnum() or c == ' ').rstrip().replace(' ', '_').lower() or 'theme'
+    """The theme a form describes; raises ThemeError before writing anything."""
+    existing = existing_theme or {}
+    theme_name = form.get('name', '').strip()
+    if not theme_name:
+        raise ThemeError('Tema adı boş olamaz.')
+
+    colors = {}
+    for field, fallback in COLOR_FIELDS.items():
+        # A form from an older builder page leaves an edited theme's value as
+        # it was.
+        value = (form.get(field) or existing.get(field) or fallback).strip()
+        if not HEX_COLOR.match(value):
+            raise ThemeError(f'Geçersiz renk ({field}): {value}')
+        colors[field] = value
+
     bg_file = files.get('backgroundFile')
     preview_file = files.get('previewFile')
-    bg_filename = f'{safe_name}_bg.jpg'
-    preview_filename = f'{safe_name}_bg_prew.jpg'
+    background = read_image(bg_file) if bg_file else None
+    preview = read_image(preview_file) if preview_file else None
+    if not background and not existing.get('backgroundUrl'):
+        # The app downloads the picture before it applies a theme and gives up
+        # when that fails, so a theme without one could never be picked.
+        raise ThemeError('Arka plan görseli seçilmedi.')
 
-    if bg_file:
-        bg_file.save(os.path.join(BG_DIR, bg_filename))
-    if preview_file:
-        preview_file.save(os.path.join(BG_DIR, preview_filename))
-
-    theme = {
+    slug = file_slug(theme_name)
+    background_url = (
+        save_image(*background, slug, 'bg') if background
+        else existing['backgroundUrl']
+    )
+    preview_url = (
+        save_image(*preview, slug, 'bg_prew') if preview
+        else existing.get('previewUrl') or background_url
+    )
+    return {
         'name': theme_name,
-        'backgroundUrl': existing_theme.get('backgroundUrl') if existing_theme and not bg_file else f'https://mobile-version.feast.tr/bg/{bg_filename}',
-        'previewUrl': (existing_theme.get('previewUrl') or existing_theme.get('backgroundUrl')) if existing_theme and not preview_file else f'https://mobile-version.feast.tr/bg/{preview_filename}',
-        'sentBubbleColor': form.get('sentBubbleColor', '#FF3131'),
-        'receivedBubbleColor': form.get('receivedBubbleColor', '#FFFFFF'),
-        'sentTextColor': form.get('sentTextColor', '#FFFFFF'),
-        'receivedTextColor': form.get('receivedTextColor', '#000000'),
-        'appBarColor': form.get('appBarColor', '#1E1E28'),
-        'appBarTextColor': form.get('appBarTextColor', '#FFFFFF'),
-        'inputBoxColor': form.get('inputBoxColor', '#FFFFFF'),
-        'inputTextColor': form.get('inputTextColor', '#000000'),
-        'sendButtonColor': form.get('sendButtonColor', '#FF3131'),
-        # The chat's own centred lines ("X sohbet temasını Y olarak değiştirdi",
-        # "X gruba katıldı") are drawn straight on the background picture, so
-        # this is the one colour picked against the picture itself. A form from
-        # an older builder page leaves an edited theme's value as it was.
-        'systemTextColor': form.get('systemTextColor')
-        or (existing_theme or {}).get('systemTextColor')
-        or '#000000',
+        'backgroundUrl': background_url,
+        'previewUrl': preview_url,
+        **colors,
     }
-    return theme
 
 @app.route('/')
 def index():
@@ -129,11 +196,14 @@ def publish():
             return git_error_response(error)
 
         themes = load_themes()
-        theme_name = request.form.get('name', '').strip() or 'default_theme'
+        theme_name = request.form.get('name', '').strip()
         if theme_name_exists(themes, theme_name):
-            return jsonify({"success": False, "error": "A theme with this name already exists."}), 409
+            return jsonify({"success": False, "error": "Bu adla kayıtlı bir tema zaten var."}), 409
 
-        new_theme = build_theme(request.form, request.files)
+        try:
+            new_theme = build_theme(request.form, request.files)
+        except ThemeError as error:
+            return jsonify({"success": False, "error": str(error)}), 400
         themes.append(new_theme)
         save_themes(themes)
 
@@ -143,7 +213,12 @@ def publish():
         except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
             return git_error_response(error)
 
-        return jsonify({"success": True, "theme": new_theme, "commitMessage": commit_message})
+        return jsonify({
+            "success": True,
+            "theme": new_theme,
+            "index": len(themes) - 1,
+            "commitMessage": commit_message,
+        })
         
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -159,13 +234,16 @@ def update_theme(theme_index):
 
         themes = load_themes()
         if theme_index < 0 or theme_index >= len(themes):
-            return jsonify({"success": False, "error": "Theme not found."}), 404
+            return jsonify({"success": False, "error": "Tema bulunamadı."}), 404
 
-        theme_name = request.form.get('name', '').strip() or 'default_theme'
+        theme_name = request.form.get('name', '').strip()
         if theme_name_exists(themes, theme_name, ignore_index=theme_index):
-            return jsonify({"success": False, "error": "A theme with this name already exists."}), 409
+            return jsonify({"success": False, "error": "Bu adla kayıtlı bir tema zaten var."}), 409
 
-        updated_theme = build_theme(request.form, request.files, themes[theme_index])
+        try:
+            updated_theme = build_theme(request.form, request.files, themes[theme_index])
+        except ThemeError as error:
+            return jsonify({"success": False, "error": str(error)}), 400
         themes[theme_index] = updated_theme
         save_themes(themes)
         commit_message = f"Update Theme: {updated_theme['name']}"
@@ -189,7 +267,7 @@ def delete_theme(theme_index):
 
         themes = load_themes()
         if theme_index < 0 or theme_index >= len(themes):
-            return jsonify({"success": False, "error": "Theme not found."}), 404
+            return jsonify({"success": False, "error": "Tema bulunamadı."}), 404
 
         deleted_theme = themes.pop(theme_index)
         save_themes(themes)
