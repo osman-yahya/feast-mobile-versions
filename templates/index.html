@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feast Chat Theme Builder</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- Cropper.js CSS -->
+    <title>Feast Tema Stüdyosu</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3131'/%3E%3Cpath d='M11 8h11v4h-7v3h6v4h-6v6h-4z' fill='white'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
-    <!-- Cropper.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <style>
         :root {
-            --bg-color: #1e1e28;
-            --text-color: #ffffff;
-            --input-bg: #2a2a36;
-            --border-color: #3b3b4f;
-            --primary-color: #ff3131;
-            
-            /* Theme Variables */
-            --theme-sent-bubble: #ff3131;
-            --theme-received-bubble: #f2f2f7;
-            --theme-sent-text: #ffffff;
-            --theme-received-text: #000000;
-            --theme-appbar: #ffffff;
-            --theme-appbar-text: #000000;
-            --theme-input-box: #ffffff;
-            --theme-input-text: #000000;
-            --theme-send-btn: #ff3131;
-            --theme-system-text: #000000;
+            color-scheme: dark;
+            --bg: #0e0e13;
+            --panel: #14141b;
+            --card: #1a1a23;
+            --field: #22222d;
+            --field-hover: #2a2a36;
+            --line: rgba(255, 255, 255, 0.07);
+            --line-strong: rgba(255, 255, 255, 0.14);
+            --text: #f1f1f5;
+            --muted: #a4a4b2;
+            --faint: #767684;
+            --accent: #ff3131;
+            --accent-hover: #ff4b4b;
+            --accent-soft: rgba(255, 49, 49, 0.12);
+            --ok: #3ccf82;
+            --warn: #f4b740;
+            --bad: #ff5d5d;
         }
 
         * {
@@ -38,1554 +39,3672 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
             height: 100vh;
             overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(360px, 440px) minmax(0, 1fr);
+            background: var(--bg);
+            color: var(--text);
+            font: 14px/1.45 Inter, system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .left-panel {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-            border-right: 1px solid var(--border-color);
-            background-color: #13131a;
-        }
-
-        .right-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #1e1e28;
-            position: relative;
-            gap: clamp(10px, 3vh, 30px);
-            padding: 20px;
-        }
-
-        h1 {
-            margin-bottom: 24px;
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #aaa;
-        }
-
-        input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background-color: var(--input-bg);
-            color: var(--text-color);
-            font-family: 'Poppins', sans-serif;
-            outline: none;
-        }
-
-        .file-input-native {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .file-picker {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 9px;
-            border: 1px dashed #52526a;
-            border-radius: 10px;
-            background: rgba(42, 42, 54, 0.55);
-        }
-
-        .file-picker-button {
-            display: inline-flex;
-            flex: 0 0 auto;
-            align-items: center;
-            gap: 6px;
-            padding: 9px 11px;
-            border-radius: 7px;
-            background: #3b3b4f;
-            color: #fff;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .file-picker-button:hover {
-            background: #4b4b62;
-        }
-
-        .file-picker-button .material-icons-round {
-            font-size: 17px;
-        }
-
-        .file-selection {
-            min-width: 0;
-            color: #aaa;
-            font-size: 12px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .file-selection.selected {
-            color: #b7efc5;
-        }
-
-        .file-thumbnail {
-            display: none;
-            width: 38px;
-            height: 38px;
-            flex: 0 0 38px;
-            border: 1px solid rgba(255, 255, 255, 0.32);
-            border-radius: 7px;
-            object-fit: cover;
-        }
-
-        .file-thumbnail.visible {
-            display: block;
-        }
-        
-        input[type="text"]:focus {
-            border-color: var(--primary-color);
-        }
-
-        .field-error {
-            display: none;
-            margin-top: 7px;
-            color: #ff8f8f;
-            font-size: 12px;
-        }
-
-        input.has-error {
-            border-color: #ff5252;
-        }
-
-        .color-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 15px;
-            background-color: var(--input-bg);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .color-row span {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        input[type="color"] {
-            -webkit-appearance: none;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            background: none;
-        }
-        
-        input[type="color"]::-webkit-color-swatch-wrapper {
-            padding: 0;
-        }
-        
-        input[type="color"]::-webkit-color-swatch {
-            border: none;
-            border-radius: 50%;
-        }
-
-        .actions {
-            margin-top: 30px;
-            display: flex;
-            gap: 12px;
+        button, input, textarea {
+            font: inherit;
+            color: inherit;
         }
 
         button {
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
-            flex: 1;
         }
-        
-        button:hover {
-            opacity: 0.9;
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .material-icons, .material-icons-round {
+            line-height: 1;
+        }
+
+        /* ── Editor ─────────────────────────────────────────────────────── */
+
+        .editor {
+            height: 100vh;
+            overflow-y: auto;
+            padding: 22px 20px 40px;
+            background: var(--panel);
+            border-right: 1px solid var(--line);
+            scrollbar-width: thin;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .brand-mark {
+            flex: 0 0 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #ff5a5a, #d91a1a);
+            box-shadow: 0 6px 18px rgba(255, 49, 49, 0.28);
+            font: 700 18px/1 Poppins, sans-serif;
+        }
+
+        .eyebrow {
+            color: #ff8585;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font: 600 20px/1.25 Poppins, sans-serif;
+        }
+
+        h2 {
+            font: 600 15px/1.3 Poppins, sans-serif;
+        }
+
+        .top-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            min-height: 38px;
+            padding: 0 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: var(--field);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+        }
+
+        .btn:hover {
+            background: var(--field-hover);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn .material-icons-round {
+            font-size: 18px;
+        }
+
+        .btn-sm {
+            min-height: 30px;
+            padding: 0 10px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .btn-ghost {
+            background: transparent;
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
+            border-color: transparent;
+            background: var(--accent);
+            color: #fff;
         }
 
-        .btn-secondary {
-            background-color: var(--border-color);
-            color: white;
+        .btn-primary:hover {
+            border-color: transparent;
+            background: var(--accent-hover);
         }
 
-        /* View Toggle */
-        .view-toggle {
-            display: flex;
-            background-color: var(--input-bg);
-            border-radius: clamp(6px, 1vw, 8px);
-            padding: clamp(2px, 0.5vw, 4px);
-            z-index: 10;
-            border: 1px solid var(--border-color);
-        }
-        
-        .view-toggle button {
-            background: transparent;
-            color: #aaa;
-            border-radius: clamp(4px, 0.8vw, 6px);
-            padding: clamp(6px, 1vh, 8px) clamp(12px, 1.5vw, 16px);
-            font-size: clamp(12px, 1.2vw, 14px);
-            transition: all 0.2s;
-        }
-        
-        .view-toggle button.active {
-            background-color: #3b3b4f;
-            color: white;
+        .btn-danger {
+            border-color: transparent;
+            background: #d92c2c;
+            color: #fff;
         }
 
-        /* Phone Mockup */
-        .phone {
-            height: calc(100vh - 140px); /* Leave room for the toggle box and padding */
-            max-height: 812px;
-            width: auto;
-            max-width: 90%; /* Prevent overflowing the right panel */
-            aspect-ratio: 375 / 812;
-            border: clamp(6px, 1.5vh, 12px) solid #000;
-            border-radius: clamp(20px, 4vh, 40px);
-            overflow: hidden;
-            background-color: #000;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            container-type: inline-size;
-            flex-shrink: 0;
-        }
-        
-        /* Notch */
-        .phone::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40cqi;
-            height: clamp(15px, 3vh, 30px);
-            background-color: #000;
-            border-bottom-left-radius: 5.3cqi;
-            border-bottom-right-radius: 5.3cqi;
-            z-index: 100;
+        .btn-danger:hover {
+            border-color: transparent;
+            background: #ea3a3a;
         }
 
-        .app-bar {
-            height: 24cqi;
-            background-color: var(--theme-appbar);
-            display: flex;
-            align-items: flex-end;
-            padding: 4cqi;
-            color: var(--theme-appbar-text);
-            z-index: 10;
-        }
-
-        .app-bar-content {
-            display: flex;
+        .btn-block {
             width: 100%;
-            align-items: center;
-            justify-content: space-between;
+            min-height: 46px;
+            border-radius: 12px;
+            font-size: 14px;
         }
 
-        .app-bar-left {
-            display: flex;
-            align-items: center;
-            gap: 2.6cqi;
+        .btn:disabled {
+            opacity: 0.45;
+            cursor: default;
         }
 
-        .app-bar-left .material-icons-round {
-            font-size: 6.4cqi;
+        .pill {
+            padding: 1px 7px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 11px;
         }
 
-        .avatar {
-            width: 9cqi;
-            height: 9cqi;
-            border-radius: 50%;
-            background-color: #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .avatar .material-icons-round {
-            font-size: 5.3cqi;
-            color: #666;
-        }
-
-        .username {
-            font-weight: 600;
-            font-size: 4.2cqi;
-        }
-
-        .app-bar-right {
-            display: flex;
-            gap: 4cqi;
-        }
-        
-        .app-bar-right .material-icons-round {
-            font-size: 6.4cqi;
-        }
-
-        .chat-body {
-            flex: 1;
-            background-color: #e5e5e5;
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            padding: 5.3cqi;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            gap: 4.2cqi;
-        }
-        
-        /* No overlay on the background image: the app draws it as it is, so the
-           colours below are judged against the picture users will see. */
-
-        /* The chat's own centred lines ("X sohbet temasını Y olarak değiştirdi"),
-           drawn straight on the background in systemTextColor, as the app does. */
-        .system-line {
-            position: relative;
-            z-index: 2;
-            align-self: center;
-            padding: 0 10.7cqi;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            font-size: 3.2cqi;
-            font-weight: 500;
-            line-height: 1.35;
-            color: var(--theme-system-text);
-        }
-
-        .message {
-            position: relative;
-            z-index: 2;
-            max-width: 75%;
-            padding: 2.6cqi 3.7cqi;
-            font-family: 'Inter', sans-serif;
-            font-size: 4cqi;
-            font-weight: 500;
-            box-shadow: 0 0.5cqi 1cqi rgba(0,0,0,0.05);
-        }
-        
-        .message .time {
-            font-size: 2.6cqi;
-            position: absolute;
-            bottom: 1cqi;
-            right: 2cqi;
-            opacity: 0.7;
-        }
-
-        .msg-received {
-            align-self: flex-start;
-            background-color: var(--theme-received-bubble);
-            color: var(--theme-received-text);
-            border-radius: 4.2cqi 4.2cqi 4.2cqi 1cqi;
-        }
-
-        .msg-sent {
-            align-self: flex-end;
-            background-color: var(--theme-sent-bubble);
-            color: var(--theme-sent-text);
-            border-radius: 4.2cqi 4.2cqi 1cqi 4.2cqi;
-        }
-        
-        .chat-input-area {
-            height: 21.3cqi;
-            background-color: transparent;
-            position: relative;
-            z-index: 2;
-            padding: 2.6cqi;
-            display: flex;
-            align-items: center;
-            gap: 2.6cqi;
-        }
-        
-        .chat-input-box {
-            flex: 1;
-            height: 12.8cqi;
-            background-color: var(--theme-input-box);
-            border-radius: 6.4cqi;
-            padding: 0 4.2cqi;
-            display: flex;
-            align-items: center;
-            color: var(--theme-input-text);
-            font-size: 4cqi;
-        }
-        
-        .chat-send-btn {
-            width: 11.7cqi;
-            height: 11.7cqi;
-            background-color: var(--theme-send-btn);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        
-        .chat-send-btn .material-icons-round {
-            font-size: 6.4cqi;
-        }
-
-        /* Selection Phone View */
-        .selection-body {
-            flex: 1;
-            background-color: #f2f2f7;
-            padding: 5.3cqi;
-        }
-        
-        .theme-grid {
+        .icon-btn {
+            width: 30px;
+            height: 30px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3.2cqi;
-            row-gap: 4.2cqi;
+            place-items: center;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--muted);
         }
-        
-        .theme-item {
+
+        .icon-btn:hover {
+            background: var(--field-hover);
+            color: var(--text);
+        }
+
+        .icon-btn .material-icons-round {
+            font-size: 18px;
+        }
+
+        .icon-btn.danger:hover {
+            background: rgba(255, 93, 93, 0.12);
+            color: var(--bad);
+        }
+
+        .link {
+            border: 0;
+            background: none;
+            color: #ff8a8a;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .banner {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding: 12px;
+            border: 1px solid rgba(255, 49, 49, 0.35);
+            border-radius: 12px;
+            background: var(--accent-soft);
+            color: #ffd9d9;
+            font-size: 12px;
         }
-        
-        .theme-preview-box {
+
+        .banner > .material-icons-round {
+            color: #ff8585;
+            font-size: 20px;
+        }
+
+        .banner strong {
+            display: block;
+            margin-bottom: 2px;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .card {
+            margin-bottom: 12px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: var(--card);
+        }
+
+        .card > h2 {
+            margin-bottom: 12px;
+        }
+
+        .card-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .card-desc {
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .legend {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--muted);
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .dot {
+            display: inline-block;
+            flex: 0 0 auto;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--faint);
+        }
+
+        .dot.ok { background: var(--ok); }
+        .dot.warn { background: var(--warn); }
+        .dot.bad { background: var(--bad); }
+
+        .label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .text {
             width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 3.2cqi;
-            overflow: hidden;
-            background-color: #2a2a36;
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: var(--field);
+            outline: none;
+        }
+
+        .text:focus {
+            border-color: rgba(255, 49, 49, 0.7);
+            box-shadow: 0 0 0 3px rgba(255, 49, 49, 0.15);
+        }
+
+        .text.invalid {
+            border-color: var(--bad);
+        }
+
+        .note {
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+        .note.error { color: var(--bad); }
+        .note.warn { color: var(--warn); }
+
+        .hint {
+            margin: 6px 2px 0;
+            color: var(--faint);
+            font-size: 11.5px;
+        }
+
+        .image-field {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
+            margin-top: 14px;
+            padding: 10px;
+            border: 1px dashed rgba(255, 255, 255, 0.16);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.015);
+            transition: border-color 0.15s, background 0.15s;
         }
-        
-        .theme-preview-box img {
+
+        .image-field.drag {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .thumb {
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            padding: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--field);
+            color: var(--faint);
+        }
+
+        .thumb img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
-        .theme-name-text {
-            margin-top: 2.1cqi;
-            font-size: 3.2cqi;
-            font-weight: 500;
-            color: #000;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
+
+        .thumb-bg {
+            width: 46px;
+            height: 102px;
         }
 
-        .theme-item button {
-            width: 100%;
-            padding: 0;
-            color: inherit;
-            background: transparent;
-            font: inherit;
+        .thumb-sq {
+            width: 64px;
+            height: 64px;
         }
 
-        .theme-item button:hover .theme-preview-box {
-            outline: 0.8cqi solid var(--primary-color);
-            outline-offset: 0.8cqi;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: var(--input-bg);
-            padding: 30px;
-            border-radius: 16px;
-            width: 500px;
-            max-width: 90%;
-            border: 1px solid var(--border-color);
-        }
-        
-        .cropper-modal-content {
-            width: 90%;
-            max-width: 800px;
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal h2 {
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            background-color: #13131a;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 12px;
-            border-radius: 8px;
-            font-family: monospace;
-            margin-bottom: 20px;
-            resize: none;
-        }
-        
-        .cropper-container-wrapper {
+        .image-body {
             flex: 1;
-            width: 100%;
-            background-color: #000;
-            margin-bottom: 20px;
+            min-width: 0;
+        }
+
+        .image-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .image-status {
+            margin: 2px 0 8px;
             overflow: hidden;
-        }
-        
-        .cropper-container-wrapper img {
-            max-width: 100%;
-            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            text-overflow: ellipsis;
         }
 
-        .modal-actions {
+        .image-status.missing {
+            color: var(--warn);
+        }
+
+        .image-actions {
             display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            font-size: 11px;
-            border-radius: 4px;
-            background-color: #3b3b4f;
-            margin-left: 8px;
-            font-weight: normal;
-        }
-        
-        .status-badge.cropped {
-            background-color: #4caf50;
-            color: white;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .library-trigger {
-            width: 100%;
+        .cgroup {
+            margin-top: 10px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            scroll-margin: 16px;
+        }
+
+        .cgroup.flash {
+            animation: flash 1.4s ease;
+        }
+
+        @keyframes flash {
+            0%, 45% {
+                border-color: var(--accent);
+                box-shadow: 0 0 0 3px rgba(255, 49, 49, 0.2);
+            }
+            100% {
+                border-color: var(--line);
+                box-shadow: none;
+            }
+        }
+
+        .cgroup-head {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #393950, #2a2a36);
-            border: 1px solid #50506a;
-        }
-
-        .editing-notice {
-            display: none;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            padding: 10px 12px;
-            margin-bottom: 20px;
-            background: rgba(255, 49, 49, 0.12);
-            border: 1px solid rgba(255, 49, 49, 0.45);
+            gap: 8px;
+        }
+
+        .cgroup-title {
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+
+        .cgroup-desc {
+            margin: 3px 0 8px;
+            color: var(--faint);
+            font-size: 11.5px;
+        }
+
+        .badge {
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge.none { display: none; }
+        .badge.ok { background: rgba(60, 207, 130, 0.12); color: var(--ok); }
+        .badge.warn { background: rgba(244, 183, 64, 0.12); color: var(--warn); }
+        .badge.bad { background: rgba(255, 93, 93, 0.12); color: var(--bad); }
+
+        .cfield {
+            display: grid;
+            grid-template-columns: 34px minmax(0, 1fr) 92px 30px;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+        }
+
+        .swatch {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 9px;
+            background: none;
+            cursor: pointer;
+        }
+
+        .swatch::-webkit-color-swatch-wrapper {
+            padding: 2px;
+        }
+
+        .swatch::-webkit-color-swatch {
+            border: none;
+            border-radius: 6px;
+        }
+
+        .swatch::-moz-color-swatch {
+            border: none;
+            border-radius: 6px;
+        }
+
+        .cfield-label {
+            font-size: 13px;
+        }
+
+        .hex {
+            width: 100%;
+            height: 32px;
+            padding: 0 8px;
+            border: 1px solid var(--line-strong);
             border-radius: 8px;
-            color: #ffd4d4;
+            background: var(--field);
+            font: 500 12.5px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .hex:focus {
+            border-color: rgba(255, 49, 49, 0.7);
+        }
+
+        .hex.invalid {
+            border-color: var(--bad);
+            color: var(--bad);
+        }
+
+        .checks {
+            display: grid;
+            gap: 2px;
+            margin-top: 6px;
+        }
+
+        .check {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 22px;
+            color: var(--muted);
             font-size: 12px;
         }
 
-        .editing-notice button {
-            flex: 0 0 auto;
-            padding: 6px 10px;
-            font-size: 11px;
+        .check-label {
+            flex: 1;
+            min-width: 0;
         }
 
-        .theme-library-content {
-            width: min(940px, 94vw);
-            max-height: 84vh;
+        .check-val {
+            color: var(--text);
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .check.warn .check-val { color: var(--warn); }
+        .check.bad .check-val { color: var(--bad); }
+
+        .summary {
             display: flex;
-            flex-direction: column;
-            padding: 0;
-            overflow: hidden;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 12.5px;
         }
 
-        .library-header {
+        .publish-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 24px 28px 18px;
-            border-bottom: 1px solid var(--border-color);
+            min-height: 24px;
+            margin-top: 8px;
+            font-size: 12px;
         }
 
-        .library-header h2 {
-            margin: 0;
+        .dirty {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--warn);
         }
 
-        .library-close {
-            flex: 0 0 auto;
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            border-radius: 50%;
-            background: #3b3b4f;
-            font-size: 20px;
-        }
-
-        .library-body {
-            overflow-y: auto;
-            padding: 22px 28px 28px;
-        }
-
-        .library-summary {
-            color: #aaa;
-            font-size: 13px;
-            margin-bottom: 16px;
-        }
-
-        .saved-theme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 16px;
-        }
-
-        .saved-theme-card {
-            overflow: hidden;
-            border-radius: 12px;
-            background: #1b1b25;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .saved-theme-card:hover {
-            transform: translateY(-3px);
-            border-color: #70708d;
-        }
-
-        .saved-theme-cover {
-            height: 120px;
-            background: #2a2a36 center / cover;
-            position: relative;
-        }
-
-        .saved-theme-cover::after {
+        .dirty::before {
             content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--warn);
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        /* ── Preview side ───────────────────────────────────────────────── */
+
+        .preview {
+            height: 100vh;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(1200px 640px at 50% 42%, #1d1d27, #101016 72%);
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .seg {
+            display: inline-flex;
+            padding: 3px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .seg button {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            height: 30px;
+            padding: 0 11px;
+            border: 0;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--muted);
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+
+        .seg button .material-icons-round {
+            font-size: 16px;
+        }
+
+        .seg button:hover {
+            color: var(--text);
+        }
+
+        .seg button.on {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text);
+        }
+
+        .seg-end {
+            margin-left: auto;
+        }
+
+        .check-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            height: 38px;
+            padding: 0 10px;
+            color: var(--muted);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .check-toggle input {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--accent);
+        }
+
+        .check-toggle.disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .stage {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        .stage.drag {
+            box-shadow: inset 0 0 0 2px var(--accent);
+        }
+
+        .device-slot {
+            position: relative;
+            flex: 0 0 auto;
+            margin: auto;
+        }
+
+        .stage-note {
+            padding: 10px 18px 14px;
+            color: var(--faint);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* ── Phone: the app's widgets, in the app's logical pixels ───────── */
+
+        .device {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 12px;
+            border-radius: calc(var(--screen-radius, 50px) + 12px);
+            background: #0a0a0d;
+            box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.6), 0 40px 90px rgba(0, 0, 0, 0.55);
+            transform-origin: 0 0;
+        }
+
+        .screen {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--screen-radius);
+            background: var(--p-bg);
+            -webkit-font-smoothing: antialiased;
+            user-select: none;
+        }
+
+        .screen [data-group],
+        .screen [data-theme-index] {
+            cursor: pointer;
+        }
+
+        .chat {
             position: absolute;
             inset: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.45));
+            display: flex;
+            flex-direction: column;
         }
 
-        .saved-theme-colors {
+        /* DecorationImage(fit: BoxFit.cover) over the palette background. */
+        .chat-bg {
             position: absolute;
-            right: 10px;
-            bottom: 10px;
+            inset: 0;
+            z-index: 0;
+            background-color: var(--p-bg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* ListView(reverse: true, padding: LTRB(8, top + 62 + 4, 8, 4)). */
+        .chat-list {
+            position: relative;
             z-index: 1;
+            flex: 1 1 auto;
+            min-height: 0;
+            display: flex;
+            flex-direction: column-reverse;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 0 8px;
+            scrollbar-width: none;
+        }
+
+        .chat-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .list-start {
+            flex: 0 0 auto;
+            height: calc(var(--inset-top) + 66px);
+        }
+
+        .list-end {
+            flex: 0 0 4px;
+        }
+
+        .item {
+            flex: 0 0 auto;
+        }
+
+        .row {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .row.me {
+            justify-content: flex-end;
+        }
+
+        .flexible {
+            flex: 0 1 auto;
+            min-width: 0;
             display: flex;
         }
 
-        .saved-theme-colors span {
-            width: 19px;
-            height: 19px;
-            border: 2px solid #fff;
+        /* CircleAvatar(radius: 12), padding right 6 bottom 8. */
+        .avatar-sm {
+            flex: 0 0 24px;
+            width: 24px;
+            height: 24px;
+            margin: 0 6px 8px 0;
+            display: grid;
+            place-items: center;
             border-radius: 50%;
-            margin-left: -5px;
+            background: var(--p-avatar-bg);
         }
 
-        .saved-theme-info {
-            padding: 14px;
+        .avatar-sm .material-icons {
+            color: var(--p-avatar-list);
+            font-size: 16px;
         }
 
-        .saved-theme-name {
-            overflow: hidden;
-            color: #fff;
+        .avatar-gap {
+            flex: 0 0 30px;
+        }
+
+        /* ChatBubble. */
+        .bubble {
+            min-width: 0;
+            max-width: var(--bubble-max);
+            margin-bottom: 1.2px;
+            padding: 6px 10px;
+        }
+
+        .bubble.me {
+            background: var(--t-sent);
+            color: var(--t-sent-text);
+        }
+
+        .bubble.them {
+            background: var(--t-recv);
+            box-shadow: var(--p-soft-shadow);
+            color: var(--t-recv-text);
+        }
+
+        .bubble.solo {
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
+
+        .b-body {
+            position: relative;
+            font-family: var(--msg-font);
             font-size: 15px;
+            font-weight: 500;
+            line-height: 1.21;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        .b-meta,
+        .meta-pill {
+            display: flex;
+            align-items: center;
+            color: var(--t-recv-meta);
+            font-family: var(--msg-font);
+            font-size: 10.5px;
+            font-weight: 600;
+            line-height: 1.21;
+            white-space: nowrap;
+        }
+
+        .b-meta {
+            position: absolute;
+            right: 0;
+            bottom: -3px;
+        }
+
+        .bubble.me .b-meta {
+            right: -6px;
+        }
+
+        .bubble.me .b-meta,
+        .bubble.me .meta-pill {
+            color: var(--t-sent-meta);
+        }
+
+        .tick {
+            width: 12px;
+            margin-left: 4px;
+            color: var(--t-sent-tick);
+            font-size: 12px;
+        }
+
+        .emoji-row {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .emoji {
+            min-width: 0;
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+            font-size: 44px;
+            line-height: 1.2;
+        }
+
+        .meta-pill {
+            margin: 0 0 3px 6px;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+
+        .bubble.me .meta-pill {
+            background: var(--t-sent);
+        }
+
+        .bubble.them .meta-pill {
+            background: var(--t-recv);
+            box-shadow: var(--p-soft-shadow);
+        }
+
+        /* A group member's name over their first bubble. */
+        .b-name {
+            min-width: 0;
+            padding-bottom: 2px;
+        }
+
+        .b-name span {
+            display: block;
+            overflow: hidden;
+            font: 600 12.5px/1.5 Poppins, sans-serif;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .b-name.solo {
+            padding-left: 4px;
+        }
+
+        .b-name.solo span {
+            display: inline-block;
+            max-width: 100%;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--t-recv);
+            vertical-align: top;
+        }
+
+        .divider {
+            display: flex;
+            justify-content: center;
+            margin: 12px 0 4px;
+        }
+
+        .divider span {
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: var(--p-divider-bg);
+            box-shadow: var(--p-soft-shadow);
+            color: var(--p-divider-text);
+            font: 500 12px/1.21 Inter, sans-serif;
+        }
+
+        /* ChatSystemNotice: no pill, straight on the background. */
+        .notice {
+            padding: 10px 40px;
+            color: var(--t-system);
+            font: 500 12px/1.35 Inter, sans-serif;
+            text-align: center;
+        }
+
+        .typing-bubble {
+            display: flex;
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 16px 16px 16px 4px;
+            background: var(--t-recv);
+            box-shadow: var(--p-soft-shadow);
+        }
+
+        .typing-bubble i {
+            display: block;
+            width: 5px;
+            height: 5px;
+            margin: 0 2.5px;
+            border-radius: 50%;
+            background: var(--t-dots);
+            animation: typing-dot 1.2s linear infinite;
+        }
+
+        .typing-bubble i:nth-child(2) { animation-delay: -0.396s; }
+        .typing-bubble i:nth-child(3) { animation-delay: -0.792s; }
+
+        @keyframes typing-dot {
+            0% { transform: scale(1.5); }
+            50%, 100% { transform: scale(1); }
+        }
+
+        /* Composer: transparent strip, box + send button. */
+        .composer {
+            position: relative;
+            z-index: 1;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 8px 8px calc(var(--inset-bottom) + 8px);
+        }
+
+        .composer-box {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+            padding: 9px 16px;
+            border-radius: 24px;
+            background: var(--t-input);
+            color: var(--t-input-hint);
+            font: 400 15px/1.5 Poppins, sans-serif;
+            white-space: nowrap;
+        }
+
+        .composer-send {
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            margin-left: 7px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--t-send);
+        }
+
+        .composer-send .material-icons-round {
+            color: #fff;
+            font-size: 20px;
+        }
+
+        /* GlassBar: blur 24 + tint at 50 %, dissolving below 62 % of the row. */
+        .glass {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 5;
+            height: calc(var(--inset-top) + 62px);
+        }
+
+        .glass-layer {
+            position: absolute;
+            inset: 0;
+            background: var(--t-bar);
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+            -webkit-mask-image: var(--glass-mask);
+            mask-image: var(--glass-mask);
+        }
+
+        .bar-row {
+            position: absolute;
+            top: var(--inset-top);
+            right: 0;
+            left: 0;
+            height: 46px;
+            display: flex;
+            align-items: center;
+        }
+
+        .bar-slot {
+            flex: 0 0 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bar-center {
+            flex: 1 1 auto;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hdr-avatar {
+            flex: 0 0 30px;
+            width: 30px;
+            height: 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--p-avatar-bg);
+        }
+
+        .hdr-avatar .material-icons-round {
+            color: var(--p-avatar-hdr);
+            font-size: 16.5px;
+        }
+
+        .hdr-text {
+            min-width: 0;
+            margin-left: 9px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hdr-title {
+            max-width: 100%;
+            overflow: hidden;
+            color: var(--t-bar-text);
+            font: 600 15px/1.2 Poppins, sans-serif;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .hdr-sub {
+            max-width: 100%;
+            overflow: hidden;
+            color: var(--t-bar-sub);
+            font: 500 11px/1.15 Poppins, sans-serif;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .hdr-sub.is-typing {
+            color: #ff3131;
+        }
+
+        /* LiquidGlassButton(size: 38), neutral recipe. */
+        .lg {
+            width: 38px;
+            height: 38px;
+            padding: 1px;
+            border-radius: 19px;
+            background: linear-gradient(to bottom, var(--lg-rim-top), var(--lg-rim-bottom));
+            box-shadow: var(--lg-shadow);
+        }
+
+        .lg-in {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            border-radius: 19px;
+            background: linear-gradient(to bottom, var(--lg-sheen), rgba(255, 255, 255, 0)), var(--lg-base);
+            -webkit-backdrop-filter: saturate(var(--lg-sat)) blur(10px);
+            backdrop-filter: saturate(var(--lg-sat)) blur(10px);
+        }
+
+        .hdr-back {
+            color: var(--t-bar-text);
+            font-size: 17px;
+        }
+
+        .burger {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .burger i {
+            display: block;
+            width: 17px;
+            height: 2px;
+            border-radius: 1px;
+            background: var(--t-bar-text);
+        }
+
+        .burger i + i {
+            margin-top: 4.5px;
+        }
+
+        /* Status bar and home indicator: the phone's, not the theme's. */
+        .sb {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 20;
+            height: var(--inset-top);
+            color: var(--p-status);
+            pointer-events: none;
+        }
+
+        .sb-time {
+            position: absolute;
+        }
+
+        .sb-icons {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sb-ios .sb-time {
+            top: 18px;
+            left: 0;
+            width: 33%;
+            font: 600 17px/22px -apple-system, "SF Pro Text", Inter, sans-serif;
+            letter-spacing: -0.3px;
+            text-align: center;
+        }
+
+        .sb-ios .sb-island {
+            position: absolute;
+            top: 11px;
+            left: 50%;
+            width: 125px;
+            height: 37px;
+            margin-left: -62.5px;
+            border-radius: 19px;
+            background: #000;
+        }
+
+        .sb-ios .sb-icons {
+            top: 22px;
+            right: 0;
+            width: 33%;
+            justify-content: center;
+        }
+
+        .sb-android .sb-time {
+            top: 0;
+            left: 22px;
+            font: 500 14px/40px Inter, sans-serif;
+        }
+
+        .sb-android .sb-punch {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            margin-left: -8px;
+            border-radius: 50%;
+            background: #000;
+        }
+
+        .sb-android .sb-icons {
+            top: 0;
+            right: 20px;
+            height: 100%;
+        }
+
+        .home-bar {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            z-index: 20;
+            width: 134px;
+            height: 5px;
+            margin-left: -67px;
+            border-radius: 3px;
+            background: var(--p-status);
+            pointer-events: none;
+        }
+
+        .screen[data-platform="android"] .home-bar {
+            bottom: 10px;
+            width: 108px;
+            height: 4px;
+            margin-left: -54px;
+            opacity: 0.85;
+        }
+
+        /* ChatThemeSelectionPage. */
+        .sel {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--p-bg);
+        }
+
+        .sel-bar {
+            flex: 0 0 auto;
+            padding-top: var(--inset-top);
+            background: var(--p-surface);
+        }
+
+        .sel-toolbar {
+            position: relative;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sel-back {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            color: var(--p-text);
+            font-size: 24px;
+        }
+
+        .sel-title {
+            color: var(--p-text);
+            font: 600 17px/1.5 Poppins, sans-serif;
+        }
+
+        .sel-grid {
+            flex: 1 1 auto;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-content: start;
+            gap: 16px 12px;
+            overflow-y: auto;
+            padding: 16px 16px calc(var(--inset-bottom) + 16px);
+            scrollbar-width: none;
+        }
+
+        .sel-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tile {
+            min-width: 0;
+            aspect-ratio: 1 / 1.35;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tile-img {
+            position: relative;
+            flex: 1 1 0;
+            width: 100%;
+            min-height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: var(--p-tile-ph);
+        }
+
+        .tile-img img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tile-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(0, 0, 0, 0.122);
+            border-radius: 12px;
+        }
+
+        .tile.on .tile-img::after {
+            border: 2px solid #ff3131;
+        }
+
+        .tile-label {
+            max-width: 100%;
+            margin-top: 8px;
+            overflow: hidden;
+            color: var(--p-tile-label);
+            font: 500 12px/1.5 Poppins, sans-serif;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .tile.on .tile-label {
+            color: var(--p-tile-on);
+            font-weight: 700;
+        }
+
+        /* ── Modals ─────────────────────────────────────────────────────── */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(6, 6, 10, 0.72);
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .sheet {
+            width: min(560px, 100%);
+            max-height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--line-strong);
+            border-radius: 16px;
+            background: var(--card);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .sheet-head {
+            padding: 18px 20px 12px;
+        }
+
+        .sheet-head h3 {
+            font: 600 17px/1.3 Poppins, sans-serif;
+        }
+
+        .sheet-head p {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 12.5px;
+        }
+
+        .sheet-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 14px 20px 18px;
+        }
+
+        .sheet-crop {
+            width: min(920px, 100%);
+            height: calc(100vh - 40px);
+        }
+
+        .crop-area {
+            flex: 1;
+            min-height: 0;
+            margin: 0 20px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #000;
+        }
+
+        .crop-area img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .crop-info {
+            margin-right: auto;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .crop-info.warn {
+            color: var(--warn);
+        }
+
+        .sheet-lib {
+            width: min(1000px, 100%);
+            height: min(760px, calc(100vh - 40px));
+        }
+
+        .lib-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .lib-head > div {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .lib-head h3 {
+            font: 600 17px/1.3 Poppins, sans-serif;
+        }
+
+        .lib-head p {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 12.5px;
+        }
+
+        .lib-head .text {
+            width: 220px;
+            height: 36px;
+        }
+
+        .lib-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            /* The cards clip their corners, which would let a fixed-height
+               grid squeeze the rows instead of scrolling. */
+            grid-auto-rows: max-content;
+            align-content: start;
+            gap: 14px;
+            overflow-y: auto;
+            padding: 18px 20px 22px;
+        }
+
+        .lib-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #15151c;
+            transition: border-color 0.15s, transform 0.15s;
+        }
+
+        .lib-card:hover {
+            border-color: var(--line-strong);
+            transform: translateY(-2px);
+        }
+
+        .lib-card.editing {
+            border-color: rgba(255, 49, 49, 0.6);
+        }
+
+        .lib-cover {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 136px;
+            overflow: hidden;
+            padding: 0;
+            border: 0;
+            background: #22222d;
+        }
+
+        .lib-cover img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lib-swatches {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            display: flex;
+        }
+
+        .lib-swatches i {
+            width: 18px;
+            height: 18px;
+            margin-right: -5px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .lib-flag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .lib-info {
+            padding: 10px 12px 12px;
+        }
+
+        .lib-name {
+            overflow: hidden;
+            font-size: 13.5px;
             font-weight: 600;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .saved-theme-actions {
+        .lib-actions {
             display: flex;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 6px;
+            margin-top: 8px;
         }
 
-        .saved-theme-actions button {
-            padding: 8px 6px;
-            font-size: 11px;
+        .lib-actions .btn {
+            flex: 1;
         }
 
-        .btn-danger {
-            flex: 0 0 36px !important;
-            padding: 8px !important;
-            color: #ff9d9d;
-            background: rgba(255, 49, 49, 0.14);
-        }
-
-        .library-empty {
-            padding: 42px 20px;
-            color: #aaa;
+        .lib-empty {
+            grid-column: 1 / -1;
+            padding: 40px 0;
+            color: var(--muted);
             text-align: center;
         }
 
-        /* Builder workspace (the phone preview intentionally keeps its own design). */
-        body {
+        .json-text {
+            height: 300px;
+            margin: 0 20px;
+            padding: 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: #111117;
+            color: var(--text);
+            font: 12.5px/1.5 ui-monospace, Consolas, monospace;
+            outline: none;
+            resize: vertical;
+        }
+
+        .confirm-body {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-            background:
-                radial-gradient(circle at 8% 8%, rgba(255, 49, 49, 0.12), transparent 23rem),
-                #17171f;
-        }
-
-        .left-panel {
-            width: auto;
-            padding: 30px;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(19, 19, 26, 0.92);
-        }
-
-        .builder-eyebrow {
-            margin-bottom: 6px;
-            color: #ff7777;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-        }
-
-        .left-panel h1 {
-            margin-bottom: 6px;
-            font-size: 27px;
-            letter-spacing: -0.04em;
-        }
-
-        .builder-subtitle {
-            margin-bottom: 22px;
-            color: #9d9dad;
+            gap: 10px;
+            padding: 0 20px;
+            color: var(--muted);
             font-size: 13px;
-            line-height: 1.55;
         }
 
-        #themeForm {
-            padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            background: rgba(38, 38, 49, 0.48);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+        .confirm-body strong {
+            color: var(--text);
         }
 
-        #themeForm .form-group {
-            margin-bottom: 16px;
+        .issues {
+            display: grid;
+            gap: 5px;
+            padding: 10px 12px;
+            border: 1px solid rgba(244, 183, 64, 0.25);
+            border-radius: 10px;
+            background: rgba(244, 183, 64, 0.08);
+            list-style: none;
         }
 
-        #themeForm .form-group > label {
-            color: #c8c8d1;
+        .issues li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-size: 12.5px;
         }
 
-        .color-row {
-            padding: 8px 12px;
-            margin-bottom: 8px;
-            border-color: rgba(255, 255, 255, 0.06);
-            background: rgba(25, 25, 34, 0.64);
+        .toasts {
+            position: fixed;
+            bottom: 22px;
+            left: 50%;
+            z-index: 200;
+            display: grid;
+            justify-items: center;
+            gap: 8px;
+            transform: translateX(-50%);
+            pointer-events: none;
         }
 
-        .color-row:hover {
-            border-color: rgba(255, 255, 255, 0.16);
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: min(560px, calc(100vw - 32px));
+            padding: 11px 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: #262631;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+            font-size: 13px;
+            pointer-events: auto;
+            animation: toast-in 0.2s ease;
         }
 
-        .color-hint {
-            margin: -2px 4px 10px;
-            color: #8d8d9c;
-            font-size: 11px;
-            line-height: 1.45;
+        .toast::before {
+            content: '';
+            flex: 0 0 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--muted);
         }
 
-        .actions {
-            margin-top: 16px;
+        .toast.success::before { background: var(--ok); }
+        .toast.warn::before { background: var(--warn); }
+        .toast.error::before { background: var(--bad); }
+
+        .toast button {
+            flex: 0 0 auto;
+            border: 0;
+            background: none;
+            color: #ff8a8a;
+            font-weight: 700;
         }
 
-        .btn-primary {
-            box-shadow: 0 8px 18px rgba(255, 49, 49, 0.22);
+        .toast.out {
+            opacity: 0;
+            transform: translateY(6px);
+            transition: 0.2s;
         }
 
-        .right-panel {
-            background:
-                radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.035), transparent 29rem),
-                #1e1e28;
+        @keyframes toast-in {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
         }
 
-        @media (max-width: 840px) {
+        @media (max-width: 980px) {
             body {
+                display: block;
                 height: auto;
-                min-height: 100vh;
                 overflow: auto;
-                display: flex;
-                flex-direction: column;
             }
 
-            .left-panel {
-                flex: none;
+            .editor {
+                height: auto;
                 border-right: 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                border-bottom: 1px solid var(--line);
             }
 
-            .right-panel {
-                min-height: 760px;
+            .preview {
+                height: 100vh;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="left-panel">
-        <p class="builder-eyebrow">FEAST THEME STUDIO</p>
-        <h1>Feast Chat Theme Builder</h1>
-        <p class="builder-subtitle">Renkleri ve görselleri ayarlayın, ardından temanızı tek adımda yayınlayın.</p>
-        <button class="btn-secondary library-trigger" onclick="openThemeLibrary()">
-            <span class="material-icons-round">collections_bookmark</span>
-            Kayıtlı Temalar
-        </button>
-
-        <div class="editing-notice" id="editingNotice">
-            <span id="editingThemeLabel">Tema düzenleniyor</span>
-            <button class="btn-secondary" onclick="startNewTheme()">Yeni tema</button>
+    <aside class="editor">
+        <div class="brand">
+            <div class="brand-mark">F</div>
+            <div>
+                <p class="eyebrow">Feast · Tema stüdyosu</p>
+                <h1>Sohbet teması</h1>
+            </div>
         </div>
-        
-        <form id="themeForm">
-            <div class="form-group">
-                <label>Theme Name</label>
-                <input type="text" id="themeName" value="Custom Theme">
-                <p class="field-error" id="themeNameError">Bu isimde kayıtlı bir tema zaten var.</p>
-            </div>
 
-            <div class="form-group">
-                <label>Background Image (20:9 Chat Screen) <span id="bgStatus" class="status-badge">No image</span></label>
-                <div class="file-picker">
-                    <label class="file-picker-button" for="bgFile">
-                        <span class="material-icons-round">add_photo_alternate</span>
-                        Görsel seç
-                    </label>
-                    <img class="file-thumbnail" id="bgFileThumbnail" alt="Kırpılmış arka plan önizlemesi">
-                    <span class="file-selection" id="bgFileName">Henüz görsel seçilmedi</span>
-                    <input class="file-input-native" type="file" id="bgFile" accept="image/*">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Preview Image (1:1 Thumbnail) <span id="prewStatus" class="status-badge">No image</span></label>
-                <div class="file-picker">
-                    <label class="file-picker-button" for="prewFile">
-                        <span class="material-icons-round">image</span>
-                        Görsel seç
-                    </label>
-                    <img class="file-thumbnail" id="prewFileThumbnail" alt="Kırpılmış önizleme görseli">
-                    <span class="file-selection" id="prewFileName">Henüz görsel seçilmedi</span>
-                    <input class="file-input-native" type="file" id="prewFile" accept="image/*">
-                </div>
-            </div>
-
-            <div class="color-row">
-                <span>Sent Bubble Color</span>
-                <input type="color" id="sentBubbleColor" value="#ff3131">
-            </div>
-            
-            <div class="color-row">
-                <span>Sent Text Color</span>
-                <input type="color" id="sentTextColor" value="#ffffff">
-            </div>
-
-            <div class="color-row">
-                <span>Received Bubble Color</span>
-                <input type="color" id="receivedBubbleColor" value="#f2f2f7">
-            </div>
-            
-            <div class="color-row">
-                <span>Received Text Color</span>
-                <input type="color" id="receivedTextColor" value="#000000">
-            </div>
-
-            <div class="color-row">
-                <span>App Bar Color</span>
-                <input type="color" id="appBarColor" value="#ffffff">
-            </div>
-            
-            <div class="color-row">
-                <span>App Bar Text Color</span>
-                <input type="color" id="appBarTextColor" value="#000000">
-            </div>
-            
-            <div class="color-row">
-                <span>Input Box Color</span>
-                <input type="color" id="inputBoxColor" value="#ffffff">
-            </div>
-            
-            <div class="color-row">
-                <span>Input Text Color</span>
-                <input type="color" id="inputTextColor" value="#000000">
-            </div>
-            
-            <div class="color-row">
-                <span>Send Button Color</span>
-                <input type="color" id="sendButtonColor" value="#ff3131">
-            </div>
-
-            <div class="color-row">
-                <span>System Text Color</span>
-                <input type="color" id="systemTextColor" value="#000000">
-            </div>
-            <p class="color-hint">Sohbetteki bilgi satırları (“X sohbet temasını Y olarak değiştirdi”, “X gruba katıldı”). Arka plan görselinin doğrudan üstüne çizilir; görselin üstünde okunacak bir renk seçin.</p>
-        </form>
-
-        <div class="actions">
-            <button class="btn-secondary" onclick="exportJSON()">Export JSON</button>
-            <button class="btn-secondary" onclick="importJSON()">Import JSON</button>
+        <div class="top-actions">
+            <button class="btn" id="btnLibrary" type="button">
+                <span class="material-icons-round">collections_bookmark</span>
+                Kayıtlı temalar <span class="pill" id="themeCount">–</span>
+            </button>
+            <button class="btn" id="btnNew" type="button">
+                <span class="material-icons-round">add</span>
+                Yeni tema
+            </button>
         </div>
-        <div class="actions" style="margin-top: 12px;">
-            <button class="btn-primary" id="publishButton" onclick="publishTheme()">Publish Theme</button>
-        </div>
-    </div>
 
-    <div class="right-panel">
-        
-        <div class="view-toggle">
-            <button id="btnChatView" class="active" onclick="setView('chat')">Chat View</button>
-            <button id="btnSelectionView" onclick="setView('selection')">Selection View</button>
+        <div class="banner" id="editBanner" hidden>
+            <span class="material-icons-round">edit_note</span>
+            <div>
+                <strong id="editTitle"></strong>
+                Yayınlanan değişiklikler, temayı bundan sonra seçenlerde görünür. Temayı önceden seçmiş sohbetler, tema yeniden seçilene kadar eski hâlini kullanır.
+            </div>
         </div>
-    
-        <div class="phone" id="phoneChat">
-            <div class="app-bar">
-                <div class="app-bar-content">
-                    <div class="app-bar-left">
-                        <span class="material-icons-round">arrow_back_ios_new</span>
-                        <div class="avatar">
-                            <span class="material-icons-round">person</span>
-                        </div>
-                        <span class="username">feastbabapro</span>
-                    </div>
-                    <div class="app-bar-right">
-                        <span class="material-icons-round">palette</span>
-                        <span class="material-icons-round">more_vert</span>
+
+        <section class="card">
+            <h2>Tema</h2>
+            <label class="label" for="themeName">Tema adı</label>
+            <input class="text" id="themeName" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="Örn. Şeker">
+            <p class="note" id="nameNote" hidden></p>
+
+            <div class="image-field" id="bgField">
+                <button class="thumb thumb-bg" id="bgThumb" type="button" title="Görsel seç"></button>
+                <div class="image-body">
+                    <div class="image-title">Arka plan görseli</div>
+                    <div class="image-status" id="bgStatus"></div>
+                    <div class="image-actions">
+                        <button class="btn btn-sm" id="bgPick" type="button">Görsel seç</button>
+                        <button class="btn btn-sm btn-ghost" id="bgRecrop" type="button" hidden>Yeniden kırp</button>
                     </div>
                 </div>
+                <input type="file" id="bgFile" accept="image/*" hidden>
             </div>
-            
-            <div class="chat-body" id="chatBody">
-                <div class="system-line">feastbabapro sohbet temasını <span id="systemLineTheme">Custom Theme</span> olarak değiştirdi</div>
-                <div class="message msg-received">
-                    Hey! How are you doing? 
-                    <span class="time" id="time1" style="margin-left: 12px;">10:00</span>
-                </div>
-                <div class="message msg-sent">
-                    I'm doing great, thanks for asking! Just trying out this new chat theme builder.
-                    <span class="time" id="time2" style="margin-left: 12px;">10:02</span>
-                </div>
-                
-                <div class="chat-input-area">
-                    <div class="chat-input-box">
-                        Write a message...
+            <p class="hint">Sohbet ekranının tamamını kaplar ve 9:20 oranında kırpılır (1080×2400). Telefonun oranına göre üstten ve alttan biraz kesilebilir. Görseli buraya ya da telefona sürükleyebilirsiniz.</p>
+
+            <div class="image-field" id="prewField">
+                <button class="thumb thumb-sq" id="prewThumb" type="button" title="Arka plandan seç"></button>
+                <div class="image-body">
+                    <div class="image-title">Liste görseli</div>
+                    <div class="image-status" id="prewStatus"></div>
+                    <div class="image-actions">
+                        <button class="btn btn-sm" id="prewFromBg" type="button">Arka plandan seç</button>
+                        <button class="btn btn-sm btn-ghost" id="prewPick" type="button">Başka görsel</button>
                     </div>
-                    <div class="chat-send-btn">
-                        <span class="material-icons-round">send</span>
-                    </div>
+                </div>
+                <input type="file" id="prewFile" accept="image/*" hidden>
+            </div>
+            <p class="hint">Tema seçme ekranındaki kare. Arka plandaki bir detayı seçmeniz önerilir; seçmezseniz arka planın ortasından otomatik oluşturulur.</p>
+        </section>
+
+        <section class="card">
+            <div class="card-head">
+                <h2>Renkler</h2>
+                <span class="legend"><i class="dot ok"></i>4,5:1+ <i class="dot warn"></i>3–4,5 <i class="dot bad"></i>3 altı</span>
+            </div>
+            <p class="card-desc">Önizlemede bir öğeye tıklayınca rengi burada açılır. Oranlar yazının zeminine karşı kontrastıdır; 4,5:1 ve üstü rahat okunur.</p>
+            <div id="colorGroups"></div>
+        </section>
+
+        <section class="card">
+            <div class="summary" id="summary"></div>
+            <button class="btn btn-primary btn-block" id="btnPublish" type="button">Yayınla</button>
+            <div class="publish-meta">
+                <span class="dirty" id="dirtyNote" hidden>Kaydedilmemiş değişiklikler</span>
+                <button class="link" id="btnRevert" type="button" hidden>Değişiklikleri geri al</button>
+            </div>
+            <div class="split">
+                <button class="btn btn-ghost" id="btnExport" type="button">
+                    <span class="material-icons-round">data_object</span>
+                    JSON'u göster
+                </button>
+                <button class="btn btn-ghost" id="btnImport" type="button">
+                    <span class="material-icons-round">content_paste</span>
+                    JSON'dan al
+                </button>
+            </div>
+        </section>
+    </aside>
+
+    <main class="preview">
+        <div class="toolbar">
+            <div class="seg" data-seg="view">
+                <button type="button" data-value="chat">Sohbet</button>
+                <button type="button" data-value="group">Grup</button>
+                <button type="button" data-value="select">Tema listesi</button>
+            </div>
+            <div class="seg" data-seg="mode">
+                <button type="button" data-value="light"><span class="material-icons-round">light_mode</span>Açık</button>
+                <button type="button" data-value="dark"><span class="material-icons-round">dark_mode</span>Koyu</button>
+            </div>
+            <div class="seg" data-seg="device">
+                <button type="button" data-value="ios">iPhone</button>
+                <button type="button" data-value="android">Android</button>
+            </div>
+            <label class="check-toggle" id="typingLabel"><input type="checkbox" id="typingToggle">Yazıyor…</label>
+            <div class="seg seg-end" data-seg="zoom">
+                <button type="button" data-value="fit">Sığdır</button>
+                <button type="button" data-value="1">%100</button>
+            </div>
+        </div>
+        <div class="stage" id="stage">
+            <div class="device-slot" id="deviceSlot">
+                <div class="device" id="device">
+                    <div class="screen" id="screen"></div>
                 </div>
             </div>
         </div>
-        
-        <div class="phone" id="phoneSelection" style="display: none;">
-            <div class="app-bar" style="background-color: #1e1e28; color: #fff;">
-                <div class="app-bar-content" style="justify-content: center;">
-                    <span style="font-size: 4.2cqi; font-weight: 600;">Sohbet Teması</span>
-                </div>
+        <p class="stage-note" id="stageNote"></p>
+    </main>
+
+    <div class="modal" id="cropModal" role="dialog" aria-modal="true" aria-labelledby="cropTitle">
+        <div class="sheet sheet-crop">
+            <div class="sheet-head">
+                <h3 id="cropTitle">Görseli kırp</h3>
+                <p id="cropHint"></p>
             </div>
-            <div class="selection-body">
-                <div class="theme-grid" id="selectionThemeGrid"></div>
+            <div class="crop-area"><img id="cropImage" alt=""></div>
+            <div class="sheet-actions">
+                <span class="crop-info" id="cropInfo"></span>
+                <button class="btn btn-ghost" id="cropCancel" type="button">Vazgeç</button>
+                <button class="btn btn-primary" id="cropOk" type="button">Kırp ve kullan</button>
             </div>
         </div>
     </div>
 
-    <!-- JSON Modal -->
-    <div class="modal" id="jsonModal">
-        <div class="modal-content">
-            <h2 id="modalTitle">Export JSON</h2>
-            <textarea id="jsonArea"></textarea>
-            <div class="modal-actions">
-                <button class="btn-secondary" onclick="closeJsonModal()">Close</button>
-                <button class="btn-primary" id="modalActionBtn" onclick="copyJSON()">Copy to Clipboard</button>
+    <div class="modal" id="libraryModal" role="dialog" aria-modal="true" aria-labelledby="libTitle">
+        <div class="sheet sheet-lib">
+            <div class="lib-head">
+                <div>
+                    <h3 id="libTitle">Kayıtlı temalar</h3>
+                    <p id="libSummary"></p>
+                </div>
+                <input class="text" id="libSearch" type="search" placeholder="Tema ara" autocomplete="off">
+                <button class="icon-btn" type="button" data-close title="Kapat"><span class="material-icons-round">close</span></button>
             </div>
+            <div class="lib-grid" id="libGrid"></div>
         </div>
     </div>
-    
-    <!-- Cropper Modal -->
-    <div class="modal" id="cropperModal">
-        <div class="modal-content cropper-modal-content">
-            <h2 id="cropperTitle">Crop Image</h2>
-            <div class="cropper-container-wrapper">
-                <img id="cropperImage" src="" alt="Picture">
+
+    <div class="modal" id="jsonModal" role="dialog" aria-modal="true" aria-labelledby="jsonTitle">
+        <div class="sheet">
+            <div class="sheet-head">
+                <h3 id="jsonTitle"></h3>
+                <p id="jsonHint"></p>
             </div>
-            <div class="modal-actions">
-                <button class="btn-secondary" onclick="closeCropperModal()">Cancel</button>
-                <button class="btn-primary" onclick="saveCrop()">Crop & Save</button>
+            <textarea class="json-text" id="jsonText" spellcheck="false"></textarea>
+            <div class="sheet-actions">
+                <button class="btn btn-ghost" type="button" data-close>Kapat</button>
+                <button class="btn btn-primary" id="jsonAction" type="button"></button>
             </div>
         </div>
     </div>
 
-    <!-- Saved Themes Modal -->
-    <div class="modal" id="themeLibraryModal">
-        <div class="modal-content theme-library-content">
-            <div class="library-header">
-                <h2>Kayıtlı Temalar</h2>
-                <button class="library-close" onclick="closeThemeLibrary()" aria-label="Kapat">&times;</button>
+    <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+        <div class="sheet">
+            <div class="sheet-head">
+                <h3 id="confirmTitle"></h3>
             </div>
-            <div class="library-body">
-                <p class="library-summary" id="librarySummary">Temalar yükleniyor...</p>
-                <div class="saved-theme-grid" id="savedThemeGrid"></div>
+            <div class="confirm-body" id="confirmBody"></div>
+            <div class="sheet-actions">
+                <button class="btn btn-ghost" id="confirmCancel" type="button">Vazgeç</button>
+                <button class="btn btn-primary" id="confirmOk" type="button">Tamam</button>
             </div>
         </div>
     </div>
+
+    <div class="toasts" id="toasts"></div>
 
     <script>
-        const root = document.documentElement;
-        
-        // Inputs
-        const inputs = {
-            themeName: document.getElementById('themeName'),
-            sentBubbleColor: document.getElementById('sentBubbleColor'),
-            sentTextColor: document.getElementById('sentTextColor'),
-            receivedBubbleColor: document.getElementById('receivedBubbleColor'),
-            receivedTextColor: document.getElementById('receivedTextColor'),
-            appBarColor: document.getElementById('appBarColor'),
-            appBarTextColor: document.getElementById('appBarTextColor'),
-            inputBoxColor: document.getElementById('inputBoxColor'),
-            inputTextColor: document.getElementById('inputTextColor'),
-            sendButtonColor: document.getElementById('sendButtonColor'),
-            systemTextColor: document.getElementById('systemTextColor'),
-            bgFile: document.getElementById('bgFile'),
-            prewFile: document.getElementById('prewFile')
+        'use strict';
+
+        /* ── What the app draws ───────────────────────────────────────────
+           The phone preview is the Flutter chat, drawn in the app's own
+           logical pixels. Every number below comes from the feast app:
+             core/config/app_palette.dart          palette, light and dark
+             core/widgets/glass_bar.dart           the header's glass
+             core/widgets/liquid_glass.dart        back / menu buttons
+             messaging/.../chat_header.dart        header layout
+             messaging/.../chat_message_parts.dart bubbles, notices, typing
+             messaging/.../message_with_user_page.dart  list and composer
+             messaging/.../chat_theme_selection_page.dart  the theme grid
+           Change them together with the app. */
+
+        const PUBLIC_BG = 'https://mobile-version.feast.tr/bg/';
+
+        const COLOR_KEYS = [
+            'sentBubbleColor', 'receivedBubbleColor', 'sentTextColor', 'receivedTextColor',
+            'appBarColor', 'appBarTextColor', 'inputBoxColor', 'inputTextColor',
+            'sendButtonColor', 'systemTextColor',
+        ];
+
+        const DEFAULT_COLORS = {
+            sentBubbleColor: '#ff3131',
+            receivedBubbleColor: '#f2f2f7',
+            sentTextColor: '#ffffff',
+            receivedTextColor: '#000000',
+            appBarColor: '#ffffff',
+            appBarTextColor: '#000000',
+            inputBoxColor: '#ffffff',
+            inputTextColor: '#000000',
+            sendButtonColor: '#ff3131',
+            systemTextColor: '#000000',
         };
-        
-        const chatBody = document.getElementById('chatBody');
-        
-        let cropper = null;
-        let currentCropperType = null; // 'bg' or 'prew'
-        let pendingFileName = '';
-        
-        // Store cropped blobs
-        let croppedBgBlob = null;
-        let croppedPrewBlob = null;
-        let editingThemeIndex = null;
-        let savedThemes = [];
 
-        const themeLibraryModal = document.getElementById('themeLibraryModal');
-        const savedThemeGrid = document.getElementById('savedThemeGrid');
-        const librarySummary = document.getElementById('librarySummary');
-        const editingNotice = document.getElementById('editingNotice');
-        const editingThemeLabel = document.getElementById('editingThemeLabel');
-        const publishButton = document.getElementById('publishButton');
+        const GROUPS = [
+            {
+                id: 'bar',
+                title: 'Üst çubuk',
+                desc: 'Buzlu cam gibi çizilir: renk %50 saydamdır ve arka plan görseli bulanık olarak altından görünür. Geri ve menü düğmelerinin camı uygulamanındır; temadan yalnızca ikon rengi gelir.',
+                fields: [['appBarColor', 'Cam rengi'], ['appBarTextColor', 'Yazı ve ikonlar']],
+            },
+            {
+                id: 'sent',
+                title: 'Gönderilen mesajlar',
+                desc: 'Saat ve tik, yazı renginin soluk hâlidir.',
+                fields: [['sentBubbleColor', 'Baloncuk'], ['sentTextColor', 'Yazı']],
+            },
+            {
+                id: 'received',
+                title: 'Gelen mesajlar',
+                desc: 'Yazı rengi "yazıyor" noktalarında da kullanılır. Grup sohbetindeki üye adlarını uygulama bu baloncukta okunacak kadar açıp koyulaştırır.',
+                fields: [['receivedBubbleColor', 'Baloncuk'], ['receivedTextColor', 'Yazı']],
+            },
+            {
+                id: 'input',
+                title: 'Yazma alanı',
+                desc: '"Mesaj yaz..." ipucu, yazı renginin %50 saydam hâlidir. Gönder düğmesinin ikonu her zaman beyazdır.',
+                fields: [['inputBoxColor', 'Kutu'], ['inputTextColor', 'Yazı'], ['sendButtonColor', 'Gönder düğmesi']],
+            },
+            {
+                id: 'system',
+                title: 'Bilgi satırları',
+                desc: '"X sohbet temasını Y olarak değiştirdi", "X gruba katıldı" gibi satırlar. Zeminsiz, doğrudan arka plan görselinin üstüne çizilir.',
+                fields: [['systemTextColor', 'Yazı']],
+            },
+        ];
 
-        function setFileSelection(type, text, selected = false) {
-            const fileName = document.getElementById(type === 'bg' ? 'bgFileName' : 'prewFileName');
-            fileName.textContent = text;
-            fileName.classList.toggle('selected', selected);
+        const FIELD_NAMES = {};
+        for (const group of GROUPS) {
+            for (const [key, label] of group.fields) FIELD_NAMES[key] = `${group.title} · ${label}`;
         }
 
-        function setFileThumbnail(type, imageUrl) {
-            const thumbnail = document.getElementById(type === 'bg' ? 'bgFileThumbnail' : 'prewFileThumbnail');
-            thumbnail.src = imageUrl || '';
-            thumbnail.classList.toggle('visible', Boolean(imageUrl));
+        const DEVICES = {
+            ios: {
+                name: 'iPhone', w: 393, h: 852, top: 59, bottom: 34, radius: 55,
+                // Messages are '.SF Pro Text' on iOS; a browser off a Mac shows Inter.
+                msgFont: '-apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, sans-serif',
+            },
+            android: {
+                name: 'Android', w: 412, h: 915, top: 40, bottom: 24, radius: 34,
+                msgFont: 'Inter, sans-serif',
+            },
+        };
+        const BEZEL = 12;
+        // Narrowest phone the grid label check assumes (common Android width).
+        const NARROW_PHONE = 360;
+
+        // AppPalette plus the fallbacks the chat widgets use in each mode.
+        // Flutter's BoxShadow blurRadius r is CSS blur 2 × (0.57735 r + 0.5).
+        const PALETTE = {
+            light: {
+                '--p-bg': '#FFFFFF',
+                '--p-surface': '#FFFFFF',
+                '--p-text': '#14141A',
+                '--p-avatar-bg': 'rgba(0, 0, 0, 0.122)',
+                '--p-avatar-hdr': 'rgba(0, 0, 0, 0.38)',
+                '--p-avatar-list': 'rgba(0, 0, 0, 0.541)',
+                '--p-divider-bg': 'rgba(255, 255, 255, 0.8)',
+                '--p-divider-text': 'rgba(0, 0, 0, 0.541)',
+                '--p-soft-shadow': '0 2px 5.62px rgba(0, 0, 0, 0.05)',
+                '--p-status': '#000000',
+                '--p-tile-ph': 'rgba(0, 0, 0, 0.122)',
+                '--p-tile-label': 'rgba(0, 0, 0, 0.867)',
+                '--p-tile-on': '#000000',
+                '--lg-rim-top': 'rgba(255, 255, 255, 0.85)',
+                '--lg-rim-bottom': 'rgba(255, 255, 255, 0.36)',
+                '--lg-shadow': '0 4px 14.86px rgba(0, 0, 0, 0.10), 0 1px 4.46px rgba(0, 0, 0, 0.05)',
+                '--lg-sat': '1.08',
+                '--lg-base': 'rgba(255, 255, 255, 0.46)',
+                '--lg-sheen': 'rgba(255, 255, 255, 0.28)',
+            },
+            dark: {
+                '--p-bg': '#13131A',
+                '--p-surface': '#1E1E28',
+                '--p-text': '#F0F0F4',
+                '--p-avatar-bg': 'rgba(255, 255, 255, 0.122)',
+                '--p-avatar-hdr': 'rgba(255, 255, 255, 0.541)',
+                '--p-avatar-list': 'rgba(255, 255, 255, 0.541)',
+                '--p-divider-bg': 'rgba(42, 42, 54, 0.8)',
+                '--p-divider-text': 'rgba(255, 255, 255, 0.702)',
+                '--p-soft-shadow': 'none',
+                '--p-status': '#FFFFFF',
+                '--p-tile-ph': '#2A2A36',
+                '--p-tile-label': 'rgba(255, 255, 255, 0.702)',
+                '--p-tile-on': '#FFFFFF',
+                '--lg-rim-top': 'rgba(255, 255, 255, 0.30)',
+                '--lg-rim-bottom': 'rgba(255, 255, 255, 0.08)',
+                '--lg-shadow': '0 4px 14.86px rgba(0, 0, 0, 0.26), 0 1px 4.46px rgba(0, 0, 0, 0.16)',
+                '--lg-sat': '1.12',
+                '--lg-base': 'rgba(28, 28, 38, 0.46)',
+                '--lg-sheen': 'rgba(255, 255, 255, 0.07)',
+            },
+        };
+
+        // The default theme's tile (ChatTheme.defaultFor(...).color1).
+        const DEFAULT_TILE = { light: '#F2F2F7', dark: '#13131A' };
+
+        // Sample conversations, oldest first. `day` puts a date divider over
+        // the message, `system` makes it a centred line.
+        const DIRECT = {
+            title: 'feastbabapro',
+            messages: [
+                { day: 'Dün', from: 'them', text: 'Selam! 👋', time: '21:05' },
+                { from: 'them', text: 'Hafta sonu ne yapıyorsun?', time: '21:08' },
+                { from: 'me', text: 'Henüz bir plan yok, sen?', time: '21:10' },
+                { from: 'them', text: 'Brunch yapalım diyorum 🥞', time: '21:11' },
+                { from: 'me', text: 'Olur, bir yer bakarım', time: '21:12' },
+                { from: 'them', text: 'Geçen hafta gittiğimiz balıkçının adı neydi?', time: '21:14' },
+                { from: 'me', text: "Kıyı Balık, Moda'da 🐟", time: '21:16' },
+                { from: 'them', text: 'Teşekkürler 🙏', time: '21:17' },
+                { day: 'Bugün', from: 'them', text: 'Akşam için bir yer buldun mu? 🍽️', time: '18:02' },
+                { from: 'them', text: 'Kadıköy tarafı olursa iyi olur', time: '18:02' },
+                { from: 'me', text: "Moda'da yeni açılan bir meyhane var, menüsü çok iyi görünüyor", time: '18:05' },
+                { from: 'me', text: 'Rezervasyon yapayım mı?', time: '18:05' },
+                { system: 'theme', by: 'them' },
+                { from: 'them', text: 'Bu tema çok tatlı olmuş 😍', time: '18:07' },
+                { from: 'them', text: '20:00 gibi olur mu?', time: '18:07' },
+                { from: 'me', text: 'Tamamdır, iki kişilik ayarladım 👍', time: '18:09' },
+                { from: 'me', emoji: '😋', time: '18:09' },
+            ],
+        };
+
+        // Name colours are from the app's sender palette (groupSenderColor).
+        const MEMBERS = {
+            ayse: { username: 'ayse', color: '#4F8EF7' },
+            mehmet: { username: 'mehmet', color: '#F08A24' },
+            zeynep: { username: 'zeynep', color: '#B45FD3' },
+        };
+
+        const GROUP = {
+            title: 'Cuma akşamı 🍕',
+            subtitle: '4 üye',
+            typing: 'ayse yazıyor…',
+            messages: [
+                { day: 'Dün', system: 'text', text: 'mehmet, "Cuma akşamı 🍕" grubunu oluşturdu' },
+                { system: 'text', text: 'mehmet, zeynep adlı kişiyi ekledi' },
+                { from: 'zeynep', text: 'Selam herkese 👋', time: '20:39' },
+                { from: 'mehmet', text: 'Cuma akşamı için bir yer bakalım mı?', time: '20:41' },
+                { from: 'me', text: 'Bence iyi fikir', time: '20:42' },
+                { from: 'ayse', text: "Karaköy'deki pizzacıyı denemek istiyorum 🍕", time: '20:44' },
+                { from: 'ayse', text: 'Fiyatları da uygun', time: '20:44' },
+                { day: 'Bugün', from: 'me', text: 'Ben varım, 8 gibi buluşalım mı?', time: '12:15' },
+                { from: 'mehmet', text: 'Olur 👍', time: '12:18' },
+                { system: 'theme', by: 'zeynep' },
+                { from: 'zeynep', text: 'Yeni tema nasıl? 😄', time: '12:20' },
+                { from: 'mehmet', emoji: '🔥', time: '12:21' },
+                { from: 'me', text: 'Çok güzel olmuş 👏', time: '12:22' },
+                { from: 'me', text: 'Masayı ayırttım, görüşürüz!', time: '12:22' },
+            ],
+        };
+
+        const PREFS_KEY = 'feast.themeStudio.preview.v1';
+        const EYEDROPPER = 'EyeDropper' in window;
+        const WHITE = [255, 255, 255];
+        const BLACK = [0, 0, 0];
+
+        const state = {
+            view: 'chat',
+            mode: 'light',
+            device: 'ios',
+            typing: false,
+            zoom: 'fit',
+            name: '',
+            colors: { ...DEFAULT_COLORS },
+            // { url, blob, src, remote, source, label, auto }
+            bg: null,
+            prew: null,
+            editingIndex: null,
+            editingName: null,
+            themes: [],
+            saved: '',
+            busy: false,
+        };
+
+        const $ = id => document.getElementById(id);
+        const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+        const esc = value => String(value).replace(/[&<>"']/g, ch => ESCAPES[ch]);
+
+        function localUrl(url) {
+            // The builder serves the repository's own bg/ folder: same origin,
+            // so the picture can also be measured, and it works offline.
+            return url && url.startsWith(PUBLIC_BG) ? '/bg/' + url.slice(PUBLIC_BG.length) : url;
         }
 
-        function themeValue(theme, key, fallback) {
-            return theme[key] || fallback;
+        function cssUrl(src) {
+            return `url("${String(src).replace(/["\\\n]/g, '\\$&')}")`;
         }
 
-        function applyThemeToEditor(theme) {
-            inputs.themeName.value = themeValue(theme, 'name', 'Custom Theme');
-            inputs.sentBubbleColor.value = themeValue(theme, 'sentBubbleColor', '#ff3131');
-            inputs.sentTextColor.value = themeValue(theme, 'sentTextColor', '#ffffff');
-            inputs.receivedBubbleColor.value = themeValue(theme, 'receivedBubbleColor', '#f2f2f7');
-            inputs.receivedTextColor.value = themeValue(theme, 'receivedTextColor', '#000000');
-            inputs.appBarColor.value = themeValue(theme, 'appBarColor', '#ffffff');
-            inputs.appBarTextColor.value = themeValue(theme, 'appBarTextColor', '#000000');
-            inputs.inputBoxColor.value = themeValue(theme, 'inputBoxColor', '#ffffff');
-            inputs.inputTextColor.value = themeValue(theme, 'inputTextColor', '#000000');
-            inputs.sendButtonColor.value = themeValue(theme, 'sendButtonColor', '#ff3131');
-            inputs.systemTextColor.value = themeValue(theme, 'systemTextColor', '#000000');
-
-            croppedBgBlob = null;
-            croppedPrewBlob = null;
-            document.getElementById('bgStatus').textContent = theme.backgroundUrl ? 'Mevcut görsel' : 'No image';
-            document.getElementById('prewStatus').textContent = theme.previewUrl ? 'Mevcut görsel' : 'No image';
-            document.getElementById('bgStatus').classList.toggle('cropped', Boolean(theme.backgroundUrl));
-            document.getElementById('prewStatus').classList.toggle('cropped', Boolean(theme.previewUrl));
-            setFileSelection('bg', theme.backgroundUrl ? 'Kayıtlı arka plan görseli' : 'Henüz görsel seçilmedi', Boolean(theme.backgroundUrl));
-            setFileSelection('prew', theme.previewUrl ? 'Kayıtlı önizleme görseli' : 'Henüz görsel seçilmedi', Boolean(theme.previewUrl));
-            setFileThumbnail('bg', theme.backgroundUrl);
-            setFileThumbnail('prew', theme.previewUrl || theme.backgroundUrl);
-            chatBody.style.backgroundImage = theme.backgroundUrl ? `url("${theme.backgroundUrl}")` : '';
-            updatePreview();
-        }
-
-        async function loadSavedThemes() {
-            const response = await fetch('/api/themes');
-            const result = await response.json();
-            if (!response.ok || !result.success) throw new Error(result.error || 'Temalar yüklenemedi.');
-            savedThemes = result.themes;
-            renderSelectionThemes();
-            validateThemeName();
-        }
-
-        async function openThemeLibrary() {
-            themeLibraryModal.style.display = 'flex';
-            librarySummary.textContent = 'Temalar yükleniyor...';
-            savedThemeGrid.innerHTML = '';
+        function readPrefs() {
             try {
-                await loadSavedThemes();
-                renderThemeLibrary();
-            } catch (error) {
-                librarySummary.textContent = error.message;
+                return JSON.parse(localStorage.getItem(PREFS_KEY)) || {};
+            } catch {
+                return {};
             }
         }
 
-        function renderSelectionThemes() {
-            const grid = document.getElementById('selectionThemeGrid');
-            grid.innerHTML = '';
-            savedThemes.forEach((theme, index) => {
-                const item = document.createElement('div');
-                item.className = 'theme-item';
-                const button = document.createElement('button');
-                button.title = `${theme.name || 'İsimsiz tema'} temasını önizle`;
-                button.addEventListener('click', () => editSavedTheme(index));
-                const preview = document.createElement('div');
-                preview.className = 'theme-preview-box';
-                const image = document.createElement('img');
-                image.alt = theme.name || 'Tema önizlemesi';
-                image.src = theme.previewUrl || theme.backgroundUrl || '';
-                preview.appendChild(image);
-                const name = document.createElement('div');
-                name.className = 'theme-name-text';
-                name.textContent = theme.name || 'İsimsiz tema';
-                button.append(preview, name);
-                item.appendChild(button);
-                grid.appendChild(item);
+        function writePrefs() {
+            try {
+                const { view, mode, device, typing, zoom } = state;
+                localStorage.setItem(PREFS_KEY, JSON.stringify({ view, mode, device, typing, zoom }));
+            } catch {
+                // Private window: the toolbar simply starts from its defaults.
+            }
+        }
+
+        /* ── Colour maths (the app's own: Color.computeLuminance, HSLColor,
+              core/utils/color_contrast.dart) ─────────────────────────────── */
+
+        function normalizeHex(value) {
+            if (typeof value !== 'string') return null;
+            let hex = value.trim().replace(/^#/, '');
+            if (/^[0-9a-f]{3}$/i.test(hex)) hex = hex.split('').map(ch => ch + ch).join('');
+            return /^[0-9a-f]{6}$/i.test(hex) ? '#' + hex.toLowerCase() : null;
+        }
+
+        function hexToRgb(hex) {
+            const n = parseInt(hex.slice(1), 16);
+            return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+        }
+
+        function rgbToHex(rgb) {
+            return '#' + rgb.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+        }
+
+        function rgba(hex, alpha) {
+            const [r, g, b] = hexToRgb(hex);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        function blend(fg, bg, alpha) {
+            return fg.map((v, i) => v * alpha + bg[i] * (1 - alpha));
+        }
+
+        function channel(v) {
+            const c = v / 255;
+            return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        }
+
+        function luminance([r, g, b]) {
+            return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
+        }
+
+        function ratioOf(la, lb) {
+            return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+        }
+
+        function contrast(a, b) {
+            return ratioOf(luminance(a), luminance(b));
+        }
+
+        function rgbToHsl([r, g, b]) {
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            const delta = max - min;
+            let h = 0;
+            if (delta !== 0) {
+                if (max === r) h = 60 * ((((g - b) / delta) % 6 + 6) % 6);
+                else if (max === g) h = 60 * ((b - r) / delta + 2);
+                else h = 60 * ((r - g) / delta + 4);
+            }
+            const l = (max + min) / 2;
+            const s = l === 1 || delta === 0 ? 0 : Math.min(1, Math.max(0, delta / (1 - Math.abs(2 * l - 1))));
+            return { h, s, l };
+        }
+
+        function hslToRgb({ h, s, l }) {
+            const chroma = (1 - Math.abs(2 * l - 1)) * s;
+            const secondary = chroma * (1 - Math.abs(((h / 60) % 2) - 1));
+            const match = l - chroma / 2;
+            let r = 0, g = 0, b = 0;
+            if (h < 60) [r, g] = [chroma, secondary];
+            else if (h < 120) [r, g] = [secondary, chroma];
+            else if (h < 180) [g, b] = [chroma, secondary];
+            else if (h < 240) [g, b] = [secondary, chroma];
+            else if (h < 300) [r, b] = [secondary, chroma];
+            else [r, b] = [chroma, secondary];
+            return [r, g, b].map(v => Math.round((v + match) * 255));
+        }
+
+        // readableOn from the app: keeps the hue, walks the lightness toward
+        // whichever of white and black reads better on the background.
+        function readableOn(color, background, minContrast = 3) {
+            if (contrast(color, background) >= minContrast) return color;
+            const towardWhite = contrast(WHITE, background) >= contrast(BLACK, background);
+            const hsl = rgbToHsl(color);
+            for (let i = 1; i <= 50; i++) {
+                const t = i / 50;
+                const l = towardWhite ? hsl.l + (1 - hsl.l) * t : hsl.l * (1 - t);
+                const candidate = hslToRgb({ ...hsl, l });
+                if (contrast(candidate, background) >= minContrast) return candidate;
+            }
+            return towardWhite ? WHITE : BLACK;
+        }
+
+        // Flutter's Cubic.transform — Curves.easeInOutSine is Cubic(0.37, 0, 0.63, 1).
+        function flutterCubic(a, b, c, d, t) {
+            if (t === 0 || t === 1) return t;
+            const at = (p1, p2, m) => 3 * p1 * (1 - m) * (1 - m) * m + 3 * p2 * (1 - m) * m * m + m * m * m;
+            let start = 0;
+            let end = 1;
+            for (;;) {
+                const mid = (start + end) / 2;
+                const estimate = at(a, c, mid);
+                if (Math.abs(t - estimate) < 0.001) return at(b, d, mid);
+                if (estimate < t) start = mid;
+                else end = mid;
+            }
+        }
+
+        // GlassBar's dstIn gradient: opaque down to 62 % of the row, then an
+        // eased fade to nothing at the bottom of the 16 px tail.
+        function glassMask(top) {
+            const total = top + 62;
+            const solid = (top + 46 * 0.62) / total;
+            const stops = ['#000 0%'];
+            for (let i = 0; i <= 10; i++) {
+                const t = i / 10;
+                const alpha = 1 - flutterCubic(0.37, 0, 0.63, 1, t);
+                stops.push(`rgba(0, 0, 0, ${alpha.toFixed(4)}) ${((solid + (1 - solid) * t) * 100).toFixed(3)}%`);
+            }
+            return `linear-gradient(to bottom, ${stops.join(', ')})`;
+        }
+
+        /* ── Phone preview ─────────────────────────────────────────────── */
+
+        const screenEl = $('screen');
+        let currentScale = 1;
+
+        function displayName() {
+            return state.name.trim() || 'Yeni tema';
+        }
+
+        function renderScreen() {
+            const d = DEVICES[state.device];
+            screenEl.style.width = d.w + 'px';
+            screenEl.style.height = d.h + 'px';
+            const vars = {
+                ...PALETTE[state.mode],
+                '--inset-top': d.top + 'px',
+                '--inset-bottom': d.bottom + 'px',
+                '--screen-radius': d.radius + 'px',
+                '--msg-font': d.msgFont,
+                '--bubble-max': d.w * 0.75 + 'px',
+                '--glass-mask': glassMask(d.top),
+            };
+            for (const [name, value] of Object.entries(vars)) screenEl.style.setProperty(name, value);
+            $('device').style.setProperty('--screen-radius', d.radius + 'px');
+            screenEl.dataset.platform = state.device;
+            screenEl.innerHTML = state.view === 'select' ? selectionHtml() : chatHtml(state.view === 'group');
+            for (const el of screenEl.querySelectorAll('[data-group]')) {
+                const group = GROUPS.find(g => g.id === el.dataset.group);
+                el.title = `Rengini düzenle: ${group.title}`;
+            }
+            applyColors();
+            applyBackground();
+            fitDevice();
+        }
+
+        function statusBarHtml() {
+            const icons = `
+                <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" width="3" height="11" rx="1"/></svg>
+                <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 2.2c2.1 0 4 .8 5.4 2.1L14 3.2A9.3 9.3 0 0 0 7.5.6 9.3 9.3 0 0 0 1 3.2l1.1 1.1a7.7 7.7 0 0 1 5.4-2.1Zm0 3.2c1.2 0 2.3.5 3.1 1.2l1.1-1.1a6 6 0 0 0-8.4 0l1.1 1.1c.8-.7 1.9-1.2 3.1-1.2Zm0 3.2c.4 0 .8.2 1.1.4L7.5 10.1 6.4 9c.3-.2.7-.4 1.1-.4Z"/></svg>
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="currentColor"><rect x=".5" y=".5" width="21" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="2"/><path d="M23 4v4c.8-.3 1.3-1.1 1.3-2S23.8 4.3 23 4Z" opacity=".4"/></svg>`;
+            const camera = state.device === 'ios' ? '<span class="sb-island"></span>' : '<span class="sb-punch"></span>';
+            return `<div class="sb sb-${state.device}"><span class="sb-time">9:41</span>${camera}<span class="sb-icons">${icons}</span></div><div class="home-bar"></div>`;
+        }
+
+        function chatHtml(group) {
+            const model = group ? GROUP : DIRECT;
+            return `<div class="chat">
+                <div class="chat-bg" id="chatBg"></div>
+                <div class="chat-list">${listHtml(model, group)}</div>
+                <div class="composer">
+                    <div class="composer-box" data-group="input">Mesaj yaz...</div>
+                    <div class="composer-send" data-group="input"><span class="material-icons-round">send</span></div>
+                </div>
+                ${headerHtml(model, group)}
+                ${statusBarHtml()}
+            </div>`;
+        }
+
+        // The list is reversed like the app's: the newest item is the first
+        // child, and the column starts from the bottom.
+        function listHtml(model, group) {
+            const messages = model.messages;
+            const parts = ['<div class="list-end"></div>'];
+            if (state.typing) parts.push(typingHtml());
+            for (let i = messages.length - 1; i >= 0; i--) parts.push(itemHtml(messages, i, group));
+            parts.push('<div class="list-start"></div>');
+            return parts.join('');
+        }
+
+        const AVATAR_SM = '<div class="avatar-sm"><span class="material-icons">person</span></div>';
+
+        function itemHtml(messages, i, group) {
+            const m = messages[i];
+            const older = messages[i - 1];
+            const newer = messages[i + 1];
+            const divider = m.day ? `<div class="divider"><span>${esc(m.day)}</span></div>` : '';
+            if (m.system) {
+                return `<div class="item">${divider}<div class="notice" data-group="system">${noticeHtml(m, group)}</div></div>`;
+            }
+            const isMe = m.from === 'me';
+            // Same block rules as the app: a centred line or another sender
+            // breaks a block, a date divider starts one, and a typing bubble
+            // keeps the newest message from closing its block.
+            const first = Boolean(m.day) || !older || Boolean(older.system) || older.from !== m.from;
+            const last = newer ? Boolean(newer.system) || newer.from !== m.from : !state.typing;
+            const bubble = bubbleHtml(m, isMe, first, last, group);
+            if (isMe) return `<div class="item">${divider}<div class="row me">${bubble}</div></div>`;
+            const avatar = last ? AVATAR_SM : '<div class="avatar-gap"></div>';
+            return `<div class="item">${divider}<div class="row">${avatar}<div class="flexible">${bubble}</div></div></div>`;
+        }
+
+        function noticeHtml(m, group) {
+            if (m.system !== 'theme') return esc(m.text);
+            const actor = group ? MEMBERS[m.by].username : DIRECT.title;
+            return `${esc(actor)} sohbet temasını <span data-theme-name>${esc(displayName())}</span> olarak değiştirdi`;
+        }
+
+        function radii(isMe, first, last) {
+            const tl = isMe ? 16 : first ? 16 : 4;
+            const tr = !isMe ? 16 : first ? 16 : 4;
+            const bl = isMe ? 16 : last ? 16 : 4;
+            const br = !isMe ? 16 : last ? 16 : 4;
+            return `border-radius: ${tl}px ${tr}px ${br}px ${bl}px;`;
+        }
+
+        function bubbleHtml(m, isMe, first, last, group) {
+            const solo = Boolean(m.emoji);
+            const side = isMe ? 'me' : 'them';
+            const label = group && !isMe && first ? nameHtml(m.from, solo) : '';
+            const meta = `<span>${esc(m.time)}</span>${isMe ? '<span class="material-icons tick">done</span>' : ''}`;
+            const top = first ? 10 : solo ? 5 : 0;
+            const part = isMe ? 'sent' : 'received';
+            if (solo) {
+                return `<div class="bubble ${side} solo" data-group="${part}" style="margin-top: ${top}px">${label}<div class="emoji-row"><span class="emoji">${esc(m.emoji)}</span><span class="meta-pill">${meta}</span></div></div>`;
+            }
+            // The app appends ten spaces (nine for a received message) to make
+            // room for the time. Like Flutter's, pre-wrap counts them in the
+            // bubble's width and lets them hang past a full last line.
+            const reserve = ' '.repeat(isMe ? 10 : 9);
+            return `<div class="bubble ${side}" data-group="${part}" style="margin-top: ${top}px; ${radii(isMe, first, last)}">${label}<div class="b-body">${esc(m.text)}${reserve}<span class="b-meta">${meta}</span></div></div>`;
+        }
+
+        function nameHtml(member, solo) {
+            return `<div class="b-name${solo ? ' solo' : ''}"><span data-member="${member}">${esc(MEMBERS[member].username)}</span></div>`;
+        }
+
+        function typingHtml() {
+            return `<div class="item"><div class="row">${AVATAR_SM}<div class="flexible"><div class="typing-bubble" data-group="received"><i></i><i></i><i></i></div></div></div></div>`;
+        }
+
+        function headerHtml(model, group) {
+            let sub = '';
+            if (group) {
+                sub = `<div class="hdr-sub${state.typing ? ' is-typing' : ''}">${esc(state.typing ? model.typing : model.subtitle)}</div>`;
+            } else if (state.typing) {
+                sub = '<div class="hdr-sub is-typing">Yazıyor...</div>';
+            }
+            return `<div class="glass" data-group="bar">
+                <div class="glass-layer"></div>
+                <div class="bar-row">
+                    <div class="bar-slot"><div class="lg"><div class="lg-in"><span class="material-icons-round hdr-back">arrow_back_ios_new</span></div></div></div>
+                    <div class="bar-center">
+                        <div class="hdr-avatar"><span class="material-icons-round">${group ? 'groups' : 'person'}</span></div>
+                        <div class="hdr-text"><div class="hdr-title">${esc(model.title)}</div>${sub}</div>
+                    </div>
+                    <div class="bar-slot"><div class="lg"><div class="lg-in"><span class="burger"><i></i><i></i><i></i></span></div></div></div>
+                </div>
+            </div>`;
+        }
+
+        function selectionHtml() {
+            const tiles = [tileHtml({ label: 'Varsayılan', color: DEFAULT_TILE[state.mode] })];
+            state.themes.forEach((theme, index) => {
+                if (index === state.editingIndex) {
+                    tiles.push(editedTileHtml());
+                    return;
+                }
+                const url = theme.previewUrl || theme.backgroundUrl;
+                tiles.push(tileHtml({ label: theme.name || '', img: localUrl(url), fallback: url, index }));
+            });
+            // A new theme is appended to themes.json, so it shows up last.
+            if (state.editingIndex === null) tiles.push(editedTileHtml());
+            return `<div class="sel">
+                <div class="sel-bar"><div class="sel-toolbar"><span class="material-icons-round sel-back">arrow_back_ios_new</span><span class="sel-title">Tema Seçimi</span></div></div>
+                <div class="sel-grid">${tiles.join('')}</div>
+                ${statusBarHtml()}
+            </div>`;
+        }
+
+        function editedTileHtml() {
+            const img = state.prew || state.bg;
+            return tileHtml({ label: displayName(), img: img && img.src, fallback: img && img.remote, selected: true, edited: true });
+        }
+
+        function tileHtml({ label, img, fallback, color, selected, index, edited }) {
+            const media = img ? `<img src="${esc(img)}"${fallback && fallback !== img ? ` data-fallback="${esc(fallback)}"` : ''} alt="">` : '';
+            const style = color ? ` style="background: ${color}"` : '';
+            const attrs = index === undefined ? '' : ` data-theme-index="${index}" title="Düzenle: ${esc(label)}"`;
+            return `<div class="tile${selected ? ' on' : ''}"${attrs}><div class="tile-img"${style}>${media}</div><div class="tile-label"${edited ? ' data-theme-name' : ''}>${esc(label)}</div></div>`;
+        }
+
+        function applyColors() {
+            const c = state.colors;
+            const set = (name, value) => screenEl.style.setProperty(name, value);
+            set('--t-sent', c.sentBubbleColor);
+            set('--t-sent-text', c.sentTextColor);
+            set('--t-sent-meta', rgba(c.sentTextColor, 0.65));
+            set('--t-sent-tick', rgba(c.sentTextColor, 0.75));
+            set('--t-recv', c.receivedBubbleColor);
+            set('--t-recv-text', c.receivedTextColor);
+            set('--t-recv-meta', rgba(c.receivedTextColor, 0.65));
+            set('--t-dots', rgba(c.receivedTextColor, 0.7));
+            set('--t-bar', rgba(c.appBarColor, 0.5));
+            set('--t-bar-text', c.appBarTextColor);
+            set('--t-bar-sub', rgba(c.appBarTextColor, 0.55));
+            set('--t-input', c.inputBoxColor);
+            set('--t-input-text', c.inputTextColor);
+            set('--t-input-hint', rgba(c.inputTextColor, 0.5));
+            set('--t-send', c.sendButtonColor);
+            set('--t-system', c.systemTextColor);
+            // Member names are lifted until they read on the received bubble.
+            const bubble = hexToRgb(c.receivedBubbleColor);
+            for (const el of screenEl.querySelectorAll('[data-member]')) {
+                el.style.color = rgbToHex(readableOn(hexToRgb(MEMBERS[el.dataset.member].color), bubble));
+            }
+        }
+
+        function applyBackground() {
+            const el = $('chatBg');
+            if (el) el.style.backgroundImage = state.bg && state.bg.src ? cssUrl(state.bg.src) : 'none';
+        }
+
+        function updateThemeNameInPreview() {
+            for (const el of screenEl.querySelectorAll('[data-theme-name]')) el.textContent = displayName();
+        }
+
+        function fitDevice() {
+            const d = DEVICES[state.device];
+            const width = d.w + BEZEL * 2;
+            const height = d.h + BEZEL * 2;
+            let scale = 1;
+            if (state.zoom === 'fit') {
+                const stage = $('stage');
+                scale = Math.min(1, (stage.clientWidth - 40) / width, (stage.clientHeight - 40) / height);
+                scale = Math.max(0.3, scale);
+            }
+            currentScale = scale;
+            $('device').style.transform = `scale(${scale})`;
+            $('deviceSlot').style.width = width * scale + 'px';
+            $('deviceSlot').style.height = height * scale + 'px';
+            $('stageNote').textContent = `${d.name} · ${d.w}×${d.h} · %${Math.round(scale * 100)} — uygulamadaki ölçü, yazı tipi ve cam efektiyle çizilir. Bir öğeye tıklayınca rengi açılır.`;
+        }
+
+        /* ── Editor: colours ───────────────────────────────────────────── */
+
+        function buildColorGroups() {
+            $('colorGroups').innerHTML = GROUPS.map(group => `
+                <div class="cgroup" id="group-${group.id}">
+                    <div class="cgroup-head">
+                        <span class="cgroup-title">${esc(group.title)}</span>
+                        <span class="badge none" id="badge-${group.id}"></span>
+                    </div>
+                    <p class="cgroup-desc">${esc(group.desc)}</p>
+                    ${group.fields.map(([key, label]) => `
+                        <div class="cfield">
+                            <input class="swatch" type="color" id="c-${key}" data-key="${key}" title="Renk seç">
+                            <label class="cfield-label" for="h-${key}">${esc(label)}</label>
+                            <input class="hex" id="h-${key}" data-key="${key}" maxlength="7" spellcheck="false" autocomplete="off">
+                            <button class="icon-btn" type="button" data-eyedrop="${key}" title="Ekrandan renk al"${EYEDROPPER ? '' : ' hidden'}><span class="material-icons-round">colorize</span></button>
+                        </div>`).join('')}
+                    <div class="checks" id="checks-${group.id}"></div>
+                </div>`).join('');
+
+            const host = $('colorGroups');
+            host.addEventListener('input', event => {
+                const el = event.target;
+                const key = el.dataset.key;
+                if (!key) return;
+                if (el.type === 'color') {
+                    setColor(key, el.value, 'picker');
+                } else {
+                    const hex = normalizeHex(el.value);
+                    el.classList.toggle('invalid', !hex);
+                    if (hex) setColor(key, hex, 'hex');
+                }
+            });
+            host.addEventListener('focusout', event => {
+                const el = event.target;
+                if (el.classList.contains('hex')) {
+                    el.value = state.colors[el.dataset.key].toUpperCase();
+                    el.classList.remove('invalid');
+                }
+            });
+            host.addEventListener('keydown', event => {
+                if (event.key === 'Enter' && event.target.classList.contains('hex')) event.target.blur();
+            });
+            host.addEventListener('click', async event => {
+                const fix = event.target.closest('[data-fix]');
+                if (fix) {
+                    fixes[Number(fix.dataset.fix)]();
+                    return;
+                }
+                const drop = event.target.closest('[data-eyedrop]');
+                if (!drop) return;
+                try {
+                    const result = await new window.EyeDropper().open();
+                    const hex = normalizeHex(result.sRGBHex);
+                    if (hex) setColor(drop.dataset.eyedrop, hex);
+                } catch {
+                    // Cancelled with Esc.
+                }
             });
         }
 
-        function validateThemeName() {
-            const name = inputs.themeName.value.trim().toLocaleLowerCase();
-            const duplicate = Boolean(name) && savedThemes.some((theme, index) =>
-                index !== editingThemeIndex && (theme.name || '').trim().toLocaleLowerCase() === name
-            );
-            document.getElementById('themeNameError').style.display = duplicate ? 'block' : 'none';
-            inputs.themeName.classList.toggle('has-error', duplicate);
-            return duplicate;
+        function setColor(key, hex, from) {
+            state.colors[key] = hex;
+            if (from !== 'picker') $('c-' + key).value = hex;
+            if (from !== 'hex') {
+                $('h-' + key).value = hex.toUpperCase();
+                $('h-' + key).classList.remove('invalid');
+            }
+            applyColors();
+            scheduleChecks();
+            refreshDirty();
         }
 
-        function closeThemeLibrary() {
-            themeLibraryModal.style.display = 'none';
+        function syncInputs() {
+            $('themeName').value = state.name;
+            for (const key of COLOR_KEYS) {
+                $('c-' + key).value = state.colors[key];
+                $('h-' + key).value = state.colors[key].toUpperCase();
+                $('h-' + key).classList.remove('invalid');
+            }
         }
 
-        function renderThemeLibrary() {
-            const count = savedThemes.length;
-            librarySummary.textContent = count ? `${count} kayıtlı tema bulundu.` : 'Henüz kayıtlı tema yok.';
-            savedThemeGrid.innerHTML = '';
+        function pickColors(theme) {
+            const colors = {};
+            for (const key of COLOR_KEYS) colors[key] = normalizeHex(theme[key]) || DEFAULT_COLORS[key];
+            return colors;
+        }
 
-            if (!count) {
-                savedThemeGrid.innerHTML = '<div class="library-empty">Yeni temanızı yayınladığınızda burada görünecek.</div>';
+        function focusGroup(id) {
+            const card = $('group-' + id);
+            if (!card) return;
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.classList.remove('flash');
+            void card.offsetWidth;
+            card.classList.add('flash');
+        }
+
+        /* ── Name ──────────────────────────────────────────────────────── */
+
+        const measureCtx = document.createElement('canvas').getContext('2d');
+
+        function labelOverflows(name) {
+            // The grid's label is one line with an ellipsis; on a narrow phone
+            // a tile is (width - 2 × 16 - 2 × 12) / 3 wide.
+            measureCtx.font = '500 12px Poppins';
+            return measureCtx.measureText(name).width > (NARROW_PHONE - 56) / 3;
+        }
+
+        function validateName() {
+            const name = state.name.trim();
+            const lower = name.toLowerCase();
+            const duplicate = Boolean(name) && state.themes.some((theme, index) =>
+                index !== state.editingIndex && (theme.name || '').trim().toLowerCase() === lower);
+            let message = '';
+            let level = '';
+            if (duplicate) {
+                message = 'Bu adla kayıtlı bir tema var.';
+                level = 'error';
+            } else if (state.editingName && name && name !== state.editingName) {
+                message = `Ad değişiyor (${state.editingName} → ${name}). Uygulama temayı adıyla tanır: temayı önceden seçmiş kullanıcılarda listede seçili görünmez.`;
+                level = 'warn';
+            } else if (name && labelOverflows(name)) {
+                message = 'Ad, tema listesinde tek satıra sığmıyor; dar telefonlarda "…" ile kısaltılır.';
+                level = 'warn';
+            }
+            const note = $('nameNote');
+            note.hidden = !message;
+            note.textContent = message;
+            note.className = 'note ' + level;
+            $('themeName').classList.toggle('invalid', duplicate);
+            return !duplicate;
+        }
+
+        /* ── Images ────────────────────────────────────────────────────── */
+
+        function publishedImage(url, label) {
+            return { url, blob: null, src: localUrl(url), remote: url, source: null, label, auto: false };
+        }
+
+        function newImage(blob, source, label, auto = false) {
+            return { url: null, blob, src: URL.createObjectURL(blob), remote: null, source, label, auto };
+        }
+
+        function probe(src) {
+            return new Promise(resolve => {
+                const image = new Image();
+                image.onload = () => resolve(true);
+                image.onerror = () => resolve(false);
+                image.src = src;
+            });
+        }
+
+        // A published picture is shown from the local repository; when this
+        // copy has not been pulled yet, from the site itself.
+        async function resolvePublished(image) {
+            if (!image || !image.url || image.src === image.remote) return;
+            if (await probe(image.src)) return;
+            image.src = image.remote;
+            if (image === state.bg || image === state.prew) imagesChanged();
+        }
+
+        function thumbHtml(image, icon) {
+            if (!image || !image.src) return `<span class="material-icons-round">${icon}</span>`;
+            const fallback = image.remote && image.remote !== image.src ? ` data-fallback="${esc(image.remote)}"` : '';
+            return `<img src="${esc(image.src)}"${fallback} alt="">`;
+        }
+
+        function renderImageFields() {
+            const { bg, prew } = state;
+            $('bgThumb').innerHTML = thumbHtml(bg, 'wallpaper');
+            $('bgStatus').textContent = bg ? bg.label : 'Seçilmedi — yayınlamak için gerekli.';
+            $('bgStatus').classList.toggle('missing', !bg);
+            $('bgPick').textContent = bg ? 'Değiştir' : 'Görsel seç';
+            $('bgRecrop').hidden = !bg;
+            $('prewThumb').innerHTML = thumbHtml(prew, 'crop_square');
+            $('prewStatus').textContent = prew
+                ? prew.label
+                : bg ? 'Yayınlanırken arka plandan oluşturulur.' : 'Arka plan seçilince otomatik oluşturulur.';
+            $('prewFromBg').disabled = !bg;
+        }
+
+        function imagesChanged() {
+            renderImageFields();
+            applyBackground();
+            if (state.view === 'select') renderScreen();
+            scheduleAnalysis();
+            refreshDirty();
+        }
+
+        function readFile(file, target) {
+            if (!file || !file.type.startsWith('image/')) {
+                toast('Bir görsel dosyası seçin (JPEG, PNG…).', 'error');
                 return;
             }
-
-            savedThemes.forEach((theme, index) => {
-                const card = document.createElement('article');
-                card.className = 'saved-theme-card';
-
-                const cover = document.createElement('div');
-                cover.className = 'saved-theme-cover';
-                if (theme.previewUrl || theme.backgroundUrl) {
-                    cover.style.backgroundImage = `url("${theme.previewUrl || theme.backgroundUrl}")`;
-                }
-                const colors = document.createElement('div');
-                colors.className = 'saved-theme-colors';
-                [theme.sentBubbleColor, theme.receivedBubbleColor, theme.appBarColor].filter(Boolean).forEach(color => {
-                    const swatch = document.createElement('span');
-                    swatch.style.backgroundColor = color;
-                    colors.appendChild(swatch);
-                });
-                cover.appendChild(colors);
-
-                const info = document.createElement('div');
-                info.className = 'saved-theme-info';
-                const name = document.createElement('div');
-                name.className = 'saved-theme-name';
-                name.textContent = theme.name || 'İsimsiz tema';
-                const actions = document.createElement('div');
-                actions.className = 'saved-theme-actions';
-
-                const preview = document.createElement('button');
-                preview.className = 'btn-secondary';
-                preview.textContent = 'Önizle';
-                preview.addEventListener('click', () => previewSavedTheme(index));
-                const edit = document.createElement('button');
-                edit.className = 'btn-primary';
-                edit.textContent = 'Düzenle';
-                edit.addEventListener('click', () => editSavedTheme(index));
-                const remove = document.createElement('button');
-                remove.className = 'btn-danger';
-                remove.title = 'Temayı sil';
-                remove.innerHTML = '<span class="material-icons-round">delete</span>';
-                remove.addEventListener('click', () => deleteSavedTheme(index));
-
-                actions.append(preview, edit, remove);
-                info.append(name, actions);
-                card.append(cover, info);
-                savedThemeGrid.appendChild(card);
-            });
-        }
-
-        function previewSavedTheme(index) {
-            applyThemeToEditor(savedThemes[index]);
-            setView('chat');
-            closeThemeLibrary();
-        }
-
-        function editSavedTheme(index) {
-            editingThemeIndex = index;
-            applyThemeToEditor(savedThemes[index]);
-            editingThemeLabel.textContent = `Düzenleniyor: ${savedThemes[index].name || 'İsimsiz tema'}`;
-            editingNotice.style.display = 'flex';
-            publishButton.textContent = 'Temayı Güncelle';
-            validateThemeName();
-            setView('chat');
-            closeThemeLibrary();
-        }
-
-        function startNewTheme() {
-            editingThemeIndex = null;
-            editingNotice.style.display = 'none';
-            publishButton.textContent = 'Publish Theme';
-            validateThemeName();
-        }
-
-        async function deleteSavedTheme(index) {
-            const theme = savedThemes[index];
-            if (!confirm(`“${theme.name || 'Bu tema'}” silinsin mi? Bu işlem geri alınamaz.`)) return;
-
-            try {
-                const response = await fetch(`/api/themes/${index}`, { method: 'DELETE' });
-                const result = await response.json();
-                if (!response.ok || !result.success) throw new Error(result.error || 'Tema silinemedi.');
-                if (editingThemeIndex === index) startNewTheme();
-                if (editingThemeIndex !== null && editingThemeIndex > index) editingThemeIndex--;
-                await openThemeLibrary();
-            } catch (error) {
-                alert('Hata oluştu: ' + error.message);
-            }
-        }
-
-        // View Toggling
-        function setView(view) {
-            document.getElementById('btnChatView').classList.remove('active');
-            document.getElementById('btnSelectionView').classList.remove('active');
-            document.getElementById('phoneChat').style.display = 'none';
-            document.getElementById('phoneSelection').style.display = 'none';
-            
-            if (view === 'chat') {
-                document.getElementById('btnChatView').classList.add('active');
-                document.getElementById('phoneChat').style.display = 'flex';
-            } else {
-                document.getElementById('btnSelectionView').classList.add('active');
-                document.getElementById('phoneSelection').style.display = 'flex';
-                loadSavedThemes().catch(() => {});
-            }
-        }
-
-        // Update live preview
-        function updatePreview() {
-            root.style.setProperty('--theme-sent-bubble', inputs.sentBubbleColor.value);
-            root.style.setProperty('--theme-sent-text', inputs.sentTextColor.value);
-            root.style.setProperty('--theme-received-bubble', inputs.receivedBubbleColor.value);
-            root.style.setProperty('--theme-received-text', inputs.receivedTextColor.value);
-            root.style.setProperty('--theme-appbar', inputs.appBarColor.value);
-            root.style.setProperty('--theme-appbar-text', inputs.appBarTextColor.value);
-            root.style.setProperty('--theme-input-box', inputs.inputBoxColor.value);
-            root.style.setProperty('--theme-input-text', inputs.inputTextColor.value);
-            root.style.setProperty('--theme-send-btn', inputs.sendButtonColor.value);
-            root.style.setProperty('--theme-system-text', inputs.systemTextColor.value);
-            document.getElementById('systemLineTheme').textContent =
-                inputs.themeName.value.trim() || 'Custom Theme';
-
-            // Text color logic for times
-            document.getElementById('time1').style.color = inputs.receivedTextColor.value;
-            document.getElementById('time2').style.color = inputs.sentTextColor.value;
-            
-        }
-
-        // Listeners for colors and text
-        ['sentBubbleColor', 'sentTextColor', 'receivedBubbleColor', 'receivedTextColor', 'appBarColor', 'appBarTextColor', 'inputBoxColor', 'inputTextColor', 'sendButtonColor', 'systemTextColor'].forEach(id => {
-            inputs[id].addEventListener('input', updatePreview);
-        });
-        inputs.themeName.addEventListener('input', () => {
-            updatePreview();
-            validateThemeName();
-        });
-
-        // Cropper Logic
-        const cropperModal = document.getElementById('cropperModal');
-        const cropperImage = document.getElementById('cropperImage');
-        const cropperTitle = document.getElementById('cropperTitle');
-        
-        inputs.bgFile.addEventListener('change', (e) => handleFileSelect(e, 'bg'));
-        inputs.prewFile.addEventListener('change', (e) => handleFileSelect(e, 'prew'));
-        
-        function handleFileSelect(e, type) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            pendingFileName = file.name;
-            setFileSelection(type, `${file.name} · kırpma için hazır`, true);
-            
             const reader = new FileReader();
-            reader.onload = (event) => {
-                openCropperModal(event.target.result, type);
-            };
+            reader.onload = () => openCropper(reader.result, target, file.name);
             reader.readAsDataURL(file);
-            e.target.value = ''; // Reset input so same file can trigger change again
         }
-        
-        function openCropperModal(imageSrc, type) {
-            currentCropperType = type;
-            cropperImage.src = imageSrc;
-            cropperModal.style.display = 'flex';
-            
-            if (type === 'bg') {
-                cropperTitle.textContent = "Crop Background Image (20:9)";
-            } else {
-                cropperTitle.textContent = "Crop Preview Image (1:1)";
-            }
-            
-            // Destroy existing cropper if any
-            if (cropper) {
-                cropper.destroy();
-            }
-            
-            // Initialize new cropper
-            cropper = new Cropper(cropperImage, {
-                aspectRatio: type === 'bg' ? 9 / 20 : 1 / 1, // 9/20 for phone portrait
+
+        let cropper = null;
+        let cropJob = null;
+
+        const CROP = {
+            bg: {
+                title: 'Arka planı kırp (9:20)',
+                hint: 'Kırpılan alan sohbet ekranının tamamını kaplar; üst çubuk ve yazma alanı bu görselin üstüne çizilir.',
+                ratio: 9 / 20,
+                width: 1080,
+                height: 2400,
+            },
+            prew: {
+                title: 'Liste görselini kırp (1:1)',
+                hint: 'Tema seçme ekranında küçük bir kare olarak görünür; temayı anlatan bir detay seçin.',
+                ratio: 1,
+                width: 500,
+                height: 500,
+            },
+        };
+
+        function openCropper(src, target, fileName = '') {
+            const spec = CROP[target];
+            cropJob = { target, source: src, fileName };
+            $('cropTitle').textContent = spec.title;
+            $('cropHint').textContent = spec.hint;
+            $('cropInfo').textContent = '';
+            openModal($('cropModal'), closeCropper);
+            if (cropper) cropper.destroy();
+            const image = $('cropImage');
+            image.src = src;
+            cropper = new Cropper(image, {
+                aspectRatio: spec.ratio,
                 viewMode: 1,
                 dragMode: 'move',
-                autoCropArea: 1,
+                autoCropArea: target === 'bg' ? 1 : 0.6,
                 restore: false,
                 guides: true,
                 center: true,
                 highlight: false,
-                cropBoxMovable: true,
-                cropBoxResizable: true,
                 toggleDragModeOnDblclick: false,
+                crop(event) {
+                    const width = Math.round(event.detail.width);
+                    const height = Math.round(event.detail.height);
+                    const small = width < spec.width * 0.75;
+                    const info = $('cropInfo');
+                    info.textContent = `Seçilen alan ${width}×${height} px${small ? ' — küçük, telefonda bulanık görünebilir' : ''}`;
+                    info.classList.toggle('warn', small);
+                },
             });
         }
-        
-        function closeCropperModal() {
-            cropperModal.style.display = 'none';
+
+        function closeCropper() {
+            closeModal($('cropModal'));
             if (cropper) {
                 cropper.destroy();
                 cropper = null;
             }
         }
-        
-        function saveCrop() {
-            if (!cropper) return;
-            
-            cropper.getCroppedCanvas({
-                width: currentCropperType === 'bg' ? 1080 : 500, // Export resolution
-                fillColor: '#fff',
-                imageSmoothingEnabled: true,
-                imageSmoothingQuality: 'high',
-            }).toBlob((blob) => {
-                const url = URL.createObjectURL(blob);
-                if (currentCropperType === 'bg') {
-                    croppedBgBlob = blob;
-                    document.getElementById('bgStatus').textContent = "Cropped!";
-                    document.getElementById('bgStatus').classList.add('cropped');
-                    setFileSelection('bg', `${pendingFileName || 'Görsel'} · kırpıldı ve hazır`, true);
-                    setFileThumbnail('bg', url);
-                    chatBody.style.backgroundImage = `url(${url})`;
-                    
-                } else {
-                    croppedPrewBlob = blob;
-                    document.getElementById('prewStatus').textContent = "Cropped!";
-                    document.getElementById('prewStatus').classList.add('cropped');
-                    setFileSelection('prew', `${pendingFileName || 'Görsel'} · kırpıldı ve hazır`, true);
-                    setFileThumbnail('prew', url);
-                }
-                closeCropperModal();
-            }, 'image/jpeg', 0.9);
+
+        const toJpeg = canvas => new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+
+        // The centre square of a background, for the theme grid.
+        function squareOf(canvas) {
+            const side = Math.min(canvas.width, canvas.height);
+            const out = document.createElement('canvas');
+            out.width = 500;
+            out.height = 500;
+            out.getContext('2d').drawImage(canvas, (canvas.width - side) / 2, (canvas.height - side) / 2, side, side, 0, 0, 500, 500);
+            return toJpeg(out);
         }
 
-        // JSON Logic
-        function getThemeObject() {
-            return {
-                name: inputs.themeName.value,
-                backgroundUrl: "https://mobile-version.feast.tr/bg/...", 
-                previewUrl: "https://mobile-version.feast.tr/bg/...", 
-                sentBubbleColor: inputs.sentBubbleColor.value.toUpperCase(),
-                receivedBubbleColor: inputs.receivedBubbleColor.value.toUpperCase(),
-                sentTextColor: inputs.sentTextColor.value.toUpperCase(),
-                receivedTextColor: inputs.receivedTextColor.value.toUpperCase(),
-                appBarColor: inputs.appBarColor.value.toUpperCase(),
-                appBarTextColor: inputs.appBarTextColor.value.toUpperCase(),
-                inputBoxColor: inputs.inputBoxColor.value.toUpperCase(),
-                inputTextColor: inputs.inputTextColor.value.toUpperCase(),
-                sendButtonColor: inputs.sendButtonColor.value.toUpperCase(),
-                systemTextColor: inputs.systemTextColor.value.toUpperCase()
+        async function confirmCrop() {
+            if (!cropper || !cropJob) return;
+            const { target, source, fileName } = cropJob;
+            const spec = CROP[target];
+            let canvas;
+            let blob;
+            try {
+                canvas = cropper.getCroppedCanvas({
+                    width: spec.width,
+                    height: spec.height,
+                    fillColor: '#ffffff',
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high',
+                });
+                blob = await toJpeg(canvas);
+            } catch {
+                blob = null;
+            }
+            closeCropper();
+            if (!blob) {
+                toast('Görsel kırpılamadı. Görselin yerel kopyası yoksa önce dosyayı seçin.', 'error');
+                return;
+            }
+            const from = fileName ? `${fileName} · ` : '';
+            if (target === 'bg') {
+                state.bg = newImage(blob, source, `${from}yeni, ${spec.width}×${spec.height}`);
+                if (!state.prew || state.prew.auto) {
+                    state.prew = newImage(await squareOf(canvas), null, 'Arka planın ortasından oluşturuldu.', true);
+                } else if (state.prew.url) {
+                    toast('Liste görseli değişmedi. Yeni arka plandan seçmek için "Arka plandan seç".', 'info', { duration: 6000 });
+                }
+            } else {
+                state.prew = newImage(blob, source, `${from}yeni, ${spec.width}×${spec.height}`);
+            }
+            imagesChanged();
+        }
+
+        function makeDropTarget(el, target) {
+            el.addEventListener('dragover', event => {
+                if (![...event.dataTransfer.items].some(item => item.kind === 'file')) return;
+                event.preventDefault();
+                el.classList.add('drag');
+            });
+            el.addEventListener('dragleave', event => {
+                if (!el.contains(event.relatedTarget)) el.classList.remove('drag');
+            });
+            el.addEventListener('drop', event => {
+                event.preventDefault();
+                el.classList.remove('drag');
+                readFile([...event.dataTransfer.files][0], target);
+            });
+        }
+
+        /* ── Readability: the theme against itself and its picture ─────── */
+
+        const analysis = { key: null, status: 'none', header: null, buttons: null, blocks: null };
+        let analysisTimer = 0;
+        let checkTimer = 0;
+        let fixes = [];
+        let lastIssues = [];
+
+        function scheduleAnalysis() {
+            clearTimeout(analysisTimer);
+            analysisTimer = setTimeout(analyze, 40);
+        }
+
+        function scheduleChecks() {
+            clearTimeout(checkTimer);
+            checkTimer = setTimeout(renderChecks, 50);
+        }
+
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.onload = () => resolve(image);
+                image.onerror = reject;
+                image.src = src;
+            });
+        }
+
+        // Samples the picture the way the phone shows it (cover, current
+        // device): what the header's glass blurs, and the local colour
+        // behind any centred line in the message area.
+        async function analyze() {
+            const d = DEVICES[state.device];
+            const src = state.bg && state.bg.src;
+            const key = src ? `${src}|${state.device}` : null;
+            if (key === analysis.key) return;
+            analysis.key = key;
+            if (!src) {
+                Object.assign(analysis, { status: 'none', header: null, buttons: null, blocks: null });
+                renderChecks();
+                return;
+            }
+            analysis.status = 'pending';
+            renderChecks();
+            try {
+                const image = await loadImage(src);
+                if (analysis.key !== key) return;
+                const S = 2;
+                const cw = Math.round(d.w / S);
+                const ch = Math.round(d.h / S);
+                const canvas = document.createElement('canvas');
+                canvas.width = cw;
+                canvas.height = ch;
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                const scale = Math.max(cw / image.naturalWidth, ch / image.naturalHeight);
+                const dw = image.naturalWidth * scale;
+                const dh = image.naturalHeight * scale;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(image, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+                const px = ctx.getImageData(0, 0, cw, ch).data;
+
+                // Gaussian of the glass (sigma 24), clamped at the edges.
+                const sigma = 24 / S;
+                const radius = Math.ceil(sigma * 3);
+                const kernel = [];
+                for (let i = -radius; i <= radius; i++) kernel.push(Math.exp(-(i * i) / (2 * sigma * sigma)));
+                const blurredAt = (x, y) => {
+                    const cx = Math.round(x / S);
+                    const cy = Math.round(y / S);
+                    let r = 0, g = 0, b = 0, total = 0;
+                    for (let dy = -radius; dy <= radius; dy++) {
+                        const yy = Math.min(ch - 1, Math.max(0, cy + dy));
+                        const wy = kernel[dy + radius];
+                        for (let dx = -radius; dx <= radius; dx++) {
+                            const xx = Math.min(cw - 1, Math.max(0, cx + dx));
+                            const w = wy * kernel[dx + radius];
+                            const i = (yy * cw + xx) * 4;
+                            r += px[i] * w;
+                            g += px[i + 1] * w;
+                            b += px[i + 2] * w;
+                            total += w;
+                        }
+                    }
+                    return [r / total, g / total, b / total];
+                };
+
+                const rowCenter = d.top + 23;
+                const header = [];
+                for (let x = 64; x <= d.w - 64; x += 12) {
+                    for (const dy of [-7, 0, 7]) header.push(blurredAt(x, rowCenter + dy));
+                }
+                const buttons = [blurredAt(26, rowCenter), blurredAt(d.w - 26, rowCenter)];
+
+                // Centred lines: 8 px blocks between the header and the composer,
+                // inside the notice's 40 px side padding.
+                const top = d.top + 62;
+                const bottom = d.h - (56.5 + d.bottom);
+                const blocks = [];
+                for (let y = top; y + 8 <= bottom; y += 8) {
+                    for (let x = 48; x + 8 <= d.w - 48; x += 8) {
+                        let r = 0, g = 0, b = 0, n = 0;
+                        for (let yy = Math.floor(y / S); yy < Math.floor((y + 8) / S); yy++) {
+                            for (let xx = Math.floor(x / S); xx < Math.floor((x + 8) / S); xx++) {
+                                const i = (yy * cw + xx) * 4;
+                                r += px[i];
+                                g += px[i + 1];
+                                b += px[i + 2];
+                                n++;
+                            }
+                        }
+                        blocks.push(luminance([r / n, g / n, b / n]));
+                    }
+                }
+                Object.assign(analysis, { status: 'ready', header, buttons, blocks: Float64Array.from(blocks) });
+            } catch {
+                if (analysis.key !== key) return;
+                Object.assign(analysis, { status: 'error', header: null, buttons: null, blocks: null });
+            }
+            renderChecks();
+        }
+
+        // What sits behind a header icon: LiquidGlassButton's rim, base and
+        // sheen over the header's glass (saturation left out).
+        function glassButtonBehind(scene, mode) {
+            const light = mode === 'light';
+            let color = blend(WHITE, scene, light ? 0.605 : 0.19);
+            color = blend(light ? WHITE : [28, 28, 38], color, 0.46);
+            return blend(WHITE, color, light ? 0.14 : 0.035);
+        }
+
+        const LEVEL_TEXT = { none: '', ok: 'İyi', warn: 'Zayıf', bad: 'Okunmuyor' };
+        const LEVEL_RANK = { none: 0, ok: 1, warn: 2, bad: 3 };
+
+        function levelOf(ratio, good, min) {
+            return ratio >= good ? 'ok' : ratio >= min ? 'warn' : 'bad';
+        }
+
+        function formatRatio(ratio) {
+            return (Math.floor(ratio * 10) / 10).toFixed(1).replace('.', ',') + ':1';
+        }
+
+        function percentile(sorted, p) {
+            return sorted[Math.min(sorted.length - 1, Math.floor(p * sorted.length))];
+        }
+
+        function renderChecks() {
+            if (!$('checks-bar')) return;
+            const c = {};
+            for (const key of COLOR_KEYS) c[key] = hexToRgb(state.colors[key]);
+            const lines = { bar: [], sent: [], received: [], input: [], system: [] };
+            const flat = (group, label, fg, bg, good, min, fix) => {
+                const ratio = contrast(fg, bg);
+                const level = levelOf(ratio, good, min);
+                lines[group].push({ label, value: formatRatio(ratio), level, fix: level === 'ok' ? null : fix });
+            };
+
+            flat('sent', 'Yazı / baloncuk', c.sentTextColor, c.sentBubbleColor, 4.5, 3, fixText('sentTextColor', 'sentBubbleColor'));
+            flat('sent', 'Saat ve tik', blend(c.sentTextColor, c.sentBubbleColor, 0.65), c.sentBubbleColor, 3, 0);
+            flat('received', 'Yazı / baloncuk', c.receivedTextColor, c.receivedBubbleColor, 4.5, 3, fixText('receivedTextColor', 'receivedBubbleColor'));
+            flat('received', 'Saat', blend(c.receivedTextColor, c.receivedBubbleColor, 0.65), c.receivedBubbleColor, 3, 0);
+            flat('input', 'Yazı / kutu', c.inputTextColor, c.inputBoxColor, 4.5, 3, fixText('inputTextColor', 'inputBoxColor'));
+            flat('input', 'Gönder ikonu (beyaz)', WHITE, c.sendButtonColor, 3, 2, () =>
+                applySuggestion('sendButtonColor', rgbToHex(readableOn(c.sendButtonColor, WHITE, 3))));
+
+            if (analysis.status === 'ready') {
+                const glass = analysis.header.map(scene => luminance(blend(c.appBarColor, scene, 0.5)));
+                const title = Math.min(...glass.map(l => ratioOf(luminance(c.appBarTextColor), l)));
+                const titleLevel = levelOf(title, 4.5, 3);
+                lines.bar.push({
+                    label: 'Başlık yazısı (camın en açık/koyu yeri)',
+                    value: formatRatio(title),
+                    level: titleLevel,
+                    fix: titleLevel === 'ok' ? null : () => suggestOver('appBarTextColor', glass, 'min'),
+                });
+                for (const mode of ['light', 'dark']) {
+                    const icon = Math.min(...analysis.buttons.map(scene =>
+                        contrast(c.appBarTextColor, glassButtonBehind(blend(c.appBarColor, scene, 0.5), mode))));
+                    lines.bar.push({
+                        label: `Geri / menü ikonu · ${mode === 'light' ? 'açık' : 'koyu'} mod`,
+                        value: formatRatio(icon),
+                        level: levelOf(icon, 3, 2),
+                    });
+                }
+                const systemL = luminance(c.systemTextColor);
+                const ratios = Array.from(analysis.blocks, l => ratioOf(systemL, l)).sort((a, b) => a - b);
+                const hardest = percentile(ratios, 0.05);
+                const share = ratios.filter(r => r >= 4.5).length / ratios.length;
+                const systemLevel = levelOf(hardest, 4.5, 3);
+                lines.system.push({
+                    label: `Rahat okunan alan: %${Math.round(share * 100)} · en zor yerde`,
+                    value: formatRatio(hardest),
+                    level: systemLevel,
+                    fix: systemLevel === 'ok' ? null : () => suggestOver('systemTextColor', Array.from(analysis.blocks), 'p5'),
+                });
+            } else {
+                const message = {
+                    none: 'Arka plan seçilince hesaplanır.',
+                    pending: 'Görsel inceleniyor…',
+                    error: 'Görsel incelenemedi: yerel kopyası yok (depo güncel değil).',
+                }[analysis.status];
+                lines.bar.push({ label: message, value: '', level: 'none' });
+                lines.system.push({ label: message, value: '', level: 'none' });
+            }
+
+            fixes = [];
+            const issues = [];
+            for (const group of GROUPS) {
+                const list = lines[group.id];
+                const worst = list.reduce((w, line) => (LEVEL_RANK[line.level] > LEVEL_RANK[w] ? line.level : w), 'none');
+                const badge = $('badge-' + group.id);
+                badge.className = 'badge ' + worst;
+                badge.textContent = LEVEL_TEXT[worst];
+                $('checks-' + group.id).innerHTML = list.map(line => {
+                    let fixButton = '';
+                    if (line.fix) {
+                        fixes.push(line.fix);
+                        fixButton = `<button class="link" type="button" data-fix="${fixes.length - 1}" title="Okunur bir ton öner">Düzelt</button>`;
+                    }
+                    if (line.level === 'warn' || line.level === 'bad') {
+                        issues.push({ level: line.level, text: `${group.title} · ${line.label} ${line.value}` });
+                    }
+                    return `<div class="check ${line.level}"><span class="dot ${line.level}"></span><span class="check-label">${esc(line.label)}</span><span class="check-val">${esc(line.value)}</span>${fixButton}</div>`;
+                }).join('');
+            }
+            lastIssues = issues;
+            const bad = issues.filter(issue => issue.level === 'bad').length;
+            $('summary').innerHTML = issues.length
+                ? `<span class="dot ${bad ? 'bad' : 'warn'}"></span>${issues.length} okunabilirlik uyarısı var; yayınlamadan önce bakın.`
+                : '<span class="dot ok"></span>Okunabilirlik kontrolleri temiz.';
+        }
+
+        function fixText(textKey, backgroundKey) {
+            return () => {
+                const next = readableOn(hexToRgb(state.colors[textKey]), hexToRgb(state.colors[backgroundKey]), 4.5);
+                applySuggestion(textKey, rgbToHex(next));
             };
         }
 
-        const jsonModal = document.getElementById('jsonModal');
-        const jsonArea = document.getElementById('jsonArea');
-        const jsonModalTitle = document.getElementById('modalTitle');
-        const modalActionBtn = document.getElementById('modalActionBtn');
-
-        function closeJsonModal() {
-            jsonModal.style.display = 'none';
-        }
-
-        function exportJSON() {
-            jsonModalTitle.textContent = "Export JSON";
-            jsonArea.value = JSON.stringify(getThemeObject(), null, 2);
-            jsonArea.readOnly = true;
-            modalActionBtn.textContent = "Copy to Clipboard";
-            modalActionBtn.onclick = copyJSON;
-            jsonModal.style.display = 'flex';
-        }
-
-        function copyJSON() {
-            jsonArea.select();
-            document.execCommand('copy');
-            alert("Copied to clipboard!");
-            closeJsonModal();
-        }
-
-        function importJSON() {
-            jsonModalTitle.textContent = "Import JSON";
-            jsonArea.value = "";
-            jsonArea.readOnly = false;
-            jsonArea.placeholder = "Paste JSON here...";
-            modalActionBtn.textContent = "Import";
-            modalActionBtn.onclick = handleImport;
-            jsonModal.style.display = 'flex';
-        }
-
-        function handleImport() {
-            try {
-                const data = JSON.parse(jsonArea.value);
-                if (data.name) inputs.themeName.value = data.name;
-                if (data.sentBubbleColor) inputs.sentBubbleColor.value = data.sentBubbleColor;
-                if (data.sentTextColor) inputs.sentTextColor.value = data.sentTextColor;
-                if (data.receivedBubbleColor) inputs.receivedBubbleColor.value = data.receivedBubbleColor;
-                if (data.receivedTextColor) inputs.receivedTextColor.value = data.receivedTextColor;
-                if (data.appBarColor) inputs.appBarColor.value = data.appBarColor;
-                if (data.appBarTextColor) inputs.appBarTextColor.value = data.appBarTextColor;
-                if (data.inputBoxColor) inputs.inputBoxColor.value = data.inputBoxColor;
-                if (data.inputTextColor) inputs.inputTextColor.value = data.inputTextColor;
-                if (data.sendButtonColor) inputs.sendButtonColor.value = data.sendButtonColor;
-                if (data.systemTextColor) inputs.systemTextColor.value = data.systemTextColor;
-
-                updatePreview();
-                closeJsonModal();
-            } catch (e) {
-                alert("Invalid JSON format");
+        // The lightness of the current hue that reads best over a set of
+        // background luminances: 'min' for every sample, 'p5' for all but
+        // the hardest 5 %.
+        function suggestOver(key, backgrounds, stat) {
+            const hsl = rgbToHsl(hexToRgb(state.colors[key]));
+            const ratios = new Float64Array(backgrounds.length);
+            let best = null;
+            for (let i = 0; i <= 50; i++) {
+                const l = i / 50;
+                const rgb = hslToRgb({ ...hsl, l });
+                const lum = luminance(rgb);
+                for (let j = 0; j < backgrounds.length; j++) ratios[j] = ratioOf(lum, backgrounds[j]);
+                ratios.sort();
+                const score = stat === 'min' ? ratios[0] : percentile(ratios, 0.05);
+                let pass = 0;
+                for (const r of ratios) if (r >= 4.5) pass++;
+                const candidate = { rgb, score, share: pass / ratios.length, distance: Math.abs(l - hsl.l) };
+                if (!best || betterSuggestion(candidate, best)) best = candidate;
             }
+            applySuggestion(key, rgbToHex(best.rgb));
         }
 
-        async function publishTheme() {
-            const isEditing = editingThemeIndex !== null;
-            try {
-                await loadSavedThemes();
-            } catch (error) {
-                alert('Tema isimleri doğrulanamadı: ' + error.message);
+        function betterSuggestion(a, b) {
+            const aReads = a.score >= 4.5;
+            const bReads = b.score >= 4.5;
+            if (aReads !== bReads) return aReads;
+            if (aReads) return a.distance < b.distance;
+            if (Math.abs(a.share - b.share) > 0.005) return a.share > b.share;
+            return a.score > b.score;
+        }
+
+        function applySuggestion(key, hex) {
+            const before = state.colors[key];
+            if (before === hex) {
+                toast('Bu tonda daha okunur bir renk bulunamadı.', 'info');
                 return;
             }
-            if (validateThemeName()) {
-                alert('Bu isimde kayıtlı bir tema zaten var. Lütfen farklı bir isim seçin.');
-                return;
-            }
-            const confirmation = isEditing
-                ? 'Bu temadaki değişiklikler kaydedilip yayınlansın mı?'
-                : 'Yayınlamak istiyor musun? (Bu işlem themes.json dosyasına eklenecektir)';
-            if (!confirm(confirmation)) {
-                return;
-            }
+            setColor(key, hex);
+            toast(`${FIELD_NAMES[key]}: ${before.toUpperCase()} → ${hex.toUpperCase()}`, 'success', {
+                action: 'Geri al',
+                onAction: () => setColor(key, before),
+            });
+        }
 
-            const formData = new FormData();
-            formData.append("name", inputs.themeName.value);
-            formData.append("sentBubbleColor", inputs.sentBubbleColor.value);
-            formData.append("sentTextColor", inputs.sentTextColor.value);
-            formData.append("receivedBubbleColor", inputs.receivedBubbleColor.value);
-            formData.append("receivedTextColor", inputs.receivedTextColor.value);
-            formData.append("appBarColor", inputs.appBarColor.value);
-            formData.append("appBarTextColor", inputs.appBarTextColor.value);
-            formData.append("inputBoxColor", inputs.inputBoxColor.value);
-            formData.append("inputTextColor", inputs.inputTextColor.value);
-            formData.append("sendButtonColor", inputs.sendButtonColor.value);
-            formData.append("systemTextColor", inputs.systemTextColor.value);
+        /* ── Saved themes ──────────────────────────────────────────────── */
 
-            // Append the cropped blobs instead of raw files
-            if (croppedBgBlob) formData.append("backgroundFile", croppedBgBlob, "bg.jpg");
-            if (croppedPrewBlob) formData.append("previewFile", croppedPrewBlob, "prew.jpg");
-
-            try {
-                const response = await fetch(isEditing ? `/api/themes/${editingThemeIndex}` : '/publish', {
-                    method: isEditing ? 'PUT' : 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-                if (result.success) {
-                    if (isEditing) {
-                        savedThemes[editingThemeIndex] = result.theme;
-                        editingThemeLabel.textContent = `Düzenleniyor: ${result.theme.name}`;
+        async function loadThemes() {
+            const response = await fetch('/api/themes', { cache: 'no-store' });
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.error || 'Temalar alınamadı.');
+            state.themes = Array.isArray(result.themes) ? result.themes : [];
+            // Indices are what the server edits by; follow the theme if the
+            // list moved under us.
+            if (state.editingIndex !== null) {
+                const at = state.themes[state.editingIndex];
+                if (!at || at.name !== state.editingName) {
+                    const found = state.themes.findIndex(theme => theme.name === state.editingName);
+                    state.editingIndex = found >= 0 ? found : null;
+                    if (found < 0) {
+                        state.editingName = null;
+                        toast('Düzenlenen tema listede artık yok; yayınlarsanız yeni tema olarak eklenir.', 'warn', { duration: 7000 });
+                        renderEditorMode();
                     }
-                    alert("Başarıyla yayınlandı!\n\n" + JSON.stringify(result.theme, null, 2));
-                } else {
-                    alert("Hata oluştu: " + result.error);
                 }
-            } catch (e) {
-                alert("İstek başarısız: " + e.message);
+            }
+            $('themeCount').textContent = state.themes.length;
+            validateName();
+            if (state.view === 'select') renderScreen();
+            if ($('libraryModal').classList.contains('open')) renderLibrary();
+        }
+
+        function renderLibrary() {
+            const query = $('libSearch').value.trim().toLowerCase();
+            const items = state.themes
+                .map((theme, index) => ({ theme, index }))
+                .filter(({ theme }) => !query || (theme.name || '').toLowerCase().includes(query));
+            $('libSummary').textContent = state.themes.length
+                ? `${state.themes.length} tema${query ? ` · ${items.length} sonuç` : ''} · Uygulamadaki sırayla`
+                : 'Henüz kayıtlı tema yok.';
+            $('libGrid').innerHTML = items.length
+                ? items.map(({ theme, index }) => libraryCardHtml(theme, index)).join('')
+                : `<div class="lib-empty">${state.themes.length ? 'Aramayla eşleşen tema yok.' : 'Yayınladığınız temalar burada görünür.'}</div>`;
+        }
+
+        function libraryCardHtml(theme, index) {
+            const url = theme.previewUrl || theme.backgroundUrl;
+            const img = url ? `<img src="${esc(localUrl(url))}" data-fallback="${esc(url)}" alt="">` : '';
+            const swatches = ['sentBubbleColor', 'receivedBubbleColor', 'appBarColor', 'systemTextColor']
+                .map(key => normalizeHex(theme[key]))
+                .filter(Boolean)
+                .map(hex => `<i style="background: ${hex}"></i>`)
+                .join('');
+            const editing = index === state.editingIndex;
+            return `<article class="lib-card${editing ? ' editing' : ''}">
+                <button class="lib-cover" type="button" data-edit="${index}" title="Düzenle">${img}<span class="lib-swatches">${swatches}</span>${editing ? '<span class="lib-flag">Düzenleniyor</span>' : ''}</button>
+                <div class="lib-info">
+                    <div class="lib-name">${esc(theme.name || 'Adsız tema')}</div>
+                    <div class="lib-actions">
+                        <button class="btn btn-sm btn-primary" type="button" data-edit="${index}">Düzenle</button>
+                        <button class="btn btn-sm" type="button" data-copy="${index}" title="Bu temadan yeni bir tema başlat">Kopyala</button>
+                        <button class="icon-btn danger" type="button" data-delete="${index}" title="Sil"><span class="material-icons-round">delete</span></button>
+                    </div>
+                </div>
+            </article>`;
+        }
+
+        async function openLibrary() {
+            $('libSearch').value = '';
+            renderLibrary();
+            openModal($('libraryModal'));
+            $('libSearch').focus();
+            try {
+                await loadThemes();
+            } catch (error) {
+                $('libSummary').textContent = error.message;
             }
         }
 
-        // Initialize preview
-        updatePreview();
-        loadSavedThemes().catch(() => {});
+        async function confirmDiscard() {
+            if (!isDirty()) return true;
+            return askConfirm({
+                title: 'Kaydedilmemiş değişiklikler var',
+                body: '<p>Devam ederseniz bu temadaki değişiklikler kaybolur.</p>',
+                confirm: 'Değişiklikleri at',
+                danger: true,
+            });
+        }
+
+        async function editTheme(index) {
+            const theme = state.themes[index];
+            if (!theme) return;
+            if (index === state.editingIndex && !isDirty()) {
+                closeModal($('libraryModal'));
+                return;
+            }
+            if (!(await confirmDiscard())) return;
+            closeModal($('libraryModal'));
+            loadIntoEditor(theme, index);
+        }
+
+        async function copyTheme(index) {
+            const theme = state.themes[index];
+            if (!theme || !(await confirmDiscard())) return;
+            closeModal($('libraryModal'));
+            startNew();
+            const names = new Set(state.themes.map(t => (t.name || '').toLowerCase()));
+            let name = `${theme.name} kopya`;
+            for (let n = 2; names.has(name.toLowerCase()); n++) name = `${theme.name} kopya ${n}`;
+            state.name = name;
+            state.colors = pickColors(theme);
+            syncInputs();
+            applyColors();
+            updateThemeNameInPreview();
+            validateName();
+            scheduleChecks();
+            // The pictures go up again under the new theme's own name.
+            const [bg, prew] = await Promise.all([copyImage(theme.backgroundUrl), copyImage(theme.previewUrl)]);
+            state.bg = bg ? { ...bg, label: `"${theme.name}" temasından` } : null;
+            state.prew = prew ? { ...prew, label: `"${theme.name}" temasından` } : null;
+            imagesChanged();
+            toast(bg
+                ? `"${theme.name}" kopyalandı. Adını ve renklerini değiştirip yayınlayabilirsiniz.`
+                : 'Renkler kopyalandı ama görsel alınamadı; bir arka plan seçin.', bg ? 'success' : 'warn');
+        }
+
+        async function copyImage(url) {
+            if (!url) return null;
+            try {
+                const response = await fetch(localUrl(url));
+                if (!response.ok) return null;
+                return newImage(await response.blob(), null, '');
+            } catch {
+                return null;
+            }
+        }
+
+        async function deleteTheme(index) {
+            const theme = state.themes[index];
+            if (!theme) return;
+            const ok = await askConfirm({
+                title: `"${esc(theme.name)}" silinsin mi?`,
+                body: '<p>Tema listeden kalkar ve değişiklik depoya gönderilir (git push). Görsel dosyaları, temayı önceden seçmiş sohbetler için yerinde kalır.</p>',
+                confirm: 'Sil',
+                danger: true,
+            });
+            if (!ok) return;
+            try {
+                const response = await fetch(`/api/themes/${index}`, { method: 'DELETE' });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.error || `HTTP ${response.status}`);
+                if (state.editingIndex === index) startNew();
+                else if (state.editingIndex !== null && state.editingIndex > index) state.editingIndex--;
+                await loadThemes();
+                toast(`"${theme.name}" silindi.`, 'success');
+            } catch (error) {
+                toast('Silinemedi: ' + error.message, 'error', { duration: 8000 });
+            }
+        }
+
+        /* ── Editor state ──────────────────────────────────────────────── */
+
+        function snapshot() {
+            const image = img => (img ? img.url || (img.auto ? 'auto' : img.src) : null);
+            return JSON.stringify([state.name.trim(), COLOR_KEYS.map(key => state.colors[key]), image(state.bg), image(state.prew)]);
+        }
+
+        function isDirty() {
+            return snapshot() !== state.saved;
+        }
+
+        function refreshDirty() {
+            const dirty = isDirty();
+            $('dirtyNote').hidden = !dirty;
+            $('btnRevert').hidden = !dirty;
+            document.title = `${dirty ? '● ' : ''}Feast Tema Stüdyosu`;
+        }
+
+        function renderEditorMode() {
+            const editing = state.editingIndex !== null;
+            $('editBanner').hidden = !editing;
+            $('editTitle').textContent = editing ? `Düzenleniyor: ${state.editingName}` : '';
+            if (!state.busy) $('btnPublish').textContent = editing ? 'Değişiklikleri yayınla' : 'Yayınla';
+        }
+
+        function renderAll() {
+            syncInputs();
+            renderEditorMode();
+            renderImageFields();
+            renderScreen();
+            validateName();
+            scheduleAnalysis();
+            scheduleChecks();
+        }
+
+        function startNew() {
+            Object.assign(state, {
+                editingIndex: null,
+                editingName: null,
+                name: '',
+                colors: { ...DEFAULT_COLORS },
+                bg: null,
+                prew: null,
+            });
+            renderAll();
+            state.saved = snapshot();
+            refreshDirty();
+        }
+
+        function loadIntoEditor(theme, index) {
+            const preview = theme.previewUrl || theme.backgroundUrl;
+            Object.assign(state, {
+                editingIndex: index,
+                editingName: theme.name || '',
+                name: theme.name || '',
+                colors: pickColors(theme),
+                bg: theme.backgroundUrl ? publishedImage(theme.backgroundUrl, 'Yayındaki görsel') : null,
+                prew: preview ? publishedImage(preview, theme.previewUrl ? 'Yayındaki görsel' : 'Arka plan kullanılıyor') : null,
+            });
+            renderAll();
+            state.saved = snapshot();
+            refreshDirty();
+            resolvePublished(state.bg);
+            resolvePublished(state.prew);
+        }
+
+        /* ── Publish ───────────────────────────────────────────────────── */
+
+        function setBusy(busy) {
+            state.busy = busy;
+            $('btnPublish').disabled = busy;
+            if (busy) $('btnPublish').textContent = 'Yayınlanıyor…';
+            else renderEditorMode();
+        }
+
+        async function publish() {
+            if (state.busy) return;
+            try {
+                await loadThemes();
+            } catch (error) {
+                toast('Tema listesi alınamadı: ' + error.message, 'error');
+                return;
+            }
+            const editing = state.editingIndex !== null;
+            const name = state.name.trim();
+            if (!name) {
+                toast('Tema adı boş olamaz.', 'error');
+                $('themeName').focus();
+                return;
+            }
+            if (!validateName()) {
+                toast('Bu adla kayıtlı bir tema var; farklı bir ad seçin.', 'error');
+                $('themeName').focus();
+                return;
+            }
+            if (!state.bg) {
+                toast('Arka plan görseli seçin: uygulama görselini indiremediği temayı uygulayamaz.', 'error', { duration: 7000 });
+                return;
+            }
+            if (editing && !isDirty()) {
+                toast('Yayınlanacak bir değişiklik yok.', 'info');
+                return;
+            }
+
+            const parts = [`<p><strong>${esc(name)}</strong> ${editing ? "themes.json'da güncellenir" : "themes.json'a eklenir"} ve depoya gönderilir (git push). Uygulamanın tema listesinde hemen görünür.</p>`];
+            if (lastIssues.length) {
+                parts.push(`<ul class="issues">${lastIssues.map(issue => `<li><span class="dot ${issue.level}"></span>${esc(issue.text)}</li>`).join('')}</ul>`);
+            }
+            if (editing) {
+                parts.push('<p>Temayı önceden seçmiş sohbetler, tema yeniden seçilene kadar eski hâlini kullanır.</p>');
+                if (name !== state.editingName) parts.push(`<p>Ad değişiyor: ${esc(state.editingName)} → ${esc(name)}.</p>`);
+            }
+            const ok = await askConfirm({
+                title: editing ? 'Değişiklikler yayınlansın mı?' : 'Tema yayınlansın mı?',
+                body: parts.join(''),
+                confirm: lastIssues.length ? 'Yine de yayınla' : editing ? 'Güncelle' : 'Yayınla',
+            });
+            if (!ok) return;
+
+            const form = new FormData();
+            form.append('name', name);
+            for (const key of COLOR_KEYS) form.append(key, state.colors[key]);
+            if (state.bg.blob) form.append('backgroundFile', state.bg.blob, 'background.jpg');
+            if (state.prew && state.prew.blob) form.append('previewFile', state.prew.blob, 'preview.jpg');
+
+            setBusy(true);
+            try {
+                const response = await fetch(editing ? `/api/themes/${state.editingIndex}` : '/publish', {
+                    method: editing ? 'PUT' : 'POST',
+                    body: form,
+                });
+                let result;
+                try {
+                    result = await response.json();
+                } catch {
+                    throw new Error(`Sunucunun yanıtı okunamadı (HTTP ${response.status}).`);
+                }
+                if (!response.ok || !result.success) throw new Error(result.error || `HTTP ${response.status}`);
+                await loadThemes();
+                const index = editing
+                    ? state.editingIndex
+                    : typeof result.index === 'number' ? result.index : state.themes.findIndex(theme => theme.name === result.theme.name);
+                const theme = state.themes[index] || result.theme;
+                loadIntoEditor(theme, index >= 0 ? index : null);
+                toast(editing ? `"${theme.name}" güncellendi ve yayınlandı.` : `"${theme.name}" yayınlandı.`, 'success', { duration: 6000 });
+            } catch (error) {
+                toast('Yayınlanamadı: ' + error.message, 'error', { duration: 10000 });
+            } finally {
+                setBusy(false);
+            }
+        }
+
+        /* ── JSON ──────────────────────────────────────────────────────── */
+
+        let jsonAction = null;
+
+        function themeJson() {
+            const pending = '(yayınlanınca oluşur)';
+            const theme = {
+                name: displayName(),
+                backgroundUrl: (state.bg && state.bg.url) || pending,
+                previewUrl: (state.prew && state.prew.url) || (state.bg && state.bg.url) || pending,
+            };
+            for (const key of COLOR_KEYS) theme[key] = state.colors[key];
+            return theme;
+        }
+
+        function showJson() {
+            $('jsonTitle').textContent = "Temanın JSON'u";
+            $('jsonHint').textContent = "themes.json'daki kaydın aynısı. Görsel adresleri yayınlanınca oluşur.";
+            $('jsonText').value = JSON.stringify(themeJson(), null, 2);
+            $('jsonText').readOnly = true;
+            $('jsonAction').textContent = 'Kopyala';
+            jsonAction = copyJson;
+            openModal($('jsonModal'));
+        }
+
+        async function copyJson() {
+            const text = $('jsonText').value;
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch {
+                $('jsonText').select();
+                document.execCommand('copy');
+            }
+            toast('JSON panoya kopyalandı.', 'success');
+            closeModal($('jsonModal'));
+        }
+
+        function showImport() {
+            $('jsonTitle').textContent = "JSON'dan al";
+            $('jsonHint').textContent = 'Bir temanın JSON kaydını yapıştırın: ad ve renkler alınır, görseller alınmaz.';
+            $('jsonText').value = '';
+            $('jsonText').readOnly = false;
+            $('jsonAction').textContent = 'Al';
+            jsonAction = importJson;
+            openModal($('jsonModal'));
+            $('jsonText').focus();
+        }
+
+        function importJson() {
+            let data;
+            try {
+                data = JSON.parse($('jsonText').value);
+            } catch {
+                toast('Geçerli bir JSON değil.', 'error');
+                return;
+            }
+            if (Array.isArray(data)) data = data[0];
+            if (!data || typeof data !== 'object') {
+                toast('JSON bir tema nesnesi olmalı.', 'error');
+                return;
+            }
+            let taken = 0;
+            const skipped = [];
+            for (const key of COLOR_KEYS) {
+                if (!(key in data)) continue;
+                const hex = normalizeHex(data[key]);
+                if (hex) {
+                    state.colors[key] = hex;
+                    taken++;
+                } else {
+                    skipped.push(key);
+                }
+            }
+            if (typeof data.name === 'string' && data.name.trim()) state.name = data.name.trim();
+            syncInputs();
+            applyColors();
+            updateThemeNameInPreview();
+            validateName();
+            scheduleChecks();
+            refreshDirty();
+            closeModal($('jsonModal'));
+            toast(`${taken} renk alındı${skipped.length ? `; geçersiz ${skipped.length} renk atlandı (${skipped.join(', ')})` : ''}.`, skipped.length ? 'warn' : 'success');
+        }
+
+        /* ── Modals and toasts ─────────────────────────────────────────── */
+
+        const openModals = [];
+
+        function openModal(el, onEscape) {
+            el.classList.add('open');
+            openModals.push({ el, onEscape });
+        }
+
+        function closeModal(el) {
+            el.classList.remove('open');
+            const at = openModals.findIndex(entry => entry.el === el);
+            if (at >= 0) openModals.splice(at, 1);
+        }
+
+        function askConfirm({ title, body, confirm = 'Tamam', danger = false }) {
+            return new Promise(resolve => {
+                const modal = $('confirmModal');
+                $('confirmTitle').innerHTML = title;
+                $('confirmBody').innerHTML = body;
+                $('confirmOk').textContent = confirm;
+                $('confirmOk').className = `btn ${danger ? 'btn-danger' : 'btn-primary'}`;
+                const done = value => {
+                    closeModal(modal);
+                    $('confirmOk').onclick = null;
+                    $('confirmCancel').onclick = null;
+                    resolve(value);
+                };
+                $('confirmOk').onclick = () => done(true);
+                $('confirmCancel').onclick = () => done(false);
+                openModal(modal, () => done(false));
+                $('confirmOk').focus();
+            });
+        }
+
+        function toast(message, type = 'info', { action, onAction, duration = 4500 } = {}) {
+            const el = document.createElement('div');
+            el.className = `toast ${type}`;
+            const text = document.createElement('span');
+            text.textContent = message;
+            el.appendChild(text);
+            let timer = 0;
+            const dismiss = () => {
+                clearTimeout(timer);
+                el.classList.add('out');
+                setTimeout(() => el.remove(), 200);
+            };
+            if (action) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = action;
+                button.onclick = () => {
+                    onAction();
+                    dismiss();
+                };
+                el.appendChild(button);
+            }
+            $('toasts').appendChild(el);
+            timer = setTimeout(dismiss, duration);
+        }
+
+        /* ── Wiring ────────────────────────────────────────────────────── */
+
+        function setPreview(key, value) {
+            if (state[key] === value) return;
+            state[key] = value;
+            writePrefs();
+            syncToolbar();
+            if (key === 'zoom') {
+                fitDevice();
+                return;
+            }
+            renderScreen();
+            if (key === 'device') scheduleAnalysis();
+        }
+
+        function syncToolbar() {
+            for (const seg of document.querySelectorAll('.seg')) {
+                for (const button of seg.querySelectorAll('button')) {
+                    button.classList.toggle('on', state[seg.dataset.seg] === button.dataset.value);
+                }
+            }
+            $('typingToggle').checked = state.typing;
+            $('typingToggle').disabled = state.view === 'select';
+            $('typingLabel').classList.toggle('disabled', state.view === 'select');
+        }
+
+        function wire() {
+            for (const seg of document.querySelectorAll('.seg')) {
+                seg.addEventListener('click', event => {
+                    const button = event.target.closest('button[data-value]');
+                    if (button) setPreview(seg.dataset.seg, button.dataset.value);
+                });
+            }
+            $('typingToggle').addEventListener('change', event => setPreview('typing', event.target.checked));
+
+            $('themeName').addEventListener('input', event => {
+                state.name = event.target.value;
+                updateThemeNameInPreview();
+                validateName();
+                refreshDirty();
+            });
+
+            $('bgPick').addEventListener('click', () => $('bgFile').click());
+            $('bgThumb').addEventListener('click', () => $('bgFile').click());
+            $('bgRecrop').addEventListener('click', () => openCropper(state.bg.source || state.bg.src, 'bg'));
+            $('prewPick').addEventListener('click', () => $('prewFile').click());
+            $('prewFromBg').addEventListener('click', () => openCropper(state.bg.source || state.bg.src, 'prew'));
+            $('prewThumb').addEventListener('click', () => {
+                if (state.bg) openCropper(state.bg.source || state.bg.src, 'prew');
+                else $('prewFile').click();
+            });
+            for (const target of ['bg', 'prew']) {
+                $(target + 'File').addEventListener('change', event => {
+                    readFile(event.target.files[0], target);
+                    event.target.value = '';
+                });
+            }
+            makeDropTarget($('bgField'), 'bg');
+            makeDropTarget($('prewField'), 'prew');
+            makeDropTarget($('stage'), 'bg');
+
+            $('cropCancel').addEventListener('click', closeCropper);
+            $('cropOk').addEventListener('click', confirmCrop);
+
+            $('btnLibrary').addEventListener('click', openLibrary);
+            $('libSearch').addEventListener('input', renderLibrary);
+            $('libGrid').addEventListener('click', event => {
+                const edit = event.target.closest('[data-edit]');
+                const copy = event.target.closest('[data-copy]');
+                const remove = event.target.closest('[data-delete]');
+                if (edit) editTheme(Number(edit.dataset.edit));
+                else if (copy) copyTheme(Number(copy.dataset.copy));
+                else if (remove) deleteTheme(Number(remove.dataset.delete));
+            });
+            $('btnNew').addEventListener('click', async () => {
+                if (await confirmDiscard()) startNew();
+            });
+            $('btnRevert').addEventListener('click', async () => {
+                const ok = await askConfirm({
+                    title: 'Değişiklikler geri alınsın mı?',
+                    body: state.editingIndex === null
+                        ? '<p>Tema boş bir yeni temaya döner.</p>'
+                        : '<p>Tema yayındaki hâline döner.</p>',
+                    confirm: 'Geri al',
+                    danger: true,
+                });
+                if (!ok) return;
+                const theme = state.editingIndex === null ? null : state.themes[state.editingIndex];
+                if (theme) loadIntoEditor(theme, state.editingIndex);
+                else startNew();
+            });
+            $('btnPublish').addEventListener('click', publish);
+            $('btnExport').addEventListener('click', showJson);
+            $('btnImport').addEventListener('click', showImport);
+            $('jsonAction').addEventListener('click', () => jsonAction && jsonAction());
+
+            screenEl.addEventListener('click', event => {
+                const tile = event.target.closest('[data-theme-index]');
+                if (tile) {
+                    editTheme(Number(tile.dataset.themeIndex));
+                    return;
+                }
+                const part = event.target.closest('[data-group]');
+                if (part) focusGroup(part.dataset.group);
+            });
+
+            for (const button of document.querySelectorAll('[data-close]')) {
+                button.addEventListener('click', () => closeModal(button.closest('.modal')));
+            }
+            for (const id of ['libraryModal', 'jsonModal']) {
+                $(id).addEventListener('mousedown', event => {
+                    if (event.target === event.currentTarget) closeModal(event.currentTarget);
+                });
+            }
+            document.addEventListener('keydown', event => {
+                if (event.key !== 'Escape' || !openModals.length) return;
+                event.preventDefault();
+                const top = openModals[openModals.length - 1];
+                if (top.onEscape) top.onEscape();
+                else closeModal(top.el);
+            });
+
+            // A picture that is not in the local repository yet comes from the site.
+            document.addEventListener('error', event => {
+                const el = event.target;
+                if (el instanceof HTMLImageElement && el.dataset.fallback) {
+                    const fallback = el.dataset.fallback;
+                    delete el.dataset.fallback;
+                    el.src = fallback;
+                }
+            }, true);
+
+            window.addEventListener('beforeunload', event => {
+                if (!isDirty()) return;
+                event.preventDefault();
+                event.returnValue = '';
+            });
+
+            new ResizeObserver(fitDevice).observe($('stage'));
+        }
+
+        function init() {
+            const prefs = readPrefs();
+            if (['chat', 'group', 'select'].includes(prefs.view)) state.view = prefs.view;
+            if (prefs.mode in PALETTE) state.mode = prefs.mode;
+            if (prefs.device in DEVICES) state.device = prefs.device;
+            if (['fit', '1'].includes(prefs.zoom)) state.zoom = prefs.zoom;
+            state.typing = prefs.typing === true;
+
+            buildColorGroups();
+            wire();
+            syncToolbar();
+            startNew();
+            loadThemes().catch(error => toast('Kayıtlı temalar alınamadı: ' + error.message, 'error', { duration: 8000 }));
+            if (document.fonts) {
+                document.fonts.ready.then(() => {
+                    validateName();
+                    fitDevice();
+                });
+            }
+        }
+
+        init();
     </script>
 </body>
 </html>
