@@ -1,5 +1,5 @@
 {
-    "max_restaurant_distance_km": 4,
+    "max_restaurant_distance_km": 5,
     "min_age_to_register": 13,
     "min_age_to_use_chat": 16,
     "legal_urls": {
