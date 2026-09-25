@@ -1,0 +1,44 @@
+{
+    "max_restaurant_distance_km": 4,
+    "min_age_to_register": 13,
+    "min_age_to_use_chat": 16,
+    "legal_urls": {
+        "user_agreement": "https://feast.tr/policies/kullanici-sozlesmesi",
+        "legal_notice": "https://feast.tr/policies/yasal-uyari",
+        "kvkk_disclosure": "https://feast.tr/policies/aydinlatma-metni",
+        "explicit_consent": "https://feast.tr/policies/acik-riza-metni"
+    },
+    "popular_locations": [
+        { "name": "Kadıköy", "subtitle": "İstanbul", "lat": 40.9905, "lng": 29.0239 },
+        { "name": "Beşiktaş", "subtitle": "İstanbul", "lat": 41.0422, "lng": 29.0067 }
+    ],
+    "explore_blocked_item_keywords": {
+        "acı sos": 50,
+        "sos": 50,
+        "mayonez": 50,
+        "ketçap": 50,
+        "teneke içecekler": 200,
+        "içecekler": 200,
+        "teneke": 100,
+        "meyve suyu": 100,
+        "meşrubatlar": 100,
+        "su": 100,
+        "soda": 160,
+        "ayran": 80,
+        "coke": 200,
+        "kola": 200,
+        "cola": 200,
+        "coca-cola": 200,
+        "fanta": 270,
+        "sprite": 300,
+        "ice tea": 200,
+        "iced tea": 220,
+        "fuse tea": 200,
+        "fuse-tea": 200,
+        "fusetea": 200,
+        "cappy": 200,
+        "caprisun": 80,
+        "çay": 40,
+        "gazoz": 150
+    }
+}
