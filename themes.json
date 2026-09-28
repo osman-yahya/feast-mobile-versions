@@ -75,18 +75,18 @@
     "systemTextColor": "#2e1919"
   },
   {
-    "name": "kurabiye",
+    "name": "Kurabiye",
     "backgroundUrl": "https://mobile-version.feast.tr/bg/kurabiye_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/kurabiye_bg_prew.jpg",
-    "sentBubbleColor": "#ecbb8d",
-    "receivedBubbleColor": "#ce8769",
+    "sentBubbleColor": "#ffb570",
+    "receivedBubbleColor": "#ffa175",
     "sentTextColor": "#1c1212",
     "receivedTextColor": "#231515",
-    "appBarColor": "#ddc4a1",
+    "appBarColor": "#f8f3e9",
     "appBarTextColor": "#391e1e",
-    "inputBoxColor": "#fff4d6",
-    "inputTextColor": "#351717",
-    "sendButtonColor": "#fe9162",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#231515",
+    "sendButtonColor": "#fe7739",
     "systemTextColor": "#391e1e"
   },
   {
