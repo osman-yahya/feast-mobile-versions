@@ -120,19 +120,19 @@
     "systemTextColor": "#000000"
   },
   {
-    "name": "Acıktım",
+    "name": "Menü",
     "backgroundUrl": "https://mobile-version.feast.tr/bg/acıktım_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/acıktım_bg_prew.jpg",
-    "sentBubbleColor": "#b81919",
-    "receivedBubbleColor": "#d4a34e",
-    "sentTextColor": "#ffe0e0",
-    "receivedTextColor": "#362626",
-    "appBarColor": "#d4a34e",
-    "appBarTextColor": "#362626",
-    "inputBoxColor": "#f3d196",
-    "inputTextColor": "#291414",
-    "sendButtonColor": "#d4a34e",
-    "systemTextColor": "#362626"
+    "sentBubbleColor": "#a1511b",
+    "receivedBubbleColor": "#d18e42",
+    "sentTextColor": "#ffffff",
+    "receivedTextColor": "#000000",
+    "appBarColor": "#d9bd69",
+    "appBarTextColor": "#000000",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#080808",
+    "sendButtonColor": "#a1511b",
+    "systemTextColor": "#000000"
   },
   {
     "name": "Lüks",
