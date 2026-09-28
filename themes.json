@@ -60,18 +60,18 @@
     "systemTextColor": "#ffffff"
   },
   {
-    "name": "2 Kişillik Menü",
+    "name": "Dost",
     "backgroundUrl": "https://mobile-version.feast.tr/bg/2_kişillik_menü_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/2_kişillik_menü_bg_prew.jpg",
-    "sentBubbleColor": "#f3d877",
-    "receivedBubbleColor": "#b36c3d",
+    "sentBubbleColor": "#fbc77e",
+    "receivedBubbleColor": "#aa6b41",
     "sentTextColor": "#2e0000",
     "receivedTextColor": "#fff5f5",
-    "appBarColor": "#f3bf77",
+    "appBarColor": "#fff8ee",
     "appBarTextColor": "#2e1919",
-    "inputBoxColor": "#feb07c",
+    "inputBoxColor": "#fcdeaa",
     "inputTextColor": "#201818",
-    "sendButtonColor": "#2e0000",
+    "sendButtonColor": "#aa6b41",
     "systemTextColor": "#2e1919"
   },
   {
