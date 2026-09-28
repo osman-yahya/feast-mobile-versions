@@ -231,12 +231,12 @@
     "sentBubbleColor": "#464fce",
     "receivedBubbleColor": "#a8aeff",
     "sentTextColor": "#ffffff",
-    "receivedTextColor": "#230b0b",
-    "appBarColor": "#0d125e",
+    "receivedTextColor": "#000000",
+    "appBarColor": "#0e1036",
     "appBarTextColor": "#ffffff",
-    "inputBoxColor": "#a8aeff",
-    "inputTextColor": "#291414",
-    "sendButtonColor": "#0d125e",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#464fce",
     "systemTextColor": "#ffffff"
   },
   {
