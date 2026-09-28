@@ -90,19 +90,19 @@
     "systemTextColor": "#391e1e"
   },
   {
-    "name": "lovers",
+    "name": "Sevgi",
     "backgroundUrl": "https://mobile-version.feast.tr/bg/lovers_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/lovers_bg_prew.jpg",
-    "sentBubbleColor": "#d5b4c9",
-    "receivedBubbleColor": "#f0dfd5",
+    "sentBubbleColor": "#c49cb5",
+    "receivedBubbleColor": "#ffc5a3",
     "sentTextColor": "#1c1212",
     "receivedTextColor": "#231515",
-    "appBarColor": "#b27077",
-    "appBarTextColor": "#fff0f0",
-    "inputBoxColor": "#f0dfd5",
-    "inputTextColor": "#351717",
+    "appBarColor": "#db9aa0",
+    "appBarTextColor": "#000000",
+    "inputBoxColor": "#ffffff",
+    "inputTextColor": "#231515",
     "sendButtonColor": "#b27077",
-    "systemTextColor": "#351717"
+    "systemTextColor": "#000000"
   },
   {
     "name": "Salata",
