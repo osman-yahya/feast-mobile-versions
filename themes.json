@@ -244,14 +244,14 @@
     "backgroundUrl": "https://mobile-version.feast.tr/bg/mavi_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/mavi_bg_prew.jpg",
     "sentBubbleColor": "#ffffff",
-    "receivedBubbleColor": "#bcebfb",
-    "sentTextColor": "#1c1212",
-    "receivedTextColor": "#231515",
-    "appBarColor": "#bcebfb",
-    "appBarTextColor": "#211212",
-    "inputBoxColor": "#c9e8f2",
-    "inputTextColor": "#351717",
-    "sendButtonColor": "#1d5162",
-    "systemTextColor": "#1d5162"
+    "receivedBubbleColor": "#60c9eb",
+    "sentTextColor": "#000000",
+    "receivedTextColor": "#000000",
+    "appBarColor": "#afd9e7",
+    "appBarTextColor": "#000000",
+    "inputBoxColor": "#fbfdfe",
+    "inputTextColor": "#000000",
+    "sendButtonColor": "#408ca5",
+    "systemTextColor": "#000000"
   }
 ]
