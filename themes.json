@@ -156,7 +156,7 @@
     "sentBubbleColor": "#583c9a",
     "receivedBubbleColor": "#c275bc",
     "sentTextColor": "#ffffff",
-    "receivedTextColor": "#ffffff",
+    "receivedTextColor": "#000000",
     "appBarColor": "#110a1c",
     "appBarTextColor": "#ffffff",
     "inputBoxColor": "#ffffff",
