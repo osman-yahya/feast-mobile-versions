@@ -154,14 +154,14 @@
     "backgroundUrl": "https://mobile-version.feast.tr/bg/gece_bg.jpg",
     "previewUrl": "https://mobile-version.feast.tr/bg/gece_bg_prew.jpg",
     "sentBubbleColor": "#583c9a",
-    "receivedBubbleColor": "#ff66f2",
+    "receivedBubbleColor": "#c275bc",
     "sentTextColor": "#ffffff",
     "receivedTextColor": "#ffffff",
-    "appBarColor": "#09050f",
+    "appBarColor": "#110a1c",
     "appBarTextColor": "#ffffff",
-    "inputBoxColor": "#80fdff",
+    "inputBoxColor": "#ffffff",
     "inputTextColor": "#000000",
-    "sendButtonColor": "#ff66f2",
+    "sendButtonColor": "#c275bc",
     "systemTextColor": "#ffffff"
   },
   {
