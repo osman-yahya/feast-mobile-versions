@@ -15,7 +15,7 @@
         "is_demo": false,
         "store_url": "https://apps.apple.com/app/id6762010641"
     },
-    "is_maintenance": false,
+    "is_maintenance": true,
     "show_message": true,
     "is_ios_demo" : false,
     "message_id": "0006",
