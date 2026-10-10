@@ -18,30 +18,30 @@
     "is_maintenance": false,
     "show_message": true,
     "is_ios_demo" : false,
-    "message_id": "0006",
+    "message_id": "0007",
     "message_body" : {
-        "message_image": "https://i.ibb.co/WNB8HZX0/msg.png",
+        "message_image": "https://i.ibb.co/TxgfJPVL/3-K-YE-HED-YE-6.png",
         "message_text": {
-            "default": "feast'e hoş geldin! İTÜ'de başlayan maceramızda ilk kullanıcılarımızdan olduğun için teşekkürler. Bizi aşağıdaki bağlantılardan daha yakından tanıyabilirsin. Ayrıca feast ile gittiğin restoranlarda bizden bahsedersen çok seviniriz!",
-            "en": "Welcome to feast! Thanks for being one of the first to join our adventure that started at ITU. You can check the links below to get to know us better. We'd also be absolutely thrilled if you mentioned us when visiting restaurants with feast!",
-            "tr": "feast'e hoş geldin! İTÜ'de başlayan maceramızda ilk kullanıcılarımızdan olduğun için teşekkürler. Bizi aşağıdaki bağlantılardan daha yakından tanıyabilirsin. Ayrıca feast ile gittiğin restoranlarda bizden bahsedersen çok seviniriz!"        
+            "default": "3 Kişiye Airpods 5! 🎁\n1 Kasım'a kadar hesabını oluştur, çekiliş hakkını kazan.",
+            "en": "AirPods 5 for 3 Winners! 🎁\nCreate your account by November 1st to enter the giveaway.",
+            "tr": "3 Kişiye Airpods 5! 🎁\n1 Kasım'a kadar hesabını oluştur, çekiliş hakkını kazan."        
         },
         "message_buttons": [
             {
                 "button_text":{
-                    "default":"Instagram'da Gör",
-                    "en": "See on Instagram",
-                    "tr": "Instagram'da Gör"
+                    "default":"Detaylar",
+                    "en": "Details",
+                    "tr": "Detaylar"
                 },
-                "button_url": "https://www.instagram.com/feast_tr/"
+                "button_url": "https://www.instagram.com/p/DeSN9m2IzJF/"
             },
             {
                 "button_text":{
-                    "default":"Ekibimize Katıl!",
-                    "en": "Join our Team",
-                    "tr": "Ekibimize Katıl!"
+                    "default":"Çekiliş Özel Oyunu",
+                    "en": "Special Giveaway Game",
+                    "tr": "Çekiliş Özel Oyunu"
                 },
-                "button_url": "https://www.linkedin.com/posts/feast-tr_letsfeast-hiring-growth-activity-7446111825772961792-PIFy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEcTpWQBL-ACVTh7NBtoufekaS2lqmugrhE"
+                "button_url": "https://games.feast.tr"
             },
             {
                 "button_text":{
@@ -49,7 +49,7 @@
                     "en": "Close",
                     "tr": "Kapat"
                 },
-                "button_url": ""
+                "button_url": "close"
             }
         ]
     }
