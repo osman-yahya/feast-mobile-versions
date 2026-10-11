@@ -20,11 +20,11 @@
     "is_ios_demo" : false,
     "message_id": "0007",
     "message_body" : {
-        "message_image": "https://i.ibb.co/TxgfJPVL/3-K-YE-HED-YE-6.png",
+        "message_image": ./static/hediye.png,
         "message_text": {
-            "default": "3 Kişiye Airpods 5! 🎁\n1 Kasım'a kadar hesabını oluştur, çekiliş hakkını kazan.",
-            "en": "AirPods 5 for 3 Winners! 🎁\nCreate your account by November 1st to enter the giveaway.",
-            "tr": "3 Kişiye Airpods 5! 🎁\n1 Kasım'a kadar hesabını oluştur, çekiliş hakkını kazan."        
+            "default": "3 Kişiye Airpods 5! 🎁\n1 Kasım'a kadar hesabını oluştur, oyunu oynayıp kodunu kaydet.",
+            "en": "AirPods 5 for 3 Winners! 🎁\nCreate your account and play the game to get your code by November 1st.",
+            "tr": "3 Kişiye Airpods 5! 🎁\n1 Kasım'a kadar hesabını oluştur, oyunu oynayıp kodunu kaydet."        
         },
         "message_buttons": [
             {
@@ -33,7 +33,7 @@
                     "en": "Details",
                     "tr": "Detaylar"
                 },
-                "button_url": "https://www.instagram.com/p/DeSN9m2IzJF/"
+                "button_url": "https://games.feast.tr/sartname.html"
             },
             {
                 "button_text":{
