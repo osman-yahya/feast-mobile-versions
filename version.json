@@ -1,16 +1,16 @@
 {
     "android": {
-        "latest_version_name": "1.3.4",
-        "latest_build_number": 24,
-        "min_build_number": 20,
+        "latest_version_name": "1.3.5",
+        "latest_build_number": 26,
+        "min_build_number": 26,
         "demo_build_number": 7,
         "is_demo": false,
         "store_url": "market://details?id=com.feast.mobile"
     },
     "ios": {
-        "latest_version_name": "1.3.1",
-        "latest_build_number": 31,
-        "min_build_number": 27,
+        "latest_version_name": "1.3.4",
+        "latest_build_number": 41,
+        "min_build_number": 41,
         "demo_build_number": 10,
         "is_demo": false,
         "store_url": "https://apps.apple.com/app/id6762010641"
@@ -18,7 +18,7 @@
     "is_maintenance": false,
     "show_message": true,
     "is_ios_demo" : false,
-    "message_id": "0007",
+    "message_id": "0008",
     "message_body" : {
         "message_image": ./static/hediye.png,
         "message_text": {
